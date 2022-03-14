@@ -10,8 +10,10 @@
             <a asp-controller="Author" asp-action="GoToAuthorPage" asp-route-id="@blogPost.AuthorId">@blogPost.Author.FirstName @blogPost.Author.LastName</a>
             <p class="card-text">@blogPost.Date</p>
             <p class="card-text">@blogPost.Content</p>
-            <a class="btn btn-primary" asp-controller="Article" asp-action="Article" asp-route-id="@blogPost.Id">Read</a>
+            <a class="btn btn-primary" asp-controller="BlogPost" asp-action="Detail" asp-route-id="@blogPost.Id">Read</a>
         </div>
     </div>
 }
 </div>
+
+<a class="btn btn-primary" asp-controller="BlogPost" asp-action="ShowMore" asp-route-id="blogPost.Id">Show more</a>
