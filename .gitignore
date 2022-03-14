@@ -30,6 +30,14 @@ bld/
 [Oo]bj/
 [Ll]og/
 [Ll]ogs/
+**\[Bb]in/
+**\[Oo]bj/
+
+**/[Bb]in/
+**/[Oo]bj/
+
+BlogCentralApp/obj/*
+BlogCentralLib/obj/*
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
