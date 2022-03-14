@@ -13,7 +13,7 @@ namespace BlogCentralLib.Entities
         public DateTime Date { get; set; }
 
         public int BlogId { get; set; }
-        [JsonIgnore]
-        public Blog Blog { get; set; }
+        //[JsonIgnore]
+        //public Blog Blog { get; set; }
     }
 }
