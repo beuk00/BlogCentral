@@ -12,8 +12,9 @@ namespace BlogCentralLib.Entities
         public string Content { get; set; }
         public DateTime Date { get; set; }
 
-        public int BlogId { get; set; }
-        [JsonIgnore]
-        public Blog Blog { get; set; }
+        public string AuthorId { get; set; }
+        public Author Author { get; set; }
+
+
     }
 }

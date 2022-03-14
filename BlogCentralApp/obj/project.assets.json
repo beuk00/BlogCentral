@@ -1790,6 +1790,21 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XmlSerializer.dll": {}
         }
+      },
+      "BlogCentralLib/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "Microsoft.AspNetCore.Identity": "2.2.0",
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "3.1.23",
+          "Microsoft.AspNetCore.Identity.UI": "3.1.23"
+        },
+        "compile": {
+          "bin/placeholder/BlogCentralLib.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BlogCentralLib.dll": {}
+        }
       }
     }
   },
@@ -6254,10 +6269,16 @@
         "system.xml.xmlserializer.4.3.0.nupkg.sha512",
         "system.xml.xmlserializer.nuspec"
       ]
+    },
+    "BlogCentralLib/1.0.0": {
+      "type": "project",
+      "path": "../BlogCentralLib/BlogCentralLib.csproj",
+      "msbuildProject": "../BlogCentralLib/BlogCentralLib.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
+      "BlogCentralLib >= 1.0.0",
       "Microsoft.AspNetCore.Identity >= 2.2.0",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 3.1.23",
       "Microsoft.AspNetCore.Identity.UI >= 3.1.23",
@@ -6297,7 +6318,11 @@
       "frameworks": {
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\Tom\\Documents\\GitHub\\BlogCentral\\BlogCentralLib\\BlogCentralLib.csproj": {
+              "projectPath": "C:\\Users\\Tom\\Documents\\GitHub\\BlogCentral\\BlogCentralLib\\BlogCentralLib.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

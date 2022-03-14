@@ -29,7 +29,7 @@ namespace BlogCentralAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddScoped<BlogRepository>();
+            //services.AddScoped<BlogRepository>();
             services.AddScoped<BlogPostRepository>();
             services.AddDbContext<DataContext>(option => option.UseSqlServer(Configuration.GetConnectionString("BlogCentralDB")));
         }

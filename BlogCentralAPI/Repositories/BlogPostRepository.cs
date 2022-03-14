@@ -14,11 +14,11 @@ namespace BlogCentralAPI.Repositories
         }
         public override async Task<IEnumerable<BlogPost>> ListAll()
         {
-            return await _dbContext.BlogPosts.Include(b=>b.Blog).ToArrayAsync();
+            return await _dbContext.BlogPosts./*Include(b => b.Blog).*/ToArrayAsync();
         }
         public override async Task<BlogPost> GetById(int id)
         {
-            return await _dbContext.BlogPosts.Include(c=>c.Blog).Where(b => b.Id == id).FirstOrDefaultAsync();
+            return await _dbContext.BlogPosts./*Include(c => c.Blog).Where(b => b.Id == id).*/FirstOrDefaultAsync();
         }
     }
 }

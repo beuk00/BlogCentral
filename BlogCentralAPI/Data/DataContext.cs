@@ -15,7 +15,7 @@ namespace BlogCentralAPI.Data
         }
 
         public DbSet<Author>Authors { get; set; }
-        public DbSet<Blog> Blogs { get; set; }
+        
         public DbSet<BlogPost> BlogPosts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -24,10 +24,7 @@ namespace BlogCentralAPI.Data
 
            
 
-            modelBuilder.Entity<Blog>()
-               .HasKey(a => a.Id);
-            modelBuilder.Entity<Blog>()
-              .Property(a => a.Name).IsRequired();
+            
 
             modelBuilder.Entity<BlogPost>()
                .HasKey(a => a.Id);
@@ -44,11 +41,7 @@ namespace BlogCentralAPI.Data
                .Property(a => a.UserName).IsRequired();
 
 
-            modelBuilder.Entity<BlogPost>()
-                .HasOne(a => a.Blog)
-                .WithMany(a => a.BlogPosts)
-                .HasForeignKey(a => a.BlogId);
-
+            
 
 
 
@@ -64,19 +57,14 @@ namespace BlogCentralAPI.Data
             };
 
 
-            var blogs = new Blog[]
-            {
-                new Blog { Id =1, Name ="Blog1",AuthorId="ce8a91ab-41ca-4e08-8cae-40d4cda1a938"},
-                new Blog { Id =2, Name ="Blog2",AuthorId="ce8a91ab-41ca-4e08-8cae-40d4cda1a938"}
-
-            };
+            
 
             var blogPosts = new BlogPost[]
             {
-                new BlogPost{Id=1, Title="BlogPost1",Content="content1",BlogId=1},
+                new BlogPost{Id=1, Title="BlogPost1",Content="content1"},
             };
 
-            modelBuilder.Entity<Blog>().HasData(blogs);
+            
             modelBuilder.Entity<Author>().HasData(authors);
             modelBuilder.Entity<BlogPost>().HasData(blogPosts); 
             base.OnModelCreating(modelBuilder);

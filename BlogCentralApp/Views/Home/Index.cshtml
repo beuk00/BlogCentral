@@ -1,8 +1,17 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model HomePageViewModel
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="row">
+
+@foreach (var blogPost in @Model.BlogPosts)
+{
+    <div class="card" style="min-width: 18rem; overflow: hidden; margin: 10px;">
+        <div class="card-body">
+            <h5 class="card-title">@blogPost.Title</h5>
+            <a asp-controller="Author" asp-action="GoToAuthorPage" asp-route-id="@blogPost.AuthorId">@blogPost.Author.FirstName @blogPost.Author.LastName</a>
+            <p class="card-text">@blogPost.Date</p>
+            <p class="card-text">@blogPost.Content</p>
+            <a class="btn btn-primary" asp-controller="Article" asp-action="Article" asp-route-id="@blogPost.Id">Read</a>
+        </div>
+    </div>
+}
 </div>
