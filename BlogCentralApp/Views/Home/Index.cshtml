@@ -1,5 +1,17 @@
 ﻿@model HomePageViewModel
 
+<h1>HomePage</h1>
+<br />
+<form asp-controller="Home" asp-action="Sort" method="post">
+ <div class="form-group">
+        <label asp-for="Sort"></label>                                                                                                 
+        <select asp-for="Sort" class="form-control" asp-items="@Model.SortSelections">
+            <option Value="">Select a SortFunction</option>
+        </select>
+    </div>
+    <input type="Submit" />
+    </form>
+    <br />
 <div class="row">
 
 @foreach (var blogPost in @Model.BlogPosts)
@@ -7,13 +19,19 @@
     <div class="card" style="min-width: 18rem; overflow: hidden; margin: 10px;">
         <div class="card-body">
             <h5 class="card-title">@blogPost.Title</h5>
-            <a asp-controller="Author" asp-action="GoToAuthorPage" asp-route-id="@blogPost.AuthorId">@blogPost.Author.FirstName @blogPost.Author.LastName</a>
+            <a asp-controller="Home" asp-action="GoToAuthorHomePage" asp-route-id="@blogPost.AuthorId">@blogPost.Author.FirstName @blogPost.Author.LastName</a>
             <p class="card-text">@blogPost.Date</p>
             <p class="card-text">@blogPost.Content</p>
-            <a class="btn btn-primary" asp-controller="BlogPost" asp-action="Detail" asp-route-id="@blogPost.Id">Read</a>
+            <a class="btn btn-primary" asp-controller="Home" asp-action="Detail" asp-route-id="@blogPost.Id">Read</a>
         </div>
     </div>
 }
 </div>
+<br />
+<a class="btn btn-primary" asp-controller="Home" asp-action="Next10" asp-route-id="blogPost.Id">Next 10</a>
+<a class="btn btn-primary" asp-controller="Home" asp-action="Previous10" asp-route-id="blogPost.Id">Previous 10</a>
+<a class="btn btn-primary" asp-controller="Home" asp-action="Last10" asp-route-id="blogPost.Id">Last 10</a>
+<a class="btn btn-primary" asp-controller="Home" asp-action="First10" asp-route-id="blogPost.Id">First 10</a>
 
-<a class="btn btn-primary" asp-controller="BlogPost" asp-action="ShowMore" asp-route-id="blogPost.Id">Show more</a>
+
+

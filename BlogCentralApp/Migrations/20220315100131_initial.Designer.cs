@@ -4,14 +4,16 @@ using BlogCentralApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BlogCentralApp.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20220315100131_initial")]
+    partial class initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,24 +53,8 @@ namespace BlogCentralApp.Migrations
                             Id = 1,
                             AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
                             Content = "content1",
-                            Date = new DateTime(2022, 3, 14, 13, 42, 35, 41, DateTimeKind.Local).AddTicks(7336),
+                            Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "BlogPost1"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
-                            Content = "content2",
-                            Date = new DateTime(2022, 3, 13, 13, 42, 35, 45, DateTimeKind.Local).AddTicks(7452),
-                            Title = "BlogPost2"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
-                            Content = "content3",
-                            Date = new DateTime(2022, 3, 12, 13, 42, 35, 45, DateTimeKind.Local).AddTicks(7506),
-                            Title = "BlogPost3"
                         });
                 });
 
@@ -306,15 +292,15 @@ namespace BlogCentralApp.Migrations
                         {
                             Id = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "48d7935a-53a3-4f88-a4e8-9f6c4cf4d085",
+                            ConcurrencyStamp = "cce2b46f-145c-4451-9af1-458926091017",
                             Email = "ibrahim@intec.be",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "IBRAHIM@INTEC.BE",
                             NormalizedUserName = "IBRAHIM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGHsYGlQ1b4QhmnmfU5tn4SIJkA5AefcHHYLjX5Tu3v/+1QYyxbjn2JJcCHiNqESsg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEL5nv1j8c8gk3Wj6Pi1BddRFI5JQQMOTjSihzw4wdm+ISGu16eNogSQ9nqNvFcRLXw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "06ad4e0a-9559-415f-b74f-0dfabb1fb8b4",
+                            SecurityStamp = "716c23de-1d31-4412-908a-91f4266d6531",
                             TwoFactorEnabled = false,
                             UserName = "Ibrahim",
                             FirstName = "Ibrahim",
@@ -324,15 +310,15 @@ namespace BlogCentralApp.Migrations
                         {
                             Id = "ce8a91ab-41ca-4e08-8cae-40d4cda1a938",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "1c182242-937c-4ff9-974f-a01c370e3101",
+                            ConcurrencyStamp = "0c8189f0-6edf-401c-9d6e-80a060d8bd3e",
                             Email = "quinten@intec.be",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "QUINTEN@INTEC.BE",
                             NormalizedUserName = "QUINTEN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGHsYGlQ1b4QhmnmfU5tn4SIJkA5AefcHHYLjX5Tu3v/+1QYyxbjn2JJcCHiNqESsg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEL5nv1j8c8gk3Wj6Pi1BddRFI5JQQMOTjSihzw4wdm+ISGu16eNogSQ9nqNvFcRLXw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8f95edcc-b2c2-40db-8e41-bd2e09ea4b96",
+                            SecurityStamp = "f24db92d-ce2f-41dd-bf96-58e72a75d4a0",
                             TwoFactorEnabled = false,
                             UserName = "Quinten",
                             FirstName = "Quinten",

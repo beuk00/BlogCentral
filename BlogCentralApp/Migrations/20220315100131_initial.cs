@@ -184,12 +184,12 @@ namespace BlogCentralApp.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "CityName", "FirstName", "HouseNumber", "LastName", "StreetName", "ZipCode" },
-                values: new object[] { "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", 0, "7d34617e-ec8c-4fec-929f-94a70b083eab", "Author", "ibrahim@intec.be", true, false, null, "IBRAHIM@INTEC.BE", "IBRAHIM", "AQAAAAEAACcQAAAAEAo8eyxyudCNrC/zG5s7OMB7/mwloRjEzEx1fhdFCc4k6pzRPfSf8/9OiF2YRg/fzg==", null, false, "b0ec8eb9-261f-4593-a00a-bf8460067faf", false, "Ibrahim", null, "Ibrahim", null, "Awad", null, 0 });
+                values: new object[] { "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", 0, "cce2b46f-145c-4451-9af1-458926091017", "Author", "ibrahim@intec.be", true, false, null, "IBRAHIM@INTEC.BE", "IBRAHIM", "AQAAAAEAACcQAAAAEL5nv1j8c8gk3Wj6Pi1BddRFI5JQQMOTjSihzw4wdm+ISGu16eNogSQ9nqNvFcRLXw==", null, false, "716c23de-1d31-4412-908a-91f4266d6531", false, "Ibrahim", null, "Ibrahim", null, "Awad", null, null });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "CityName", "FirstName", "HouseNumber", "LastName", "StreetName", "ZipCode" },
-                values: new object[] { "ce8a91ab-41ca-4e08-8cae-40d4cda1a938", 0, "67b00994-8a05-48c1-8437-04dbafb7f74f", "Author", "quinten@intec.be", true, false, null, "QUINTEN@INTEC.BE", "QUINTEN", "AQAAAAEAACcQAAAAEAo8eyxyudCNrC/zG5s7OMB7/mwloRjEzEx1fhdFCc4k6pzRPfSf8/9OiF2YRg/fzg==", null, false, "fe004d76-921f-4579-a8d1-928259336471", false, "Quinten", null, "Quinten", null, "De Clerck", null, 0 });
+                values: new object[] { "ce8a91ab-41ca-4e08-8cae-40d4cda1a938", 0, "0c8189f0-6edf-401c-9d6e-80a060d8bd3e", "Author", "quinten@intec.be", true, false, null, "QUINTEN@INTEC.BE", "QUINTEN", "AQAAAAEAACcQAAAAEL5nv1j8c8gk3Wj6Pi1BddRFI5JQQMOTjSihzw4wdm+ISGu16eNogSQ9nqNvFcRLXw==", null, false, "f24db92d-ce2f-41dd-bf96-58e72a75d4a0", false, "Quinten", null, "Quinten", null, "De Clerck", null, null });
 
             migrationBuilder.InsertData(
                 table: "BlogPosts",
