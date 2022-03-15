@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BlogCentralLib\BlogCentralLib.csproj" />
+    <Folder Include="wwwroot\images\Users\" />
   </ItemGroup>
 
 </Project>
