@@ -1,4 +1,5 @@
 ﻿using BlogCentralApp.Models;
+using BlogCentralApp.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -11,17 +12,27 @@ namespace BlogCentralApp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        //private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        //public HomeController(ILogger<HomeController> logger)
+        //{
+        //    _logger = logger;
+        //}
+
+        private readonly BlogPostRepository _blogPostRepository;
+        public HomeController(BlogPostRepository blogPostRepository)
         {
-            _logger = logger;
+            _blogPostRepository = blogPostRepository;
         }
 
         public IActionResult Index()
         {
-            return View();
+            HomePageViewModel vm = new HomePageViewModel();
+            vm.BlogPosts = _blogPostRepository.GetAll();
+            return View(vm);
         }
+
+       
 
         public IActionResult Privacy()
         {
