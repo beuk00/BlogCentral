@@ -14,16 +14,16 @@ namespace BlogCentralApp.Components
         private List<MainNavLinkVm> publicLinks { get; set; }
         private List<MainNavLinkVm> adminLinks { get; set; }
 
-        private readonly BlogRepository _blogRepository;
+        //private readonly BlogRepository _blogRepository;
 
-        public MainNavComponent(BlogRepository blogRepository)
+        public MainNavComponent(/*BlogRepository blogRepository*/)
         {
-            _blogRepository = blogRepository;
+            //_blogRepository = blogRepository;
 
-            publicLinks = new List<MainNavLinkVm>();
+            //publicLinks = new List<MainNavLinkVm>();
 
 
-            adminLinks = new List<MainNavLinkVm>(publicLinks);
+            //adminLinks = new List<MainNavLinkVm>(publicLinks);
 
             
         }
@@ -35,16 +35,16 @@ namespace BlogCentralApp.Components
                 navlinks = adminLinks;
             }
 
-            foreach (var navlink in navlinks)
-            {
-                if (RouteData.Values["area"]?.ToString().ToLower() == navlink.Area.ToLower() &&
-                    RouteData.Values["controller"]?.ToString().ToLower() == navlink.Controller.ToLower() &&
-                    RouteData.Values["action"]?.ToString().ToLower() == navlink.Action.ToLower() &&
-                    RouteData.Values["topic"]?.ToString().ToLower() == navlink.Text.ToLower())
-                {
-                    navlink.IsActive = true;
-                }
-            }
+            //foreach (var navlink in navlinks)
+            //{
+            //    if (RouteData.Values["area"]?.ToString().ToLower() == navlink.Area.ToLower() &&
+            //        RouteData.Values["controller"]?.ToString().ToLower() == navlink.Controller.ToLower() &&
+            //        RouteData.Values["action"]?.ToString().ToLower() == navlink.Action.ToLower() &&
+            //        RouteData.Values["topic"]?.ToString().ToLower() == navlink.Text.ToLower())
+            //    {
+            //        navlink.IsActive = true;
+            //    }
+            //}
 
             return View(navlinks);
         }

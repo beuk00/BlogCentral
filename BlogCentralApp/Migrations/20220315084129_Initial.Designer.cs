@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlogCentralApp.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220314135428_initial")]
-    partial class initial
+    [Migration("20220315084129_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -282,7 +282,7 @@ namespace BlogCentralApp.Migrations
                     b.Property<string>("StreetName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ZipCode")
+                    b.Property<int?>("ZipCode")
                         .HasColumnType("int");
 
                     b.HasDiscriminator().HasValue("Author");
@@ -292,39 +292,37 @@ namespace BlogCentralApp.Migrations
                         {
                             Id = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7d34617e-ec8c-4fec-929f-94a70b083eab",
+                            ConcurrencyStamp = "7b9e01eb-f13d-4b92-ba4a-debe1f4372dd",
                             Email = "ibrahim@intec.be",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "IBRAHIM@INTEC.BE",
                             NormalizedUserName = "IBRAHIM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAo8eyxyudCNrC/zG5s7OMB7/mwloRjEzEx1fhdFCc4k6pzRPfSf8/9OiF2YRg/fzg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMNqCSVRcQfjuvWYbVmFvbSKhgJ5VR3VgL1Iov2ye4fjQV1Cuk3onEC4UfUMp/JKbg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "b0ec8eb9-261f-4593-a00a-bf8460067faf",
+                            SecurityStamp = "a6612002-8350-4d2c-ba5a-b02aa95d28f4",
                             TwoFactorEnabled = false,
                             UserName = "Ibrahim",
                             FirstName = "Ibrahim",
-                            LastName = "Awad",
-                            ZipCode = 0
+                            LastName = "Awad"
                         },
                         new
                         {
                             Id = "ce8a91ab-41ca-4e08-8cae-40d4cda1a938",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "67b00994-8a05-48c1-8437-04dbafb7f74f",
+                            ConcurrencyStamp = "6b4f4509-63b9-40c3-81e5-d32a10bb9eae",
                             Email = "quinten@intec.be",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "QUINTEN@INTEC.BE",
                             NormalizedUserName = "QUINTEN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAo8eyxyudCNrC/zG5s7OMB7/mwloRjEzEx1fhdFCc4k6pzRPfSf8/9OiF2YRg/fzg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMNqCSVRcQfjuvWYbVmFvbSKhgJ5VR3VgL1Iov2ye4fjQV1Cuk3onEC4UfUMp/JKbg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "fe004d76-921f-4579-a8d1-928259336471",
+                            SecurityStamp = "7329e892-a66b-4e42-9e9a-359153535e20",
                             TwoFactorEnabled = false,
                             UserName = "Quinten",
                             FirstName = "Quinten",
-                            LastName = "De Clerck",
-                            ZipCode = 0
+                            LastName = "De Clerck"
                         });
                 });
 

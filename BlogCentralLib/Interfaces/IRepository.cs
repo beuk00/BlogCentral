@@ -10,7 +10,7 @@ namespace BlogCentralLib.Interfaces
     {
         Task<IEnumerable<T>> ListAll(); //in-memory
         IQueryable<T> GetAll(); //out-memory
-        Task<T> GetById(int id);
+        Task<T> GetById<P>(P id);
         
         //Create
         Task<T> Create(T entity);
