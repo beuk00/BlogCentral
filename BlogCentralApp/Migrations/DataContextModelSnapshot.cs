@@ -51,7 +51,7 @@ namespace BlogCentralApp.Migrations
                             Id = 1,
                             AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
                             Content = "content1",
-                            Date = new DateTime(2022, 3, 14, 13, 42, 35, 41, DateTimeKind.Local).AddTicks(7336),
+                            Date = new DateTime(2022, 3, 14, 14, 52, 11, 968, DateTimeKind.Local).AddTicks(7982),
                             Title = "BlogPost1"
                         },
                         new
@@ -59,7 +59,7 @@ namespace BlogCentralApp.Migrations
                             Id = 2,
                             AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
                             Content = "content2",
-                            Date = new DateTime(2022, 3, 13, 13, 42, 35, 45, DateTimeKind.Local).AddTicks(7452),
+                            Date = new DateTime(2022, 3, 13, 14, 52, 11, 972, DateTimeKind.Local).AddTicks(1130),
                             Title = "BlogPost2"
                         },
                         new
@@ -67,8 +67,72 @@ namespace BlogCentralApp.Migrations
                             Id = 3,
                             AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
                             Content = "content3",
-                            Date = new DateTime(2022, 3, 12, 13, 42, 35, 45, DateTimeKind.Local).AddTicks(7506),
+                            Date = new DateTime(2022, 3, 12, 14, 52, 11, 972, DateTimeKind.Local).AddTicks(1182),
                             Title = "BlogPost3"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
+                            Content = "content4",
+                            Date = new DateTime(2022, 3, 11, 14, 52, 11, 972, DateTimeKind.Local).AddTicks(1188),
+                            Title = "BlogPost4"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
+                            Content = "content5",
+                            Date = new DateTime(2022, 3, 10, 14, 52, 11, 972, DateTimeKind.Local).AddTicks(1191),
+                            Title = "BlogPost5"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
+                            Content = "content6",
+                            Date = new DateTime(2022, 3, 9, 14, 52, 11, 972, DateTimeKind.Local).AddTicks(1195),
+                            Title = "BlogPost6"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
+                            Content = "content7",
+                            Date = new DateTime(2022, 3, 8, 14, 52, 11, 972, DateTimeKind.Local).AddTicks(1198),
+                            Title = "BlogPost7"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
+                            Content = "content8",
+                            Date = new DateTime(2022, 3, 7, 14, 52, 11, 972, DateTimeKind.Local).AddTicks(1202),
+                            Title = "BlogPost8"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
+                            Content = "content9",
+                            Date = new DateTime(2022, 3, 6, 14, 52, 11, 972, DateTimeKind.Local).AddTicks(1205),
+                            Title = "BlogPost9"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
+                            Content = "content10",
+                            Date = new DateTime(2022, 3, 5, 14, 52, 11, 972, DateTimeKind.Local).AddTicks(1209),
+                            Title = "BlogPost10"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
+                            Content = "content11",
+                            Date = new DateTime(2022, 3, 4, 14, 52, 11, 972, DateTimeKind.Local).AddTicks(1212),
+                            Title = "BlogPost11"
                         });
                 });
 
@@ -306,15 +370,15 @@ namespace BlogCentralApp.Migrations
                         {
                             Id = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "48d7935a-53a3-4f88-a4e8-9f6c4cf4d085",
+                            ConcurrencyStamp = "5d9143fc-db01-4e1a-b4b8-9de07d0ff2f6",
                             Email = "ibrahim@intec.be",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "IBRAHIM@INTEC.BE",
                             NormalizedUserName = "IBRAHIM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGHsYGlQ1b4QhmnmfU5tn4SIJkA5AefcHHYLjX5Tu3v/+1QYyxbjn2JJcCHiNqESsg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEL+4T04Q9gpeDAQ+GLawEOg03M91faWLrdUE8QRMG/Oonti4Kv3kYVXwNN7LTJfDsg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "06ad4e0a-9559-415f-b74f-0dfabb1fb8b4",
+                            SecurityStamp = "26e09476-8b2e-42ff-9d2f-ad61cabbd5d6",
                             TwoFactorEnabled = false,
                             UserName = "Ibrahim",
                             FirstName = "Ibrahim",
@@ -324,15 +388,15 @@ namespace BlogCentralApp.Migrations
                         {
                             Id = "ce8a91ab-41ca-4e08-8cae-40d4cda1a938",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "1c182242-937c-4ff9-974f-a01c370e3101",
+                            ConcurrencyStamp = "3da56693-8f0a-4e0b-8ae5-a69cccfec665",
                             Email = "quinten@intec.be",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "QUINTEN@INTEC.BE",
                             NormalizedUserName = "QUINTEN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGHsYGlQ1b4QhmnmfU5tn4SIJkA5AefcHHYLjX5Tu3v/+1QYyxbjn2JJcCHiNqESsg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEL+4T04Q9gpeDAQ+GLawEOg03M91faWLrdUE8QRMG/Oonti4Kv3kYVXwNN7LTJfDsg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8f95edcc-b2c2-40db-8e41-bd2e09ea4b96",
+                            SecurityStamp = "3e2d319b-3fff-4367-b5c0-b005987173ed",
                             TwoFactorEnabled = false,
                             UserName = "Quinten",
                             FirstName = "Quinten",

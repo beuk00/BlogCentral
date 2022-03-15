@@ -31,36 +31,90 @@ namespace BlogCentralApp.Controllers
         public async Task<IActionResult> Index()
         {
             HomePageViewModel vm = new HomePageViewModel();
-            //vm.BlogPosts = _blogPostRepository.GetAll().OrderBy(x => x.Date).ToList();
-            vm.BlogPosts = (IEnumerable<BlogCentralLib.Entities.BlogPost>)_blogPostRepository.GetAll().Include(b => b.Author).ToList();
-            //vm.BlogPosts = await _blogPostRepository.ListAll();
-            //vm.Author = _authorRepository.GetById()
+            
+            vm.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList().Take(6);
+
             return View("index", vm);
         }
 
-        public async Task<IActionResult> GoToAuthorHomePage(string id)
+        [HttpGet]
+        public async Task<IActionResult> Index(string? sort, int count)
+        {
+            HomePageViewModel vm = new HomePageViewModel();
+
+            string sortalgo = RouteData.Values["sort"]?.ToString();
+            string counter = RouteData.Values["count"]?.ToString();
+            count = count + 10;
+
+            vm.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList().Take(count);
+
+            return View("index", vm);
+        }
+
+            public async Task<IActionResult> GoToAuthorHomePage(string id)
         {
             return View("AuthorPage");
         }
 
-        public async Task<IActionResult> Next10()
+        public async Task<IActionResult> Next10(HomePageViewModel model)
+        {
+
+            return View("index");
+        }
+
+        public async Task<IActionResult> Previous10(HomePageViewModel model)
         {
             return View("index");
         }
 
-        public async Task<IActionResult> Previous10()
+        public async Task<IActionResult> Last10(HomePageViewModel model)
         {
-            return View("index");
+            switch (model.Sort)
+            {
+                case "Newest first":
+                    model = new HomePageViewModel();
+                    model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList().TakeLast(10);
+                    return View("index", model);
+
+                case "Oldest first":
+                    model = new HomePageViewModel();
+                    model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderBy(x => x.Date).ToList().TakeLast(10);
+                    return View("index", model);
+
+                case "Most popular First":
+                    model = new HomePageViewModel();
+                    //model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderBy(x => x.likes).ToList().TakeLast(10);
+                    return View("index", model);
+
+                default:
+                    return View("index");
+
+            }
         }
 
-        public async Task<IActionResult> Last10()
+        public async Task<IActionResult> First10(HomePageViewModel model)
         {
-            return View("index");
-        }
+            switch (model.Sort)
+            {
+                case "Newest first":
+                    model = new HomePageViewModel();
+                    model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList().Take(10);
+                    return View("index", model);
 
-        public async Task<IActionResult> First10()
-        {
-            return View("index");
+                case "Oldest first":
+                    model = new HomePageViewModel();
+                    model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderBy(x => x.Date).ToList().Take(10);
+                    return View("index", model);
+
+                case "Most popular First":
+                    model = new HomePageViewModel();
+                    //model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderBy(x => x.likes).ToList().Take(10);
+                    return View("index", model);
+
+                default:
+                    return View("index");
+
+            };
         }
 
 
@@ -71,17 +125,17 @@ namespace BlogCentralApp.Controllers
             {
                 case "Newest first":
                     model = new HomePageViewModel();
-                    model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList();
+                    model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList().Take(6);
                     return View("index", model);
                
                 case "Oldest first":
                     model = new HomePageViewModel();
-                    model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderBy(x => x.Date).ToList();
+                    model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderBy(x => x.Date).ToList().Take(6);
                     return View("index", model);
 
                 case "Most popular First":
                     model = new HomePageViewModel();
-                    //model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderBy(x => x.likes).ToList();
+                    //model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderBy(x => x.likes).ToList().Take(6);
                     return View("index", model);
 
                 default:
@@ -101,6 +155,7 @@ namespace BlogCentralApp.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+        
         
     }
 }
