@@ -16,7 +16,7 @@ namespace BlogCentralLib.Entities
         public int? HouseNumber { get; set; }
         public string? CityName { get; set; }
         public int? ZipCode { get; set; }
-
+        public string ImageUrl { get; set; }
        public IEnumerable<BlogPost> Posts { get; set; }
 
     }

@@ -2,13 +2,14 @@
 using BlogCentralApp.Data;
 using BlogCentralLib.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace BlogCentralApp.Repositories
 {
-    public class BaseRepository<T> : IRepository<T> where T : class
+    public abstract class BaseRepository<T> : IRepository<T> where T : class
     {
         protected readonly DataContext _dbContext;
 
@@ -72,11 +73,8 @@ namespace BlogCentralApp.Repositories
             return await GetAll().ToListAsync();
         }
 
-        public virtual async Task<T> GetById(int id)
-        {
-            throw new System.NotImplementedException();
-            //return await _dbContext.Set<T>().Where(x => x.Id == id).FirstOrDefaultAsync();
-        }
+        public abstract Task<T> GetById<P>(P id);
+        
 
         public virtual async Task<T> Update(T entity)
         {
@@ -93,5 +91,6 @@ namespace BlogCentralApp.Repositories
 
             return entity;
         }
+
     }
 }

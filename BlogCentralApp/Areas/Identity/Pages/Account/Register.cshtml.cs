@@ -79,6 +79,7 @@ namespace BlogCentralApp.Areas.Identity.Pages.Account
             public string? CityName { get; set; }
             [Display(Name = "zip code")]
             public int? ZipCode { get; set; }
+            public string ImageUrl { get; set; } 
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -93,7 +94,7 @@ namespace BlogCentralApp.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new Author { UserName = Input.UserName, Email = Input.Email ,FirstName=Input.FirstName,LastName=Input.LastName,CityName=Input.CityName,StreetName=Input.StreetName,ZipCode=Input.ZipCode};
+                var user = new Author { UserName = Input.UserName, Email = Input.Email ,FirstName=Input.FirstName,LastName=Input.LastName,CityName=Input.CityName,StreetName=Input.StreetName,ZipCode=Input.ZipCode,ImageUrl= @"\images\Default.png" };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {

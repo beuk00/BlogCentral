@@ -1,0 +1,24 @@
+﻿@model DetailIndexViewModel
+
+<h1>@Model.blogPost.Title</h1>
+
+<h5>@Model.blogPost.Date</h5>
+
+<p>@Model.blogPost.Content</p>
+
+
+@if (Model.hasLiked)
+{
+    <a asp-controller="BlogDetail" asp-action="Unlike" asp-route-id="@Model.blogPost.Id" class="btn btn-danger"> Unlike</a>
+}
+else
+{
+    <a asp-controller="BlogDetail" asp-action="Like" asp-route-id="@Model.blogPost.Id" class="btn btn-info"> Like</a>
+
+}
+@foreach (var comment in Model.blogPost.Comments)
+{
+    <p>@comment.Content</p>
+}
+
+<p style="float:left" class="badge badge-secondary">@Model.blogPost.Likes </p>
