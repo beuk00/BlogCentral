@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlogCentralApp.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220315084129_Initial")]
+    [Migration("20220315130707_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,6 +37,9 @@ namespace BlogCentralApp.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("Likes")
+                        .HasColumnType("int");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -53,8 +56,41 @@ namespace BlogCentralApp.Migrations
                             Id = 1,
                             AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
                             Content = "content1",
-                            Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Date = new DateTime(2022, 3, 15, 14, 7, 6, 807, DateTimeKind.Local).AddTicks(9023),
+                            Likes = 10,
                             Title = "BlogPost1"
+                        });
+                });
+
+            modelBuilder.Entity("BlogCentralLib.Entities.Comment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AuthorId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("BlogpostId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Content")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BlogpostId");
+
+                    b.ToTable("Comment");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
+                            BlogpostId = 1,
+                            Content = "Comment 01"
                         });
                 });
 
@@ -292,15 +328,15 @@ namespace BlogCentralApp.Migrations
                         {
                             Id = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7b9e01eb-f13d-4b92-ba4a-debe1f4372dd",
+                            ConcurrencyStamp = "421d3ea0-8e34-4ee7-a918-74f35e2d29fd",
                             Email = "ibrahim@intec.be",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "IBRAHIM@INTEC.BE",
                             NormalizedUserName = "IBRAHIM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMNqCSVRcQfjuvWYbVmFvbSKhgJ5VR3VgL1Iov2ye4fjQV1Cuk3onEC4UfUMp/JKbg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJ3M//v20/t4EHhk8orK/c9mpuxn7vEVvmgH7bLauwl+GozJC7HGvwhr0FioWHyxlw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "a6612002-8350-4d2c-ba5a-b02aa95d28f4",
+                            SecurityStamp = "497f5a7f-481d-4221-87ee-3af9fb66ad03",
                             TwoFactorEnabled = false,
                             UserName = "Ibrahim",
                             FirstName = "Ibrahim",
@@ -310,15 +346,15 @@ namespace BlogCentralApp.Migrations
                         {
                             Id = "ce8a91ab-41ca-4e08-8cae-40d4cda1a938",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "6b4f4509-63b9-40c3-81e5-d32a10bb9eae",
+                            ConcurrencyStamp = "0009bcb7-f016-4087-ab23-b152d6db686f",
                             Email = "quinten@intec.be",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "QUINTEN@INTEC.BE",
                             NormalizedUserName = "QUINTEN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMNqCSVRcQfjuvWYbVmFvbSKhgJ5VR3VgL1Iov2ye4fjQV1Cuk3onEC4UfUMp/JKbg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJ3M//v20/t4EHhk8orK/c9mpuxn7vEVvmgH7bLauwl+GozJC7HGvwhr0FioWHyxlw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "7329e892-a66b-4e42-9e9a-359153535e20",
+                            SecurityStamp = "dbdd2306-620c-4f6e-9a03-0bbf604bf89d",
                             TwoFactorEnabled = false,
                             UserName = "Quinten",
                             FirstName = "Quinten",
@@ -331,6 +367,15 @@ namespace BlogCentralApp.Migrations
                     b.HasOne("BlogCentralLib.Entities.Author", "Author")
                         .WithMany("Posts")
                         .HasForeignKey("AuthorId");
+                });
+
+            modelBuilder.Entity("BlogCentralLib.Entities.Comment", b =>
+                {
+                    b.HasOne("BlogCentralLib.Entities.BlogPost", null)
+                        .WithMany("Comments")
+                        .HasForeignKey("BlogpostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

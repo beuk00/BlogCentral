@@ -16,7 +16,22 @@ namespace BlogCentralApp.Repositories
 
         public override async Task<BlogPost> GetById<P>(P id)
         {
-            return await _dbContext.BlogPosts.Where(a => a.Id.Equals(id)).FirstOrDefaultAsync();
+            return await _dbContext.BlogPosts.Include(b => b.Comments).Where(a => a.Id.Equals(id)).FirstOrDefaultAsync();
+        }
+
+        public async Task Like(int id)
+        {
+            
+            BlogPost blogPost = await GetById(id);
+            blogPost.Likes++;
+            await Update(blogPost);
+        }
+        public async Task Unlike(int id)
+        {
+
+            BlogPost blogPost = await GetById(id);
+            blogPost.Likes =blogPost.Likes-1;
+            await Update(blogPost);
         }
     }
 }

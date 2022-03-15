@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 
 namespace BlogCentralApp.Data
 {
@@ -41,7 +42,7 @@ namespace BlogCentralApp.Data
                .Property(a => a.UserName).IsRequired();
 
 
-           
+
 
 
 
@@ -57,16 +58,20 @@ namespace BlogCentralApp.Data
                 new Author { Id = new Guid("ce8a91ab-41ca-4e08-8cae-40d4cda1a938").ToString(), UserName = "Quinten",FirstName="Quinten",LastName="De Clerck", NormalizedUserName = "QUINTEN", Email = "quinten@intec.be", NormalizedEmail = "QUINTEN@INTEC.BE", EmailConfirmed = true, PasswordHash = hashedPassword}
             };
 
-
-           
+            var comments = new Comment[]
+            {
+                new Comment{Id= 1, Content = "Comment 01", AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", BlogpostId = 1},
+                //new Comment{Id= 2, Content = "Comment 02"},
+            };
 
             var blogPosts = new BlogPost[]
             {
-                new BlogPost{Id=1, Title="BlogPost1",Content="content1",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a"},
+                new BlogPost{Id=1, Title="BlogPost1",Content="content1",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", Likes = 10, Date = DateTime.Now  },
             };
 
             modelBuilder.Entity<Author>().HasData(authors);
-            modelBuilder.Entity<BlogPost>().HasData(blogPosts); 
+            modelBuilder.Entity<BlogPost>().HasData(blogPosts);
+            modelBuilder.Entity<Comment>().HasData(comments);
             base.OnModelCreating(modelBuilder);
         }
     }

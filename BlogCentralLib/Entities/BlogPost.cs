@@ -16,5 +16,8 @@ namespace BlogCentralLib.Entities
         public DateTime Date { get; set; }
         public string AuthorId { get; set; } 
         public Author Author { get; set; }
+        public int Likes { get; set; }
+
+        public IEnumerable<Comment> Comments { get; set; }
     }
 }

@@ -168,7 +168,8 @@ namespace BlogCentralApp.Migrations
                     Title = table.Column<string>(nullable: false),
                     Content = table.Column<string>(nullable: true),
                     Date = table.Column<DateTime>(nullable: false),
-                    AuthorId = table.Column<string>(nullable: true)
+                    AuthorId = table.Column<string>(nullable: true),
+                    Likes = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -181,20 +182,46 @@ namespace BlogCentralApp.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
-            migrationBuilder.InsertData(
-                table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "CityName", "FirstName", "HouseNumber", "LastName", "StreetName", "ZipCode" },
-                values: new object[] { "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", 0, "7b9e01eb-f13d-4b92-ba4a-debe1f4372dd", "Author", "ibrahim@intec.be", true, false, null, "IBRAHIM@INTEC.BE", "IBRAHIM", "AQAAAAEAACcQAAAAEMNqCSVRcQfjuvWYbVmFvbSKhgJ5VR3VgL1Iov2ye4fjQV1Cuk3onEC4UfUMp/JKbg==", null, false, "a6612002-8350-4d2c-ba5a-b02aa95d28f4", false, "Ibrahim", null, "Ibrahim", null, "Awad", null, null });
+            migrationBuilder.CreateTable(
+                name: "Comment",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    BlogpostId = table.Column<int>(nullable: false),
+                    AuthorId = table.Column<string>(nullable: true),
+                    Content = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Comment", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Comment_BlogPosts_BlogpostId",
+                        column: x => x.BlogpostId,
+                        principalTable: "BlogPosts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "CityName", "FirstName", "HouseNumber", "LastName", "StreetName", "ZipCode" },
-                values: new object[] { "ce8a91ab-41ca-4e08-8cae-40d4cda1a938", 0, "6b4f4509-63b9-40c3-81e5-d32a10bb9eae", "Author", "quinten@intec.be", true, false, null, "QUINTEN@INTEC.BE", "QUINTEN", "AQAAAAEAACcQAAAAEMNqCSVRcQfjuvWYbVmFvbSKhgJ5VR3VgL1Iov2ye4fjQV1Cuk3onEC4UfUMp/JKbg==", null, false, "7329e892-a66b-4e42-9e9a-359153535e20", false, "Quinten", null, "Quinten", null, "De Clerck", null, null });
+                values: new object[] { "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", 0, "421d3ea0-8e34-4ee7-a918-74f35e2d29fd", "Author", "ibrahim@intec.be", true, false, null, "IBRAHIM@INTEC.BE", "IBRAHIM", "AQAAAAEAACcQAAAAEJ3M//v20/t4EHhk8orK/c9mpuxn7vEVvmgH7bLauwl+GozJC7HGvwhr0FioWHyxlw==", null, false, "497f5a7f-481d-4221-87ee-3af9fb66ad03", false, "Ibrahim", null, "Ibrahim", null, "Awad", null, null });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "CityName", "FirstName", "HouseNumber", "LastName", "StreetName", "ZipCode" },
+                values: new object[] { "ce8a91ab-41ca-4e08-8cae-40d4cda1a938", 0, "0009bcb7-f016-4087-ab23-b152d6db686f", "Author", "quinten@intec.be", true, false, null, "QUINTEN@INTEC.BE", "QUINTEN", "AQAAAAEAACcQAAAAEJ3M//v20/t4EHhk8orK/c9mpuxn7vEVvmgH7bLauwl+GozJC7HGvwhr0FioWHyxlw==", null, false, "dbdd2306-620c-4f6e-9a03-0bbf604bf89d", false, "Quinten", null, "Quinten", null, "De Clerck", null, null });
 
             migrationBuilder.InsertData(
                 table: "BlogPosts",
-                columns: new[] { "Id", "AuthorId", "Content", "Date", "Title" },
-                values: new object[] { 1, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content1", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "BlogPost1" });
+                columns: new[] { "Id", "AuthorId", "Content", "Date", "Likes", "Title" },
+                values: new object[] { 1, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content1", new DateTime(2022, 3, 15, 14, 7, 6, 807, DateTimeKind.Local).AddTicks(9023), 10, "BlogPost1" });
+
+            migrationBuilder.InsertData(
+                table: "Comment",
+                columns: new[] { "Id", "AuthorId", "BlogpostId", "Content" },
+                values: new object[] { 1, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", 1, "Comment 01" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -239,6 +266,11 @@ namespace BlogCentralApp.Migrations
                 name: "IX_BlogPosts_AuthorId",
                 table: "BlogPosts",
                 column: "AuthorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comment_BlogpostId",
+                table: "Comment",
+                column: "BlogpostId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -259,10 +291,13 @@ namespace BlogCentralApp.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "BlogPosts");
+                name: "Comment");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "BlogPosts");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
