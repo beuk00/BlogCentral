@@ -9,5 +9,6 @@ namespace BlogCentralApp.Models
     public class DetailIndexViewModel
     {
         public BlogPost blogPost;
+        public bool hasLiked;
     }
 }
