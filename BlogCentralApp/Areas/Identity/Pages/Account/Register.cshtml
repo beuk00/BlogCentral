@@ -1,0 +1,75 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="row pt-4">
+    <div class="col-md-7">
+        <form asp-route-returnUrl="@Model.ReturnUrl" class="row" method="post">
+            <h4 class="ml-3">Create a new account.</h4>
+            <hr />
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-floating py-2 col-12">
+                <label asp-for="Input.Email"></label>
+                <input asp-for="Input.Email" class="form-control" />
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+             <div class="form-floating py-2 col-12">
+                <label asp-for="Input.UserName"></label>
+                <input asp-for="Input.UserName" class="form-control" />
+                <span asp-validation-for="Input.UserName" class="text-danger"></span>
+            </div>
+             <div class="form-floating py-2 col-6">
+                <label asp-for="Input.FirstName"></label>
+                <input asp-for="Input.FirstName" class="form-control" />
+                <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+            </div>
+             <div class="form-floating py-2 col-6">
+                <label asp-for="Input.LastName"></label>
+                <input asp-for="Input.LastName" class="form-control" />
+                <span asp-validation-for="Input.LastName" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating py-2 col-6">
+                <label asp-for="Input.Password"></label>
+                <input asp-for="Input.Password" class="form-control" />
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+            <div class="form-floating py-2 col-6">
+                <label asp-for="Input.ConfirmPassword"></label>
+                <input asp-for="Input.ConfirmPassword" class="form-control" />
+                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+            </div>
+             <div class="form-floating py-2 col-6">
+                <label asp-for="Input.CityName"></label>
+                <input asp-for="Input.CityName" class="form-control" />
+                <span asp-validation-for="Input.CityName" class="text-danger"></span>
+            </div>
+             <div class="form-floating py-2 col-6">
+                <label asp-for="Input.StreetName"></label>
+                <input asp-for="Input.StreetName" class="form-control" />
+                <span asp-validation-for="Input.StreetName" class="text-danger"></span>
+            </div>
+             
+             <div class="form-floating py-2 col-6">
+                <label asp-for="Input.HouseNumber"></label>
+                <input asp-for="Input.HouseNumber" class="form-control" />
+                <span asp-validation-for="Input.HouseNumber" class="text-danger"></span>
+            </div>
+             <div class="form-floating py-2 col-6">
+                <label asp-for="Input.ZipCode"></label>
+                <input asp-for="Input.ZipCode" class="form-control" />
+                <span asp-validation-for="Input.ZipCode" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary ml-3 mt-2">Register</button>
+        </form>
+    </div>
+   
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
