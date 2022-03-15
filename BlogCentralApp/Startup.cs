@@ -92,10 +92,12 @@ namespace BlogCentralApp
             {
                 //added to run the identityPages(Razor pages)
                 endpoints.MapRazorPages();
-
+                endpoints.MapControllerRoute(
+                    name: "sort",
+                    pattern: "{controller=Home}/{action=Index}/{sort?}/{count?}");
                 endpoints.MapControllerRoute(
                      name: "areas",
-                 pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

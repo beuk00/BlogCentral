@@ -2,7 +2,11 @@
 using BlogCentralApp.Data;
 using BlogCentralLib.Entities;
 using Microsoft.EntityFrameworkCore;
+
+using System.Collections.Generic;
+
 using System.Linq;
+
 using System.Threading.Tasks;
 
 namespace BlogCentralApp.Repositories
@@ -33,5 +37,6 @@ namespace BlogCentralApp.Repositories
             blogPost.Likes =blogPost.Likes-1;
             await Update(blogPost);
         }
+
     }
 }
