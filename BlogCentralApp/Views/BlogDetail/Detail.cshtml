@@ -16,9 +16,19 @@ else
     <a asp-controller="BlogDetail" asp-action="Like" asp-route-id="@Model.blogPost.Id" class="btn btn-info"> Like</a>
 
 }
+<p style="float:left" class="badge badge-secondary">@Model.blogPost.Likes </p>
 @foreach (var comment in Model.blogPost.Comments)
 {
     <p>@comment.Content</p>
 }
 
-<p style="float:left" class="badge badge-secondary">@Model.blogPost.Likes </p>
+
+
+@if (User.Identity.IsAuthenticated)
+{
+    <div>You are logged in</div>
+}
+else
+{
+    <div>Login to comment</div>
+}

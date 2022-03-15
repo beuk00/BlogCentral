@@ -32,7 +32,6 @@ namespace BlogCentralApp.Controllers
         public async Task<ActionResult> LikeAsync(int id, DetailIndexViewModel vm)
         {
 
-
             vm.hasLiked = true;
             vm.blogPost = await _blogPostRepository.GetById(id);
             await _blogPostRepository.Like(id);
