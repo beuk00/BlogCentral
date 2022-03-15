@@ -20,7 +20,11 @@ namespace BlogCentralApp.Controllers
 
         public IActionResult Index()
         {
+#if DEBUG
+            return Content("Dev");
+#else
             return View();
+#endif
         }
 
         public IActionResult Privacy()
