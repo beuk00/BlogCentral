@@ -23,4 +23,8 @@
     <ProjectReference Include="..\BlogCentralLib\BlogCentralLib.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BlogCentralLib\BlogCentralLib.csproj" />
+  </ItemGroup>
+
 </Project>
