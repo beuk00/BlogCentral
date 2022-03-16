@@ -22,6 +22,7 @@ namespace BlogCentralApp.Controllers
             _blogPostRepository = blogPostRepository;
             _authorRepository = authorRepository;
         }
+
         [HttpGet]
         public async Task<IActionResult> Index()
         {
@@ -33,18 +34,6 @@ namespace BlogCentralApp.Controllers
         }
 
         
-        //public async Task<IActionResult> Index(string? sort, int count)
-        //{
-        //    HomePageViewModel vm = new HomePageViewModel();
-
-        //    string sortalgo = RouteData.Values["sort"]?.ToString();
-        //    string counter = RouteData.Values["count"]?.ToString();
-        //    count = count + 10;
-
-        //    vm.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList().Take(6);
-
-        //    return View("index", vm);
-        //}
 
             public async Task<IActionResult> GoToAuthorHomePage(string id)
         {
@@ -53,17 +42,58 @@ namespace BlogCentralApp.Controllers
 
         public async Task<IActionResult> Next10(HomePageViewModel model)
         {
+            int countShow = int.Parse(HttpContext.Request.Cookies["count"]) + 10;
+            HttpContext.Response.Cookies.Append("count", countShow.ToString());
 
-            return View("index");
+            switch (HttpContext.Request.Cookies["lastSort"])
+            {
+                case "Oldest first":
+                    model = new HomePageViewModel();
+                    model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderBy(x => x.Date).ToList().Take(countShow);
+                    return View("index", model);
+
+                case "Most popular First":
+                    model = new HomePageViewModel();
+                    model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderByDescending(x => x.Likes).ToList().Take(countShow);
+                    return View("index", model);
+
+                default:
+                    model = new HomePageViewModel();
+                    model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList().Take(countShow);
+                    return View("index", model);
+
+            }
         }
 
         public async Task<IActionResult> Previous10(HomePageViewModel model)
         {
-            return View("index");
+            int countShow = int.Parse(HttpContext.Request.Cookies["count"]) - 10;
+            HttpContext.Response.Cookies.Append("count", countShow.ToString());
+
+            switch (HttpContext.Request.Cookies["lastSort"])
+            {
+                case "Oldest first":
+                    model = new HomePageViewModel();
+                    model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderBy(x => x.Date).ToList().Take(countShow);
+                    return View("index", model);
+
+                case "Most popular First":
+                    model = new HomePageViewModel();
+                    model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderByDescending(x => x.Likes).ToList().Take(countShow);
+                    return View("index", model);
+
+                default:
+                    model = new HomePageViewModel();
+                    model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList().Take(countShow);
+                    return View("index", model);
+
+            }
         }
 
         public async Task<IActionResult> Last10(HomePageViewModel model)
         {
+            HttpContext.Response.Cookies.Append("count", "10");
+
             switch (HttpContext.Request.Cookies["lastSort"])
             {
                 case "Oldest first":
@@ -86,6 +116,8 @@ namespace BlogCentralApp.Controllers
 
         public async Task<IActionResult> First10(HomePageViewModel model)
         {
+            HttpContext.Response.Cookies.Append("count", "10");
+
             switch (HttpContext.Request.Cookies["lastSort"])
             {
                 case "Oldest first":
@@ -110,6 +142,8 @@ namespace BlogCentralApp.Controllers
         [HttpPost]
        public async Task<IActionResult> Sort(HomePageViewModel model)
         {
+            HttpContext.Response.Cookies.Append("count", "6");
+
             switch (model.Sort)
             {
                 case "Oldest first":

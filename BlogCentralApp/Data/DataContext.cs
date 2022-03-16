@@ -78,6 +78,17 @@ namespace BlogCentralApp.Data
                 new BlogPost{Id=9, Title="BlogPost9",Content="content9",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", Date = DateTime.Now.AddDays(-9), Likes = 1},
                 new BlogPost{Id=10, Title="BlogPost10",Content="content10",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", Date = DateTime.Now.AddDays(-10), Likes = 1},
                 new BlogPost{Id=11, Title="BlogPost11",Content="content11",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", Date = DateTime.Now.AddDays(-11), Likes = 1},
+                new BlogPost{Id=12, Title="BlogPost12",Content="content1",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", Date = DateTime.Now.AddDays(-12), Likes = 1},
+                new BlogPost{Id=13, Title="BlogPost13",Content="content2",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",Date = DateTime.Now.AddDays(-13) , Likes = 1},
+                new BlogPost{Id=14, Title="BlogPost14",Content="content3",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", Date = DateTime.Now.AddDays(-14), Likes = 3},
+                new BlogPost{Id=15, Title="BlogPost15",Content="content4",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", Date = DateTime.Now.AddDays(-15), Likes = 1},
+                new BlogPost{Id=16, Title="BlogPost16",Content="content5",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", Date = DateTime.Now.AddDays(-16), Likes = 1},
+                new BlogPost{Id=17, Title="BlogPost17",Content="content6",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", Date = DateTime.Now.AddDays(-17), Likes = 6},
+                new BlogPost{Id=18, Title="BlogPost18",Content="content7",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", Date = DateTime.Now.AddDays(-18), Likes = 1},
+                new BlogPost{Id=19, Title="BlogPost19",Content="content8",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", Date = DateTime.Now.AddDays(-19), Likes = 1},
+                new BlogPost{Id=20, Title="BlogPost20",Content="content9",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", Date = DateTime.Now.AddDays(-20), Likes = 1},
+                new BlogPost{Id=21, Title="BlogPost21",Content="content10",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", Date = DateTime.Now.AddDays(-21), Likes = 1},
+                new BlogPost{Id=22, Title="BlogPost22",Content="content11",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", Date = DateTime.Now.AddDays(-22), Likes = 1},
             };
 
             modelBuilder.Entity<Author>().HasData(authors);

@@ -10,8 +10,6 @@ namespace BlogCentralApp.Models
 
         public Author Author { get; set; }
 
-        public string lastSort { get; set; }
-
         public string Sort { get; set; }
 
 
