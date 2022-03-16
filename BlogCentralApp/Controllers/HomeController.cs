@@ -46,7 +46,7 @@ namespace BlogCentralApp.Controllers
             string counter = RouteData.Values["count"]?.ToString();
             count = count + 10;
 
-            vm.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList().Take(count);
+            vm.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList().Take(6);
 
             return View("index", vm);
         }
@@ -135,7 +135,7 @@ namespace BlogCentralApp.Controllers
 
                 case "Most popular First":
                     model = new HomePageViewModel();
-                    //model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderBy(x => x.likes).ToList().Take(6);
+                    model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderByDescending(x => x.Likes).ToList().Take(6);
                     return View("index", model);
 
                 default:
