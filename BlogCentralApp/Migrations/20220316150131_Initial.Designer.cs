@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlogCentralApp.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220315130707_Initial")]
+    [Migration("20220316150131_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -56,7 +56,7 @@ namespace BlogCentralApp.Migrations
                             Id = 1,
                             AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
                             Content = "content1",
-                            Date = new DateTime(2022, 3, 15, 14, 7, 6, 807, DateTimeKind.Local).AddTicks(9023),
+                            Date = new DateTime(2022, 3, 16, 16, 1, 31, 79, DateTimeKind.Local).AddTicks(9639),
                             Likes = 10,
                             Title = "BlogPost1"
                         });
@@ -328,15 +328,15 @@ namespace BlogCentralApp.Migrations
                         {
                             Id = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "421d3ea0-8e34-4ee7-a918-74f35e2d29fd",
+                            ConcurrencyStamp = "fdec66fb-42a1-4591-b0e5-ec2e34ec42c6",
                             Email = "ibrahim@intec.be",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "IBRAHIM@INTEC.BE",
                             NormalizedUserName = "IBRAHIM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJ3M//v20/t4EHhk8orK/c9mpuxn7vEVvmgH7bLauwl+GozJC7HGvwhr0FioWHyxlw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDP5BLJmMsU6egPYKHAvgVVRhLOXCnssOAPRo2/KHK/93F3loN12entilnXzLeXDfw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "497f5a7f-481d-4221-87ee-3af9fb66ad03",
+                            SecurityStamp = "01f66a8c-bbcd-4966-a7f4-19e86bca9441",
                             TwoFactorEnabled = false,
                             UserName = "Ibrahim",
                             FirstName = "Ibrahim",
@@ -346,15 +346,15 @@ namespace BlogCentralApp.Migrations
                         {
                             Id = "ce8a91ab-41ca-4e08-8cae-40d4cda1a938",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0009bcb7-f016-4087-ab23-b152d6db686f",
+                            ConcurrencyStamp = "bc1bc678-7ccc-46cf-b627-54e436429ccc",
                             Email = "quinten@intec.be",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "QUINTEN@INTEC.BE",
                             NormalizedUserName = "QUINTEN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJ3M//v20/t4EHhk8orK/c9mpuxn7vEVvmgH7bLauwl+GozJC7HGvwhr0FioWHyxlw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDP5BLJmMsU6egPYKHAvgVVRhLOXCnssOAPRo2/KHK/93F3loN12entilnXzLeXDfw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "dbdd2306-620c-4f6e-9a03-0bbf604bf89d",
+                            SecurityStamp = "ce57eb79-1d8e-46f8-91de-b9d0bc1529a7",
                             TwoFactorEnabled = false,
                             UserName = "Quinten",
                             FirstName = "Quinten",

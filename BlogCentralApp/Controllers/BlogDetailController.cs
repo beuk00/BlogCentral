@@ -11,10 +11,12 @@ namespace BlogCentralApp.Controllers
     public class BlogDetailController : Controller
     {
         private readonly BlogPostRepository _blogPostRepository;
+        private readonly AuthorRepository _authorRepository;
 
-        public BlogDetailController(BlogPostRepository blogPostRepository)
+        public BlogDetailController(BlogPostRepository blogPostRepository, AuthorRepository authorRepository)
         {
             _blogPostRepository = blogPostRepository;
+            _authorRepository = authorRepository;
         }
 
         [HttpGet]
@@ -24,7 +26,7 @@ namespace BlogCentralApp.Controllers
             DetailIndexViewModel vm = new DetailIndexViewModel();
        
             vm.blogPost = await _blogPostRepository.GetById(id);
-          
+            vm.blogPost.Author = await _authorRepository.GetById(vm.blogPost.AuthorId);
 
             return View("Detail", vm);
         }

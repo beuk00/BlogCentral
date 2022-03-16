@@ -1,6 +1,8 @@
 ﻿@model DetailIndexViewModel
 
 <h1>@Model.blogPost.Title</h1>
+<a asp-controller="" asp-action="" asp-route-id="@Model.blogPost.AuthorId">@Model.blogPost.Author.UserName</a>
+
 
 <h5>@Model.blogPost.Date</h5>
 
@@ -19,16 +21,33 @@ else
 <p style="float:left" class="badge badge-secondary">@Model.blogPost.Likes </p>
 @foreach (var comment in Model.blogPost.Comments)
 {
-    <p>@comment.Content</p>
+    <div>
+        <p>@comment.Content</p>
+        @if (User.Identity.Name == Model.blogPost.Author.UserName)
+        {
+            <a asp-controller="" asp-action="" asp-route-id="">Delete comment</a>
+            <a asp-controller="" asp-action="" asp-route-id="" style="float:left">Edit comment</a>
+        }
+        @if (User.Identity.Name == Model.blogPost.Author.UserName)
+        {
+            <a asp-controller="" asp-action="" asp-route-id="">Delete comment</a>
+        }
+    </div>
 }
 
 
 
 @if (User.Identity.IsAuthenticated)
 {
-    <div>You are logged in</div>
+    <a asp-controller="" asp-action="" asp-route-id="">Create Comment</a>
+
 }
 else
 {
     <div>Login to comment</div>
+}
+@if (User.Identity.Name == Model.blogPost.Author.UserName)
+{
+    <a asp-controller="" asp-action="" asp-route-id="">Delete post</a>
+    <a asp-controller="" asp-action="" asp-route-id="" style="float:left">Edit post</a>
 }
