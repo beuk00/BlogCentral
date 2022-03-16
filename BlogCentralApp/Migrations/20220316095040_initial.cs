@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BlogCentralApp.Migrations
 {
-    public partial class Initial : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -46,7 +46,8 @@ namespace BlogCentralApp.Migrations
                     StreetName = table.Column<string>(nullable: true),
                     HouseNumber = table.Column<int>(nullable: true),
                     CityName = table.Column<string>(nullable: true),
-                    ZipCode = table.Column<int>(nullable: true)
+                    ZipCode = table.Column<int>(nullable: true),
+                    ImageUrl = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -205,18 +206,31 @@ namespace BlogCentralApp.Migrations
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "CityName", "FirstName", "HouseNumber", "LastName", "StreetName", "ZipCode" },
-                values: new object[] { "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", 0, "421d3ea0-8e34-4ee7-a918-74f35e2d29fd", "Author", "ibrahim@intec.be", true, false, null, "IBRAHIM@INTEC.BE", "IBRAHIM", "AQAAAAEAACcQAAAAEJ3M//v20/t4EHhk8orK/c9mpuxn7vEVvmgH7bLauwl+GozJC7HGvwhr0FioWHyxlw==", null, false, "497f5a7f-481d-4221-87ee-3af9fb66ad03", false, "Ibrahim", null, "Ibrahim", null, "Awad", null, null });
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "CityName", "FirstName", "HouseNumber", "ImageUrl", "LastName", "StreetName", "ZipCode" },
+                values: new object[] { "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", 0, "97c1a704-e068-416a-aaaf-07c67e70b0cf", "Author", "ibrahim@intec.be", true, false, null, "IBRAHIM@INTEC.BE", "IBRAHIM", "AQAAAAEAACcQAAAAEFMi9ER7GstMbNISfvOLg8Zn2l12QUSvUbLLKtldPfZVCiXMP+Rgat+SUoVbBwS1pA==", null, false, "5bea426d-6427-42b9-b03b-c30b36e06b5c", false, "Ibrahim", null, "Ibrahim", null, null, "Awad", null, null });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "CityName", "FirstName", "HouseNumber", "LastName", "StreetName", "ZipCode" },
-                values: new object[] { "ce8a91ab-41ca-4e08-8cae-40d4cda1a938", 0, "0009bcb7-f016-4087-ab23-b152d6db686f", "Author", "quinten@intec.be", true, false, null, "QUINTEN@INTEC.BE", "QUINTEN", "AQAAAAEAACcQAAAAEJ3M//v20/t4EHhk8orK/c9mpuxn7vEVvmgH7bLauwl+GozJC7HGvwhr0FioWHyxlw==", null, false, "dbdd2306-620c-4f6e-9a03-0bbf604bf89d", false, "Quinten", null, "Quinten", null, "De Clerck", null, null });
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "CityName", "FirstName", "HouseNumber", "ImageUrl", "LastName", "StreetName", "ZipCode" },
+                values: new object[] { "ce8a91ab-41ca-4e08-8cae-40d4cda1a938", 0, "1d3a10a4-533c-43da-87ed-d564f7fe6993", "Author", "quinten@intec.be", true, false, null, "QUINTEN@INTEC.BE", "QUINTEN", "AQAAAAEAACcQAAAAEFMi9ER7GstMbNISfvOLg8Zn2l12QUSvUbLLKtldPfZVCiXMP+Rgat+SUoVbBwS1pA==", null, false, "613de554-ae89-47b9-adc4-6120fca447cd", false, "Quinten", null, "Quinten", null, null, "De Clerck", null, null });
 
             migrationBuilder.InsertData(
                 table: "BlogPosts",
                 columns: new[] { "Id", "AuthorId", "Content", "Date", "Likes", "Title" },
-                values: new object[] { 1, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content1", new DateTime(2022, 3, 15, 14, 7, 6, 807, DateTimeKind.Local).AddTicks(9023), 10, "BlogPost1" });
+                values: new object[,]
+                {
+                    { 1, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content1", new DateTime(2022, 3, 15, 10, 50, 40, 552, DateTimeKind.Local).AddTicks(3932), 1, "BlogPost1" },
+                    { 2, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content2", new DateTime(2022, 3, 14, 10, 50, 40, 557, DateTimeKind.Local).AddTicks(4042), 1, "BlogPost2" },
+                    { 3, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content3", new DateTime(2022, 3, 13, 10, 50, 40, 557, DateTimeKind.Local).AddTicks(4123), 3, "BlogPost3" },
+                    { 4, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content4", new DateTime(2022, 3, 12, 10, 50, 40, 557, DateTimeKind.Local).AddTicks(4133), 1, "BlogPost4" },
+                    { 5, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content5", new DateTime(2022, 3, 11, 10, 50, 40, 557, DateTimeKind.Local).AddTicks(4138), 1, "BlogPost5" },
+                    { 6, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content6", new DateTime(2022, 3, 10, 10, 50, 40, 557, DateTimeKind.Local).AddTicks(4144), 6, "BlogPost6" },
+                    { 7, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content7", new DateTime(2022, 3, 9, 10, 50, 40, 557, DateTimeKind.Local).AddTicks(4149), 1, "BlogPost7" },
+                    { 8, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content8", new DateTime(2022, 3, 8, 10, 50, 40, 557, DateTimeKind.Local).AddTicks(4154), 1, "BlogPost8" },
+                    { 9, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content9", new DateTime(2022, 3, 7, 10, 50, 40, 557, DateTimeKind.Local).AddTicks(4159), 1, "BlogPost9" },
+                    { 10, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content10", new DateTime(2022, 3, 6, 10, 50, 40, 557, DateTimeKind.Local).AddTicks(4164), 1, "BlogPost10" },
+                    { 11, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content11", new DateTime(2022, 3, 5, 10, 50, 40, 557, DateTimeKind.Local).AddTicks(4169), 1, "BlogPost11" }
+                });
 
             migrationBuilder.InsertData(
                 table: "Comment",

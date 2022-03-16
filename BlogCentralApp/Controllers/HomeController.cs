@@ -13,15 +13,10 @@ namespace BlogCentralApp.Controllers
 {
     public class HomeController : Controller
     {
-        //private readonly ILogger<HomeController> _logger;
-
-        //public HomeController(ILogger<HomeController> logger)
-        //{
-        //    _logger = logger;
-        //}
-
         private readonly BlogPostRepository _blogPostRepository;
         private readonly AuthorRepository _authorRepository;
+        private string lastSort;
+
         public HomeController(BlogPostRepository blogPostRepository, AuthorRepository authorRepository)
         {
             _blogPostRepository = blogPostRepository;
@@ -46,7 +41,7 @@ namespace BlogCentralApp.Controllers
             string counter = RouteData.Values["count"]?.ToString();
             count = count + 10;
 
-            vm.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList().Take(count);
+            vm.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList().Take(6);
 
             return View("index", vm);
         }
@@ -69,13 +64,8 @@ namespace BlogCentralApp.Controllers
 
         public async Task<IActionResult> Last10(HomePageViewModel model)
         {
-            switch (model.Sort)
+            switch (model.lastSort)
             {
-                case "Newest first":
-                    model = new HomePageViewModel();
-                    model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList().TakeLast(10);
-                    return View("index", model);
-
                 case "Oldest first":
                     model = new HomePageViewModel();
                     model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderBy(x => x.Date).ToList().TakeLast(10);
@@ -83,24 +73,21 @@ namespace BlogCentralApp.Controllers
 
                 case "Most popular First":
                     model = new HomePageViewModel();
-                    //model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderBy(x => x.likes).ToList().TakeLast(10);
+                    model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderByDescending(x => x.Likes).ToList().TakeLast(10);
                     return View("index", model);
 
                 default:
-                    return View("index");
+                    model = new HomePageViewModel();
+                    model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList().TakeLast(10);
+                    return View("index", model);
 
             }
         }
 
         public async Task<IActionResult> First10(HomePageViewModel model)
         {
-            switch (model.Sort)
+            switch (model.lastSort)
             {
-                case "Newest first":
-                    model = new HomePageViewModel();
-                    model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList().Take(10);
-                    return View("index", model);
-
                 case "Oldest first":
                     model = new HomePageViewModel();
                     model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderBy(x => x.Date).ToList().Take(10);
@@ -108,39 +95,41 @@ namespace BlogCentralApp.Controllers
 
                 case "Most popular First":
                     model = new HomePageViewModel();
-                    //model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderBy(x => x.likes).ToList().Take(10);
+                    model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderByDescending(x => x.Likes).ToList().Take(10);
                     return View("index", model);
 
                 default:
-                    return View("index");
+                    model = new HomePageViewModel();
+                    model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList().Take(10);
+                    return View("index", model);
 
             };
         }
-
+        
 
         [HttpPost]
        public async Task<IActionResult> Sort(HomePageViewModel model)
         {
             switch (model.Sort)
             {
-                case "Newest first":
-                    model = new HomePageViewModel();
-                    model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList().Take(6);
-                    return View("index", model);
-               
                 case "Oldest first":
+                    model.lastSort = "Oldest first";
                     model = new HomePageViewModel();
                     model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderBy(x => x.Date).ToList().Take(6);
                     return View("index", model);
 
                 case "Most popular First":
+                    model.lastSort = "Most popular First";
                     model = new HomePageViewModel();
-                    //model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderBy(x => x.likes).ToList().Take(6);
+                    model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderByDescending(x => x.Likes).ToList().Take(6);
                     return View("index", model);
 
                 default:
-                    return View("index");
-                    
+                    model.lastSort = "Newest first";
+                    model = new HomePageViewModel();
+                    model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList().Take(6);
+                    return View("index", model);
+
             }
         }
 
