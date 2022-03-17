@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlogCentralApp.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220316083248_initial")]
-    partial class initial
+    [Migration("20220317091427_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -56,7 +56,7 @@ namespace BlogCentralApp.Migrations
                             Id = 1,
                             AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
                             Content = "content1",
-                            Date = new DateTime(2022, 3, 15, 9, 32, 47, 955, DateTimeKind.Local).AddTicks(2752),
+                            Date = new DateTime(2022, 3, 16, 10, 14, 26, 818, DateTimeKind.Local).AddTicks(3805),
                             Likes = 2,
                             Title = "BlogPost1"
                         },
@@ -65,7 +65,7 @@ namespace BlogCentralApp.Migrations
                             Id = 2,
                             AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
                             Content = "content2",
-                            Date = new DateTime(2022, 3, 14, 9, 32, 47, 958, DateTimeKind.Local).AddTicks(3556),
+                            Date = new DateTime(2022, 3, 15, 10, 14, 26, 821, DateTimeKind.Local).AddTicks(6060),
                             Likes = 5,
                             Title = "BlogPost2"
                         },
@@ -74,7 +74,7 @@ namespace BlogCentralApp.Migrations
                             Id = 3,
                             AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
                             Content = "content3",
-                            Date = new DateTime(2022, 3, 13, 9, 32, 47, 958, DateTimeKind.Local).AddTicks(3615),
+                            Date = new DateTime(2022, 3, 14, 10, 14, 26, 821, DateTimeKind.Local).AddTicks(6114),
                             Likes = 1,
                             Title = "BlogPost3"
                         },
@@ -83,7 +83,7 @@ namespace BlogCentralApp.Migrations
                             Id = 4,
                             AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
                             Content = "content4",
-                            Date = new DateTime(2022, 3, 12, 9, 32, 47, 958, DateTimeKind.Local).AddTicks(3621),
+                            Date = new DateTime(2022, 3, 13, 10, 14, 26, 821, DateTimeKind.Local).AddTicks(6119),
                             Likes = 1,
                             Title = "BlogPost4"
                         },
@@ -92,7 +92,7 @@ namespace BlogCentralApp.Migrations
                             Id = 5,
                             AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
                             Content = "content5",
-                            Date = new DateTime(2022, 3, 11, 9, 32, 47, 958, DateTimeKind.Local).AddTicks(3624),
+                            Date = new DateTime(2022, 3, 12, 10, 14, 26, 821, DateTimeKind.Local).AddTicks(6122),
                             Likes = 1,
                             Title = "BlogPost5"
                         },
@@ -101,7 +101,7 @@ namespace BlogCentralApp.Migrations
                             Id = 6,
                             AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
                             Content = "content6",
-                            Date = new DateTime(2022, 3, 10, 9, 32, 47, 958, DateTimeKind.Local).AddTicks(3627),
+                            Date = new DateTime(2022, 3, 11, 10, 14, 26, 821, DateTimeKind.Local).AddTicks(6125),
                             Likes = 10,
                             Title = "BlogPost6"
                         },
@@ -110,7 +110,7 @@ namespace BlogCentralApp.Migrations
                             Id = 7,
                             AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
                             Content = "content7",
-                            Date = new DateTime(2022, 3, 9, 9, 32, 47, 958, DateTimeKind.Local).AddTicks(3630),
+                            Date = new DateTime(2022, 3, 10, 10, 14, 26, 821, DateTimeKind.Local).AddTicks(6128),
                             Likes = 1,
                             Title = "BlogPost7"
                         },
@@ -119,7 +119,7 @@ namespace BlogCentralApp.Migrations
                             Id = 8,
                             AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
                             Content = "content8",
-                            Date = new DateTime(2022, 3, 8, 9, 32, 47, 958, DateTimeKind.Local).AddTicks(3633),
+                            Date = new DateTime(2022, 3, 9, 10, 14, 26, 821, DateTimeKind.Local).AddTicks(6131),
                             Likes = 1,
                             Title = "BlogPost8"
                         },
@@ -128,7 +128,7 @@ namespace BlogCentralApp.Migrations
                             Id = 9,
                             AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
                             Content = "content9",
-                            Date = new DateTime(2022, 3, 7, 9, 32, 47, 958, DateTimeKind.Local).AddTicks(3636),
+                            Date = new DateTime(2022, 3, 8, 10, 14, 26, 821, DateTimeKind.Local).AddTicks(6133),
                             Likes = 1,
                             Title = "BlogPost9"
                         },
@@ -137,7 +137,7 @@ namespace BlogCentralApp.Migrations
                             Id = 10,
                             AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
                             Content = "content10",
-                            Date = new DateTime(2022, 3, 6, 9, 32, 47, 958, DateTimeKind.Local).AddTicks(3639),
+                            Date = new DateTime(2022, 3, 7, 10, 14, 26, 821, DateTimeKind.Local).AddTicks(6136),
                             Likes = 1,
                             Title = "BlogPost10"
                         },
@@ -146,7 +146,7 @@ namespace BlogCentralApp.Migrations
                             Id = 11,
                             AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
                             Content = "content11",
-                            Date = new DateTime(2022, 3, 5, 9, 32, 47, 958, DateTimeKind.Local).AddTicks(3643),
+                            Date = new DateTime(2022, 3, 6, 10, 14, 26, 821, DateTimeKind.Local).AddTicks(6139),
                             Likes = 1,
                             Title = "BlogPost11"
                         });
@@ -421,15 +421,15 @@ namespace BlogCentralApp.Migrations
                         {
                             Id = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9a214299-bf4a-41d7-aa16-e3bf85eafb8f",
+                            ConcurrencyStamp = "9a14b555-b764-488e-a01d-5ab2feac2ccb",
                             Email = "ibrahim@intec.be",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "IBRAHIM@INTEC.BE",
                             NormalizedUserName = "IBRAHIM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEcm0RJTZHjWLuPwzDALDEeIwpwNefwK/GmGn6gKJh0wEXH/ta2QRcA8HAUX9dVEnw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGqg4+8yZ/yt7gH0RcXKHrsGekAi0O8cZxdq+nk2TN8xunj9008EP+ctPd3cNdhNhg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "7edb3208-619e-4817-a40c-1c106c937915",
+                            SecurityStamp = "39645fb4-57ee-4f7a-bc9e-1a2384c92221",
                             TwoFactorEnabled = false,
                             UserName = "Ibrahim",
                             FirstName = "Ibrahim",
@@ -439,15 +439,15 @@ namespace BlogCentralApp.Migrations
                         {
                             Id = "ce8a91ab-41ca-4e08-8cae-40d4cda1a938",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "70f81cd8-6fa5-4337-94ec-b45437040910",
+                            ConcurrencyStamp = "aaf09ffe-cf0f-45f1-abec-2318888c6a77",
                             Email = "quinten@intec.be",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "QUINTEN@INTEC.BE",
                             NormalizedUserName = "QUINTEN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEcm0RJTZHjWLuPwzDALDEeIwpwNefwK/GmGn6gKJh0wEXH/ta2QRcA8HAUX9dVEnw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGqg4+8yZ/yt7gH0RcXKHrsGekAi0O8cZxdq+nk2TN8xunj9008EP+ctPd3cNdhNhg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "944b6dc8-2a8e-4bcd-b8c8-21100cc8c7d5",
+                            SecurityStamp = "4c7e8550-a54a-45f6-992c-23cd871799fa",
                             TwoFactorEnabled = false,
                             UserName = "Quinten",
                             FirstName = "Quinten",

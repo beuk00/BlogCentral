@@ -1,6 +1,11 @@
 ﻿@model DetailIndexViewModel
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
 
 <h1>@Model.blogPost.Title</h1>
+<a asp-controller="" asp-action="" asp-route-id="@Model.blogPost.AuthorId">@Model.blogPost.Author.UserName</a>
+
 
 <h5>@Model.blogPost.Date</h5>
 
@@ -16,9 +21,36 @@ else
     <a asp-controller="BlogDetail" asp-action="Like" asp-route-id="@Model.blogPost.Id" class="btn btn-info"> Like</a>
 
 }
+<p style="float:left" class="badge badge-secondary">@Model.blogPost.Likes </p>
 @foreach (var comment in Model.blogPost.Comments)
 {
-    <p>@comment.Content</p>
+    <div>
+        <p>@comment.Content</p>
+        @if (UserManager.GetUserId(User) == Model.blogPost.AuthorId)
+        {
+            <a asp-controller="" asp-action="" asp-route-id="">Delete comment</a>
+            <a asp-controller="" asp-action="" asp-route-id="" style="float:left">Edit comment</a>
+        }
+        @if (UserManager.GetUserId(User) == Model.blogPost.AuthorId)
+        {
+            <a asp-controller="" asp-action="" asp-route-id="">Delete comment</a>
+        }
+    </div>
 }
 
-<p style="float:left" class="badge badge-secondary">@Model.blogPost.Likes </p>
+
+
+@if (User.Identity.IsAuthenticated)
+{
+    <a asp-controller="" asp-action="" asp-route-id="">Create Comment</a>
+
+}
+else
+{
+    <div>Login to comment</div>
+}
+@if (UserManager.GetUserId(User) == Model.blogPost.AuthorId)
+{
+    <a asp-controller="" asp-action="" asp-route-id="">Delete post</a>
+    <a asp-controller="" asp-action="" asp-route-id="" style="float:left">Edit post</a>
+}

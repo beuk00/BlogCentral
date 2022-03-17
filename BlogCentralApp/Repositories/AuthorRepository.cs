@@ -1,6 +1,8 @@
 ﻿
 using BlogCentralApp.Data;
 using BlogCentralLib.Entities;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BlogCentralApp.Repositories
@@ -11,9 +13,10 @@ namespace BlogCentralApp.Repositories
         {
         }
 
-        public override Task<Author> GetById<P>(P id)
+        public override async Task<Author> GetById<P>(P id)
         {
-            throw new System.NotImplementedException();
+            return await _dbContext.Authors.Where(a => a.Id.Equals(id)).FirstOrDefaultAsync();
+
         }
     }
 }

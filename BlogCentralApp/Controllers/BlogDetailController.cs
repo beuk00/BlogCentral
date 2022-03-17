@@ -7,6 +7,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BlogCentralLib.Entities;
+using Microsoft.AspNetCore.Mvc.Rendering;
+
 
 namespace BlogCentralApp.Controllers
 {
@@ -28,14 +31,13 @@ namespace BlogCentralApp.Controllers
             DetailIndexViewModel vm = new DetailIndexViewModel();
        
             vm.blogPost = await _blogPostRepository.GetById(id);
-          
+            vm.blogPost.Author = await _authorRepository.GetById(vm.blogPost.AuthorId);
 
             return View("Detail", vm);
         }
         [HttpGet]
         public async Task<ActionResult> LikeAsync(int id, DetailIndexViewModel vm)
         {
-
 
             vm.hasLiked = true;
             vm.blogPost = await _blogPostRepository.GetById(id);
