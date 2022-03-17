@@ -1,4 +1,7 @@
 ﻿@model DetailIndexViewModel
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
 
 <h1>@Model.blogPost.Title</h1>
 <a asp-controller="" asp-action="" asp-route-id="@Model.blogPost.AuthorId">@Model.blogPost.Author.UserName</a>
@@ -23,12 +26,12 @@ else
 {
     <div>
         <p>@comment.Content</p>
-        @if (User.Identity.Name == Model.blogPost.Author.UserName)
+        @if (UserManager.GetUserId(User) == Model.blogPost.AuthorId)
         {
             <a asp-controller="" asp-action="" asp-route-id="">Delete comment</a>
             <a asp-controller="" asp-action="" asp-route-id="" style="float:left">Edit comment</a>
         }
-        @if (User.Identity.Name == Model.blogPost.Author.UserName)
+        @if (UserManager.GetUserId(User) == Model.blogPost.AuthorId)
         {
             <a asp-controller="" asp-action="" asp-route-id="">Delete comment</a>
         }
@@ -46,7 +49,7 @@ else
 {
     <div>Login to comment</div>
 }
-@if (User.Identity.Name == Model.blogPost.Author.UserName)
+@if (UserManager.GetUserId(User) == Model.blogPost.AuthorId)
 {
     <a asp-controller="" asp-action="" asp-route-id="">Delete post</a>
     <a asp-controller="" asp-action="" asp-route-id="" style="float:left">Edit post</a>
