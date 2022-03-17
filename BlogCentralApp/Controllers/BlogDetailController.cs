@@ -16,13 +16,16 @@ namespace BlogCentralApp.Controllers
     public class BlogDetailController : Controller
     {
         private readonly BlogPostRepository _blogPostRepository;
+        private readonly AuthorRepository _authorRepository;
         private readonly UserManager<IdentityUser> _userManager;
 
-        public BlogDetailController(BlogPostRepository blogPostRepository, UserManager<IdentityUser> userManager)
+        public BlogDetailController(BlogPostRepository blogPostRepository, AuthorRepository authorRepository, UserManager<IdentityUser> userManager)
         {
             _blogPostRepository = blogPostRepository;
+            _authorRepository = authorRepository;
             _userManager = userManager;
         }
+
 
         [HttpGet]
         public async Task<IActionResult> IndexAsync(int id)
