@@ -52,10 +52,10 @@ namespace BlogCentralApp.Data
 
             var authors = new Author[]
             {
-                new Author { Id = new Guid("09f8c9a1-2263-4eb5-8fd9-600ba680b94a").ToString(),FirstName="Ibrahim",LastName="Awad", UserName = "Ibrahim", NormalizedUserName = "IBRAHIM", Email = "ibrahim@intec.be", NormalizedEmail = "IBRAHIM@INTEC.BE", EmailConfirmed = true, PasswordHash = hashedPassword},
+                new Author { Id = new Guid("09f8c9a1-2263-4eb5-8fd9-600ba680b94a").ToString(),FirstName="Ibrahim",LastName="Awad", UserName = "Ibrahim", NormalizedUserName = "IBRAHIM", Email = "ibrahim@intec.be", NormalizedEmail = "IBRAHIM@INTEC.BE", EmailConfirmed = true, PasswordHash = hashedPassword,ImageUrl= @"\images\Default.png"},
 
 
-                new Author { Id = new Guid("ce8a91ab-41ca-4e08-8cae-40d4cda1a938").ToString(), UserName = "Quinten",FirstName="Quinten",LastName="De Clerck", NormalizedUserName = "QUINTEN", Email = "quinten@intec.be", NormalizedEmail = "QUINTEN@INTEC.BE", EmailConfirmed = true, PasswordHash = hashedPassword}
+                new Author { Id = new Guid("ce8a91ab-41ca-4e08-8cae-40d4cda1a938").ToString(), UserName = "Quinten",FirstName="Quinten",LastName="De Clerck", NormalizedUserName = "QUINTEN", Email = "quinten@intec.be", NormalizedEmail = "QUINTEN@INTEC.BE", EmailConfirmed = true, PasswordHash = hashedPassword,ImageUrl= @"\images\Default.png"}
             };
 
             var comments = new Comment[]
@@ -66,6 +66,7 @@ namespace BlogCentralApp.Data
 
             var blogPosts = new BlogPost[]
             {
+
 
                 new BlogPost{Id=1, Title="BlogPost1",Content="content1",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", Date = DateTime.Now.AddDays(-1), Likes = 1},
                 new BlogPost{Id=2, Title="BlogPost2",Content="content2",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",Date = DateTime.Now.AddDays(-2) , Likes = 1},
@@ -89,6 +90,7 @@ namespace BlogCentralApp.Data
                 new BlogPost{Id=20, Title="BlogPost20",Content="content9",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", Date = DateTime.Now.AddDays(-20), Likes = 1},
                 new BlogPost{Id=21, Title="BlogPost21",Content="content10",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", Date = DateTime.Now.AddDays(-21), Likes = 1},
                 new BlogPost{Id=22, Title="BlogPost22",Content="content11",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", Date = DateTime.Now.AddDays(-22), Likes = 1},
+
             };
 
             modelBuilder.Entity<Author>().HasData(authors);

@@ -34,9 +34,15 @@ namespace BlogCentralApp.Controllers
         }
 
 
+        
         public async Task<IActionResult> Detail(int id)
         {
-            return RedirectToAction("IndexAsync","BlogDetailController",id);
+           
+
+            vm.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList().Take(6);
+
+            return View("index", vm);
+
         }
 
         public async Task<IActionResult> GoToAuthorHomePage(string id)

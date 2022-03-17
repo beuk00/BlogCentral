@@ -87,7 +87,7 @@ namespace BlogCentralApp
             app.UseAuthentication();
 
             app.UseAuthorization();
-
+            app.UseDeveloperExceptionPage();
             app.UseEndpoints(endpoints =>
             {
                 //added to run the identityPages(Razor pages)

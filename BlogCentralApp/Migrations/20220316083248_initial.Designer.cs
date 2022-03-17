@@ -4,14 +4,16 @@ using BlogCentralApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BlogCentralApp.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20220316083248_initial")]
+    partial class initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -63,7 +65,6 @@ namespace BlogCentralApp.Migrations
                             Id = 2,
                             AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
                             Content = "content2",
-
                             Date = new DateTime(2022, 3, 14, 9, 32, 47, 958, DateTimeKind.Local).AddTicks(3556),
                             Likes = 5,
                             Title = "BlogPost2"
@@ -73,10 +74,8 @@ namespace BlogCentralApp.Migrations
                             Id = 3,
                             AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
                             Content = "content3",
-
                             Date = new DateTime(2022, 3, 13, 9, 32, 47, 958, DateTimeKind.Local).AddTicks(3615),
                             Likes = 1,
-
                             Title = "BlogPost3"
                         },
                         new
@@ -84,7 +83,6 @@ namespace BlogCentralApp.Migrations
                             Id = 4,
                             AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
                             Content = "content4",
-
                             Date = new DateTime(2022, 3, 12, 9, 32, 47, 958, DateTimeKind.Local).AddTicks(3621),
                             Likes = 1,
                             Title = "BlogPost4"
@@ -94,7 +92,6 @@ namespace BlogCentralApp.Migrations
                             Id = 5,
                             AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
                             Content = "content5",
-
                             Date = new DateTime(2022, 3, 11, 9, 32, 47, 958, DateTimeKind.Local).AddTicks(3624),
                             Likes = 1,
                             Title = "BlogPost5"
@@ -104,7 +101,6 @@ namespace BlogCentralApp.Migrations
                             Id = 6,
                             AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
                             Content = "content6",
-
                             Date = new DateTime(2022, 3, 10, 9, 32, 47, 958, DateTimeKind.Local).AddTicks(3627),
                             Likes = 10,
                             Title = "BlogPost6"
@@ -114,7 +110,6 @@ namespace BlogCentralApp.Migrations
                             Id = 7,
                             AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
                             Content = "content7",
-
                             Date = new DateTime(2022, 3, 9, 9, 32, 47, 958, DateTimeKind.Local).AddTicks(3630),
                             Likes = 1,
                             Title = "BlogPost7"
@@ -124,7 +119,6 @@ namespace BlogCentralApp.Migrations
                             Id = 8,
                             AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
                             Content = "content8",
-
                             Date = new DateTime(2022, 3, 8, 9, 32, 47, 958, DateTimeKind.Local).AddTicks(3633),
                             Likes = 1,
                             Title = "BlogPost8"
@@ -134,7 +128,6 @@ namespace BlogCentralApp.Migrations
                             Id = 9,
                             AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
                             Content = "content9",
-
                             Date = new DateTime(2022, 3, 7, 9, 32, 47, 958, DateTimeKind.Local).AddTicks(3636),
                             Likes = 1,
                             Title = "BlogPost9"
@@ -144,9 +137,7 @@ namespace BlogCentralApp.Migrations
                             Id = 10,
                             AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
                             Content = "content10",
-
                             Date = new DateTime(2022, 3, 6, 9, 32, 47, 958, DateTimeKind.Local).AddTicks(3639),
-
                             Likes = 1,
                             Title = "BlogPost10"
                         },
@@ -155,109 +146,9 @@ namespace BlogCentralApp.Migrations
                             Id = 11,
                             AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
                             Content = "content11",
-
                             Date = new DateTime(2022, 3, 5, 9, 32, 47, 958, DateTimeKind.Local).AddTicks(3643),
                             Likes = 1,
                             Title = "BlogPost11"
-                        },
-                        new
-                        {
-                            Id = 12,
-                            AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
-                            Content = "content1",
-                            Date = new DateTime(2022, 3, 4, 14, 41, 4, 886, DateTimeKind.Local).AddTicks(8650),
-                            Likes = 1,
-                            Title = "BlogPost12"
-                        },
-                        new
-                        {
-                            Id = 13,
-                            AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
-                            Content = "content2",
-                            Date = new DateTime(2022, 3, 3, 14, 41, 4, 886, DateTimeKind.Local).AddTicks(8656),
-                            Likes = 1,
-                            Title = "BlogPost13"
-                        },
-                        new
-                        {
-                            Id = 14,
-                            AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
-                            Content = "content3",
-                            Date = new DateTime(2022, 3, 2, 14, 41, 4, 886, DateTimeKind.Local).AddTicks(8661),
-                            Likes = 3,
-                            Title = "BlogPost14"
-                        },
-                        new
-                        {
-                            Id = 15,
-                            AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
-                            Content = "content4",
-                            Date = new DateTime(2022, 3, 1, 14, 41, 4, 886, DateTimeKind.Local).AddTicks(8664),
-                            Likes = 1,
-                            Title = "BlogPost15"
-                        },
-                        new
-                        {
-                            Id = 16,
-                            AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
-                            Content = "content5",
-                            Date = new DateTime(2022, 2, 28, 14, 41, 4, 886, DateTimeKind.Local).AddTicks(8667),
-                            Likes = 1,
-                            Title = "BlogPost16"
-                        },
-                        new
-                        {
-                            Id = 17,
-                            AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
-                            Content = "content6",
-                            Date = new DateTime(2022, 2, 27, 14, 41, 4, 886, DateTimeKind.Local).AddTicks(8671),
-                            Likes = 6,
-                            Title = "BlogPost17"
-                        },
-                        new
-                        {
-                            Id = 18,
-                            AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
-                            Content = "content7",
-                            Date = new DateTime(2022, 2, 26, 14, 41, 4, 886, DateTimeKind.Local).AddTicks(8675),
-                            Likes = 1,
-                            Title = "BlogPost18"
-                        },
-                        new
-                        {
-                            Id = 19,
-                            AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
-                            Content = "content8",
-                            Date = new DateTime(2022, 2, 25, 14, 41, 4, 886, DateTimeKind.Local).AddTicks(8678),
-                            Likes = 1,
-                            Title = "BlogPost19"
-                        },
-                        new
-                        {
-                            Id = 20,
-                            AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
-                            Content = "content9",
-                            Date = new DateTime(2022, 2, 24, 14, 41, 4, 886, DateTimeKind.Local).AddTicks(8682),
-                            Likes = 1,
-                            Title = "BlogPost20"
-                        },
-                        new
-                        {
-                            Id = 21,
-                            AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
-                            Content = "content10",
-                            Date = new DateTime(2022, 2, 23, 14, 41, 4, 886, DateTimeKind.Local).AddTicks(8685),
-                            Likes = 1,
-                            Title = "BlogPost21"
-                        },
-                        new
-                        {
-                            Id = 22,
-                            AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
-                            Content = "content11",
-                            Date = new DateTime(2022, 2, 22, 14, 41, 4, 886, DateTimeKind.Local).AddTicks(8690),
-                            Likes = 1,
-                            Title = "BlogPost22"
                         });
                 });
 
@@ -530,18 +421,15 @@ namespace BlogCentralApp.Migrations
                         {
                             Id = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
                             AccessFailedCount = 0,
-
                             ConcurrencyStamp = "9a214299-bf4a-41d7-aa16-e3bf85eafb8f",
                             Email = "ibrahim@intec.be",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "IBRAHIM@INTEC.BE",
                             NormalizedUserName = "IBRAHIM",
-
                             PasswordHash = "AQAAAAEAACcQAAAAEEcm0RJTZHjWLuPwzDALDEeIwpwNefwK/GmGn6gKJh0wEXH/ta2QRcA8HAUX9dVEnw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "7edb3208-619e-4817-a40c-1c106c937915",
-
                             TwoFactorEnabled = false,
                             UserName = "Ibrahim",
                             FirstName = "Ibrahim",
@@ -551,14 +439,12 @@ namespace BlogCentralApp.Migrations
                         {
                             Id = "ce8a91ab-41ca-4e08-8cae-40d4cda1a938",
                             AccessFailedCount = 0,
-
                             ConcurrencyStamp = "70f81cd8-6fa5-4337-94ec-b45437040910",
                             Email = "quinten@intec.be",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "QUINTEN@INTEC.BE",
                             NormalizedUserName = "QUINTEN",
-
                             PasswordHash = "AQAAAAEAACcQAAAAEEcm0RJTZHjWLuPwzDALDEeIwpwNefwK/GmGn6gKJh0wEXH/ta2QRcA8HAUX9dVEnw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "944b6dc8-2a8e-4bcd-b8c8-21100cc8c7d5",
