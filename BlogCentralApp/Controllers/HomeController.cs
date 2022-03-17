@@ -46,17 +46,22 @@ namespace BlogCentralApp.Controllers
 
         public async Task<IActionResult> Next10(HomePageViewModel model)
         {
-                int range;
-                if (_blogPostRepository.GetAll().Count() - int.Parse(HttpContext.Request.Cookies["count"]) <= 9)
-                {
-                    range = _blogPostRepository.GetAll().Count() - int.Parse(HttpContext.Request.Cookies["count"]);
-                }
-                else
-                {
-                    range = 10;
-                }
+            int countShow;
+            int range = _blogPostRepository.GetAll().Count() - int.Parse(HttpContext.Request.Cookies["count"]);
 
-                int countShow = int.Parse(HttpContext.Request.Cookies["count"]) + 10;
+            if (range <= 9 && range >= 1)
+            {
+                countShow = _blogPostRepository.GetAll().Count();
+            }
+            else if (range <= 0)
+            {
+                return RedirectToAction("Last10");
+            }
+            else
+            {
+                    range = 10;
+                    countShow = int.Parse(HttpContext.Request.Cookies["count"]) + 10;
+                }
 
                 HttpContext.Response.Cookies.Append("count", countShow.ToString());
 
@@ -84,41 +89,31 @@ namespace BlogCentralApp.Controllers
 
         public async Task<IActionResult> Previous10(HomePageViewModel model)
         {
-            if (int.Parse(HttpContext.Request.Cookies["count"]) <= 10)
+            int range = int.Parse(HttpContext.Request.Cookies["count"]) - 10;
+
+            if (range <= 11)
             {
                 return RedirectToAction("First10");
             }
             else
             {
-                int range;
-            if (_blogPostRepository.GetAll().Count() - int.Parse(HttpContext.Request.Cookies["count"]) <= 9)
-            {
-                range = _blogPostRepository.GetAll().Count() - int.Parse(HttpContext.Request.Cookies["count"]);
-            }
-            else
-            {
-                range = 10;
-            }
-
-            int countShow = int.Parse(HttpContext.Request.Cookies["count"]) - 10;
-
-                HttpContext.Response.Cookies.Append("count", countShow.ToString());
+                HttpContext.Response.Cookies.Append("count", range.ToString());
 
                 switch (HttpContext.Request.Cookies["lastSort"])
                 {
                     case "Oldest first":
                         model = new HomePageViewModel();
-                        model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderBy(x => x.Date).ToList().GetRange(int.Parse(HttpContext.Request.Cookies["count"]), range);
+                        model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderBy(x => x.Date).ToList().GetRange(int.Parse(HttpContext.Request.Cookies["count"]) - 20, 10);
                     return View("index", model);
 
                     case "Most popular First":
                         model = new HomePageViewModel();
-                        model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderByDescending(x => x.Likes).ToList().GetRange(int.Parse(HttpContext.Request.Cookies["count"]), range);
+                        model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderByDescending(x => x.Likes).ToList().GetRange(int.Parse(HttpContext.Request.Cookies["count"]) - 20, 10);
                     return View("index", model);
 
                     default:
                         model = new HomePageViewModel();
-                        model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList().GetRange(int.Parse(HttpContext.Request.Cookies["count"]), range);
+                        model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList().GetRange(int.Parse(HttpContext.Request.Cookies["count"]) - 20, 10);
                     return View("index", model);
                 }
             }
@@ -127,8 +122,8 @@ namespace BlogCentralApp.Controllers
 
         public async Task<IActionResult> Last10(HomePageViewModel model)
         {
-            int countBlogs = _blogPostRepository.GetAll().Count();
-            HttpContext.Response.Cookies.Append("count", (countBlogs - 10).ToString());
+           
+            HttpContext.Response.Cookies.Append("count", _blogPostRepository.GetAll().Count().ToString());
             
             switch (HttpContext.Request.Cookies["lastSort"])
             {
