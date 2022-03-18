@@ -1,5 +1,7 @@
 ﻿using BlogCentralApp.Data;
 using BlogCentralLib.Entities;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BlogCentralApp.Repositories
@@ -10,9 +12,9 @@ namespace BlogCentralApp.Repositories
         {
 
         }
-        public override Task<Comment> GetById<P>(P id)
+        public override async Task<Comment> GetById<P>(P id)
         {
-            throw new System.NotImplementedException();
+            return await _dbContext.Comments.Where(c => c.Id.Equals(id)).FirstOrDefaultAsync();
         }
     }
 }

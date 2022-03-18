@@ -2,15 +2,15 @@
 
 namespace BlogCentralApp.Models
 {
-    public class AddCommentViewModel
+    public class CreateEditCommentViewModel
     {
-        [Required]
+        public int CommentId { get; set; }
         public int BlogpostId { get; set; }
-
-        [Required]
         public string AuthorId { get; set; }
 
-        [Required]
+        [Display(Name = "Add new comment:")]
+        [Required(ErrorMessage = "Please write your comment!")]
         public string Content { get; set; }
+
     }
 }

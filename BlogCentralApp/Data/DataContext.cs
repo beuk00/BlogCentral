@@ -19,19 +19,15 @@ namespace BlogCentralApp.Data
         
         public DbSet<BlogPost> BlogPosts { get; set; }
 
+        public DbSet<Comment> Comments { get; set; }
+
        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
-
-           
-
-
             modelBuilder.Entity<BlogPost>()
                .HasKey(a => a.Id);
             modelBuilder.Entity<BlogPost>()
                 .Property(a => a.Title).IsRequired();
-
 
             modelBuilder.Entity<Author>()
                 .Property(a=>a.FirstName).IsRequired();
@@ -40,11 +36,6 @@ namespace BlogCentralApp.Data
 
             modelBuilder.Entity<Author>()
                .Property(a => a.UserName).IsRequired();
-
-
-
-
-
 
 
             PasswordHasher<Author> hasher = new PasswordHasher<Author>();

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BlogCentralApp.Migrations
 {
-    public partial class Initial : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -184,7 +184,7 @@ namespace BlogCentralApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Comment",
+                name: "Comments",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -195,9 +195,9 @@ namespace BlogCentralApp.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Comment", x => x.Id);
+                    table.PrimaryKey("PK_Comments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Comment_BlogPosts_BlogpostId",
+                        name: "FK_Comments_BlogPosts_BlogpostId",
                         column: x => x.BlogpostId,
                         principalTable: "BlogPosts",
                         principalColumn: "Id",
@@ -207,33 +207,33 @@ namespace BlogCentralApp.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "CityName", "FirstName", "HouseNumber", "ImageUrl", "LastName", "StreetName", "ZipCode" },
-                values: new object[] { "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", 0, "9a14b555-b764-488e-a01d-5ab2feac2ccb", "Author", "ibrahim@intec.be", true, false, null, "IBRAHIM@INTEC.BE", "IBRAHIM", "AQAAAAEAACcQAAAAEGqg4+8yZ/yt7gH0RcXKHrsGekAi0O8cZxdq+nk2TN8xunj9008EP+ctPd3cNdhNhg==", null, false, "39645fb4-57ee-4f7a-bc9e-1a2384c92221", false, "Ibrahim", null, "Ibrahim", null, null, "Awad", null, null });
+                values: new object[] { "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", 0, "e76a2bf6-ff35-4604-8ca1-25c4d52a1630", "Author", "ibrahim@intec.be", true, false, null, "IBRAHIM@INTEC.BE", "IBRAHIM", "AQAAAAEAACcQAAAAELTIHCbTzvz5tKIpDusXDtVjdOnLXYG4mnLCG1nRsblBRrz0+pGbaUprRgm7C+6XBw==", null, false, "0dd408e4-7170-41c5-b88a-6adcc1f5ebc5", false, "Ibrahim", null, "Ibrahim", null, "\\images\\Default.png", "Awad", null, null });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "CityName", "FirstName", "HouseNumber", "ImageUrl", "LastName", "StreetName", "ZipCode" },
-                values: new object[] { "ce8a91ab-41ca-4e08-8cae-40d4cda1a938", 0, "aaf09ffe-cf0f-45f1-abec-2318888c6a77", "Author", "quinten@intec.be", true, false, null, "QUINTEN@INTEC.BE", "QUINTEN", "AQAAAAEAACcQAAAAEGqg4+8yZ/yt7gH0RcXKHrsGekAi0O8cZxdq+nk2TN8xunj9008EP+ctPd3cNdhNhg==", null, false, "4c7e8550-a54a-45f6-992c-23cd871799fa", false, "Quinten", null, "Quinten", null, null, "De Clerck", null, null });
+                values: new object[] { "ce8a91ab-41ca-4e08-8cae-40d4cda1a938", 0, "b0b917c6-2388-4592-85ca-cde4e9fd6111", "Author", "quinten@intec.be", true, false, null, "QUINTEN@INTEC.BE", "QUINTEN", "AQAAAAEAACcQAAAAELTIHCbTzvz5tKIpDusXDtVjdOnLXYG4mnLCG1nRsblBRrz0+pGbaUprRgm7C+6XBw==", null, false, "9a1a62d1-6eb5-444d-b5b6-f33dfb4cae2b", false, "Quinten", null, "Quinten", null, "\\images\\Default.png", "De Clerck", null, null });
 
             migrationBuilder.InsertData(
                 table: "BlogPosts",
                 columns: new[] { "Id", "AuthorId", "Content", "Date", "Likes", "Title" },
                 values: new object[,]
                 {
-                    { 1, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content1", new DateTime(2022, 3, 16, 10, 14, 26, 818, DateTimeKind.Local).AddTicks(3805), 2, "BlogPost1" },
-                    { 2, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content2", new DateTime(2022, 3, 15, 10, 14, 26, 821, DateTimeKind.Local).AddTicks(6060), 5, "BlogPost2" },
-                    { 3, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content3", new DateTime(2022, 3, 14, 10, 14, 26, 821, DateTimeKind.Local).AddTicks(6114), 1, "BlogPost3" },
-                    { 4, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content4", new DateTime(2022, 3, 13, 10, 14, 26, 821, DateTimeKind.Local).AddTicks(6119), 1, "BlogPost4" },
-                    { 5, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content5", new DateTime(2022, 3, 12, 10, 14, 26, 821, DateTimeKind.Local).AddTicks(6122), 1, "BlogPost5" },
-                    { 6, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content6", new DateTime(2022, 3, 11, 10, 14, 26, 821, DateTimeKind.Local).AddTicks(6125), 10, "BlogPost6" },
-                    { 7, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content7", new DateTime(2022, 3, 10, 10, 14, 26, 821, DateTimeKind.Local).AddTicks(6128), 1, "BlogPost7" },
-                    { 8, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content8", new DateTime(2022, 3, 9, 10, 14, 26, 821, DateTimeKind.Local).AddTicks(6131), 1, "BlogPost8" },
-                    { 9, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content9", new DateTime(2022, 3, 8, 10, 14, 26, 821, DateTimeKind.Local).AddTicks(6133), 1, "BlogPost9" },
-                    { 10, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content10", new DateTime(2022, 3, 7, 10, 14, 26, 821, DateTimeKind.Local).AddTicks(6136), 1, "BlogPost10" },
-                    { 11, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content11", new DateTime(2022, 3, 6, 10, 14, 26, 821, DateTimeKind.Local).AddTicks(6139), 1, "BlogPost11" }
+                    { 1, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content1", new DateTime(2022, 3, 16, 21, 21, 45, 795, DateTimeKind.Local).AddTicks(2579), 2, "BlogPost1" },
+                    { 2, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content2", new DateTime(2022, 3, 15, 21, 21, 45, 799, DateTimeKind.Local).AddTicks(3991), 5, "BlogPost2" },
+                    { 3, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content3", new DateTime(2022, 3, 14, 21, 21, 45, 799, DateTimeKind.Local).AddTicks(4049), 1, "BlogPost3" },
+                    { 4, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content4", new DateTime(2022, 3, 13, 21, 21, 45, 799, DateTimeKind.Local).AddTicks(4056), 1, "BlogPost4" },
+                    { 5, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content5", new DateTime(2022, 3, 12, 21, 21, 45, 799, DateTimeKind.Local).AddTicks(4061), 1, "BlogPost5" },
+                    { 6, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content6", new DateTime(2022, 3, 11, 21, 21, 45, 799, DateTimeKind.Local).AddTicks(4065), 10, "BlogPost6" },
+                    { 7, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content7", new DateTime(2022, 3, 10, 21, 21, 45, 799, DateTimeKind.Local).AddTicks(4069), 1, "BlogPost7" },
+                    { 8, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content8", new DateTime(2022, 3, 9, 21, 21, 45, 799, DateTimeKind.Local).AddTicks(4074), 1, "BlogPost8" },
+                    { 9, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content9", new DateTime(2022, 3, 8, 21, 21, 45, 799, DateTimeKind.Local).AddTicks(4078), 1, "BlogPost9" },
+                    { 10, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content10", new DateTime(2022, 3, 7, 21, 21, 45, 799, DateTimeKind.Local).AddTicks(4082), 1, "BlogPost10" },
+                    { 11, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content11", new DateTime(2022, 3, 6, 21, 21, 45, 799, DateTimeKind.Local).AddTicks(4086), 1, "BlogPost11" }
                 });
 
             migrationBuilder.InsertData(
-                table: "Comment",
+                table: "Comments",
                 columns: new[] { "Id", "AuthorId", "BlogpostId", "Content" },
                 values: new object[] { 1, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", 1, "Comment 01" });
 
@@ -282,8 +282,8 @@ namespace BlogCentralApp.Migrations
                 column: "AuthorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comment_BlogpostId",
-                table: "Comment",
+                name: "IX_Comments_BlogpostId",
+                table: "Comments",
                 column: "BlogpostId");
         }
 
@@ -305,7 +305,7 @@ namespace BlogCentralApp.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Comment");
+                name: "Comments");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

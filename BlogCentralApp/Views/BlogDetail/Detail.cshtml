@@ -24,14 +24,13 @@ else
 <p style="float:left" class="badge badge-secondary">@Model.blogPost.Likes </p>
 @foreach (var comment in Model.blogPost.Comments)
 {
-    <div>
+    <div class="card">
         <p>@comment.Content</p>
-        @if (UserManager.GetUserId(User) == Model.blogPost.AuthorId)
+        @if (UserManager.GetUserId(User) == comment.AuthorId)
         {
-            <a asp-controller="" asp-action="" asp-route-id="">Delete comment</a>
-            <a asp-controller="" asp-action="" asp-route-id="" style="float:left">Edit comment</a>
+            <a asp-controller="Comment" asp-action="CreateEditComment" asp-route-blogPostId="@Model.blogPost.Id" asp-route-commentId="@comment.Id" style="float:left">Edit comment</a>
         }
-        @if (UserManager.GetUserId(User) == Model.blogPost.AuthorId)
+        @if (UserManager.GetUserId(User) == Model.blogPost.AuthorId || UserManager.GetUserId(User) == comment.AuthorId)
         {
             <a asp-controller="" asp-action="" asp-route-id="">Delete comment</a>
         }
@@ -42,7 +41,7 @@ else
 
 @if (User.Identity.IsAuthenticated)
 {
-    <a asp-controller="" asp-action="" asp-route-id="">Create Comment</a>
+    <a asp-controller="Comment" asp-action="CreateEditComment" asp-route-blogPostId="@Model.blogPost.Id" asp-route-commentId="0">Create Comment</a>
 
 }
 else
