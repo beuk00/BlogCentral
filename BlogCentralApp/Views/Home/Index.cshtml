@@ -22,7 +22,7 @@
             <a asp-controller="Home" asp-action="GoToAuthorHomePage" asp-route-id="@blogPost.AuthorId">@blogPost.Author.FirstName @blogPost.Author.LastName</a>
             <p class="card-text">@blogPost.Date</p>
             <p class="card-text">@blogPost.Content</p>
-            <a class="btn btn-primary" asp-controller="Home" asp-action="Detail" asp-route-id="@blogPost.Id">Read</a>
+            <a class="btn btn-primary" asp-controller="BlogDetail" asp-action="Index" asp-route-id="@blogPost.Id">Read</a>
         </div>
     </div>
 }

@@ -25,7 +25,7 @@ namespace BlogCentralApp.Controllers
         [HttpGet]
         public async Task<IActionResult> IndexAsync(int id)
         {
-            id = 1;
+          
             DetailIndexViewModel vm = new DetailIndexViewModel();
        
             vm.blogPost = await _blogPostRepository.GetById(id);

@@ -9,8 +9,8 @@
 
 <h5>@Model.blogPost.Date</h5>
 
-<p>@Model.blogPost.Content</p>
-
+<p style="border:solid">@Model.blogPost.Content</p>
+<br />
 
 @if (Model.hasLiked)
 {
@@ -21,15 +21,16 @@ else
     <a asp-controller="BlogDetail" asp-action="Like" asp-route-id="@Model.blogPost.Id" class="btn btn-info"> Like</a>
 
 }
-<p style="float:left" class="badge badge-secondary">@Model.blogPost.Likes </p>
+<p class="badge badge-secondary">@Model.blogPost.Likes </p>
+<br />
 @foreach (var comment in Model.blogPost.Comments)
 {
-    <div>
+    <div style="border:solid">
         <p>@comment.Content</p>
         @if (UserManager.GetUserId(User) == Model.blogPost.AuthorId)
         {
             <a asp-controller="" asp-action="" asp-route-id="">Delete comment</a>
-            <a asp-controller="" asp-action="" asp-route-id="" style="float:left">Edit comment</a>
+            <a asp-controller="" asp-action="" asp-route-id="" >Edit comment</a>
         }
         @if (UserManager.GetUserId(User) == Model.blogPost.AuthorId)
         {
@@ -39,7 +40,7 @@ else
 }
 
 
-
+<br />
 @if (User.Identity.IsAuthenticated)
 {
     <a asp-controller="" asp-action="" asp-route-id="">Create Comment</a>
