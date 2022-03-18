@@ -1,9 +1,6 @@
 ﻿@model HomePageViewModel
 
-@if(SignInManager.IsSignedIn(User)){
 
- <a asp-controller="BlogDetail" asp-action="CreateEditBlogpost" class="btn btn-primary"><i class="bi bi-plus-circle"></i> &nbsp; Create</a>
-}
 
 <h1>HomePage</h1>
 <br />
@@ -24,7 +21,7 @@
         <div class="card col-3 " style=" min-width: 18rem; overflow: hidden; margin: 10px; ">
           <div class="card-body " style=" position:relative;">
             <h5 class="card-title">@blogPost.Title</h5>
-            <a asp-controller="Home" asp-action="GoToAuthorHomePage" asp-route-id="@blogPost.AuthorId">@blogPost.Author.FirstName @blogPost.Author.LastName</a>
+            <a asp-controller="Author" asp-action="Index1" asp-route-id="@blogPost.AuthorId">@blogPost.Author.FirstName @blogPost.Author.LastName</a>
             <p class="card-text">@blogPost.Date</p>
             <p class="card-text pb-3 " style=" white-space: nowrap;
                 width: 200px;
@@ -32,10 +29,10 @@
                 text-overflow: ellipsis;">@blogPost.Content</p>
            
              <a class="btn btn-info  " style="position:absolute; top:5px ;right:5px;" asp-controller="BlogDetail" asp-action="PostDetail" asp-route-id="@blogPost.Id"> <i class="bi bi-book"></i> &nbsp;Read</a>
-                   @if(UserManager.GetUserId(User)==@blogPost.AuthorId){
+                   @*@if(UserManager.GetUserId(User)==@blogPost.AuthorId){
                      <p class="text-center mb-1" > <a asp-controller="BlogDetail" asp-action="CreateEditBlogpost" asp-route-id="@blogPost.Id" class="btn btn-primary"><i class="bi bi-pencil-square"></i></a> &nbsp;
                      <a asp-controller="BlogDetail" asp-action="DeletePost" asp-route-id="@blogPost.Id" class="btn btn-danger"> <i class="bi bi-trash-fill"></i></a></p>
-                     }
+                     }*@
          </div>
     </div>
 }

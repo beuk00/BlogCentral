@@ -89,11 +89,12 @@ namespace BlogCentralApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                
+                    var _user = await _userManager.GetUserAsync(HttpContext.User);
+
 
                 if (model.PostId==0)
                 {
-                    var _user = await _userManager.GetUserAsync(HttpContext.User);
+                   // var _user = await _userManager.GetUserAsync(HttpContext.User);
                     BlogPost post = new BlogPost()
                     {
                        
@@ -104,7 +105,8 @@ namespace BlogCentralApp.Controllers
                         Date = DateTime.Now,
                         Likes=0,
                     };
-                   
+              TempData["success"] = "Post created successfully";
+
                     await _blogPostRepository.Create(post);
                 }
                 else
@@ -113,10 +115,12 @@ namespace BlogCentralApp.Controllers
                     postFromDb.Content = model.PostContent; 
                     postFromDb.Title = model.PostTitle;
                     await _blogPostRepository.Update(postFromDb);
+                    TempData["success"] = "Post updated successfully";
+
                 }
 
-                // to change later to Athor PageHome
-                return RedirectToAction("Index","Home");
+
+                return RedirectToAction("Index1","Author",_user.Id);
 
             }
 
@@ -130,7 +134,9 @@ namespace BlogCentralApp.Controllers
         {
 
             await _blogPostRepository.DeleteById(id);
-            return RedirectToAction("Index", "Home");
+            TempData["success"] = "Post Deleted successfully";
+
+            return RedirectToAction("Index1", "Author");
         }
 
     }

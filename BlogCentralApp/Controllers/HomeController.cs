@@ -40,10 +40,10 @@ namespace BlogCentralApp.Controllers
             return RedirectToAction("IndexAsync", "BlogDetail",id);
         }
 
-        public async Task<IActionResult> GoToAuthorHomePage(string id)
-        {
-            return View("AuthorPage",id);
-        }
+        //public async Task<IActionResult> GoToAuthorHomePage(string id)
+        //{
+        //    return View("AuthorPage",id);
+        //}
 
         public async Task<IActionResult> Next10(HomePageViewModel model)
         {
