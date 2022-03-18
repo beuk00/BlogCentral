@@ -34,7 +34,7 @@ namespace BlogCentralApp.Controllers
             else
             {
                 model.BlogpostId = blogPostId;
-                model.CommentId = commentId;
+                //model.CommentId = commentId;
             return View(model);
             }
         }
@@ -63,10 +63,11 @@ namespace BlogCentralApp.Controllers
             }
             return View(model);
         }
-        [HttpPost]
-        public async Task<IActionResult> DeleteComment()
+        [HttpGet]
+        public async Task<IActionResult> DeleteComment(int id)
         {
-            return View();
+            await _commentRepository.DeleteById(id);
+            return RedirectToAction("Index", "Home");
         }
 
 

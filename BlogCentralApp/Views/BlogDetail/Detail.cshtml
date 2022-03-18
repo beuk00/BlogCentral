@@ -32,7 +32,7 @@ else
         }
         @if (UserManager.GetUserId(User) == Model.blogPost.AuthorId || UserManager.GetUserId(User) == comment.AuthorId)
         {
-            <a asp-controller="" asp-action="" asp-route-id="">Delete comment</a>
+            <a asp-controller="Comment" asp-action="DeleteComment" asp-route-id="@comment.Id">Delete comment</a>
         }
     </div>
 }
