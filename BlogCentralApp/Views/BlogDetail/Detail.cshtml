@@ -4,7 +4,7 @@
 @inject UserManager<IdentityUser> UserManager
 
 <h1>@Model.blogPost.Title</h1>
-<a asp-controller="" asp-action="" asp-route-id="@Model.blogPost.AuthorId">@Model.blogPost.Author.UserName</a>
+@*<a asp-controller="" asp-action="" asp-route-id="@Model.blogPost.AuthorId">@Model.blogPost.Author.UserName</a>*@
 
 
 <h5>@Model.blogPost.Date</h5>
@@ -26,15 +26,16 @@ else
 @foreach (var comment in Model.blogPost.Comments)
 {
     <div style="border:solid">
+    
         <p>@comment.Content</p>
-        @if (UserManager.GetUserId(User) == Model.blogPost.AuthorId)
+        @if (UserManager.GetUserId(User) == comment.AuthorId)
         {
-            <a asp-controller="" asp-action="" asp-route-id="">Delete comment</a>
-            <a asp-controller="" asp-action="" asp-route-id="" >Edit comment</a>
+            
+            <a asp-controller="Comment" asp-action="CreateEditComment" asp-route-blogPostId="@Model.blogPost.Id" asp-route-commentId="@comment.Id" style="float:left">Edit comment</a>
         }
-        @if (UserManager.GetUserId(User) == Model.blogPost.AuthorId)
+        @if (UserManager.GetUserId(User) == Model.blogPost.AuthorId || UserManager.GetUserId(User) == comment.AuthorId)
         {
-            <a asp-controller="" asp-action="" asp-route-id="">Delete comment</a>
+            <a asp-controller="Comment" asp-action="DeleteComment" asp-route-id="@comment.Id">Delete comment</a>
         }
     </div>
 }
@@ -43,7 +44,7 @@ else
 <br />
 @if (User.Identity.IsAuthenticated)
 {
-    <a asp-controller="" asp-action="" asp-route-id="">Create Comment</a>
+    <a asp-controller="Comment" asp-action="CreateEditComment" asp-route-blogPostId="@Model.blogPost.Id" asp-route-commentId="0">Create Comment</a>
 
 }
 else
