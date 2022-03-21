@@ -1,6 +1,7 @@
 ﻿using BlogCentralApp.Models;
 using BlogCentralApp.Repositories;
 using BlogCentralLib.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -18,7 +19,8 @@ namespace BlogCentralApp.Controllers
             _userManager = userManager;
         }
 
-        //[HttpGet("{id}/{id2}")]
+        //[HttpGet("{blogPostId}")]
+        [Authorize]
         public async Task<IActionResult> CreateEditComment(int blogPostId, int commentId)
         {
                 CreateEditCommentViewModel model = new CreateEditCommentViewModel();
@@ -54,20 +56,24 @@ namespace BlogCentralApp.Controllers
                 if (model.CommentId == 0)
                 {                  
                     await _commentRepository.Create(comment);
+                    TempData["success"] = "Comment created!";
                 }
                 else
                 {
                     await _commentRepository.Update(comment);
+                    TempData["success"] = "Comment updated!";
                 }
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "BlogDetail", new { id = comment.BlogpostId });
+                //return RedirectToAction("Index", "BlogDetail", model.BlogpostId);
             }
             return View(model);
         }
         [HttpGet]
-        public async Task<IActionResult> DeleteComment(int id)
+        public async Task<IActionResult> DeleteComment(int id, int blogPostId)
         {
             await _commentRepository.DeleteById(id);
-            return RedirectToAction("Index", "Home");
+            TempData["success"] = "Comment deleted!";
+            return RedirectToAction("Index", "BlogDetail", new { id = blogPostId});
         }
 
 

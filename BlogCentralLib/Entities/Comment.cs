@@ -13,5 +13,6 @@ namespace BlogCentralLib.Entities
         public int BlogpostId { get; set; }
         public string AuthorId { get; set; }
         public string Content { get; set; }
+        public Author Author { get; set; }
     }
 }
