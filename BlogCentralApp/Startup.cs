@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+
 namespace BlogCentralApp
 {
     public class Startup
@@ -31,7 +32,7 @@ namespace BlogCentralApp
             //added to run the identityPages(Razor pages)
             services.AddRazorPages();
 
-            services.AddDbContext<DataContext>(option => option.UseSqlServer(Configuration.GetConnectionString("BlogCentralDB")));
+            services.AddDbContext<DataContext>(option => option.UseMySQL(Configuration.GetConnectionString("BlogCentralDB")));
             services.AddIdentity<IdentityUser, IdentityRole>(
 
               options =>
