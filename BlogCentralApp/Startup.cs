@@ -32,7 +32,7 @@ namespace BlogCentralApp
             //added to run the identityPages(Razor pages)
             services.AddRazorPages();
 
-            services.AddDbContext<DataContext>(option => option.UseMySQL(Configuration.GetConnectionString("BlogCentralDB")));
+            services.AddDbContext<DataContext>(option => option.UseMySql(Configuration.GetConnectionString("BlogCentralDB")));
             services.AddIdentity<IdentityUser, IdentityRole>(
 
               options =>
