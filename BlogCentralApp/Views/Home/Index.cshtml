@@ -1,8 +1,17 @@
 ﻿@model HomePageViewModel
+@{
+    Layout = "_Layout";
+}
 
+<div class="row">
+<h1 class="col-6">HomePage</h1>
+@if (SignInManager.IsSignedIn(User))
+    {
+        
+    <a class="col-2 btn btn-primary m-auto" style="width:30%" asp-controller="Author" asp-action="Index1" asp-route-id="@(UserManager.GetUserId(User))">My Blog</a>
+    }
 
-
-<h1>HomePage</h1>
+</div>
 <br />
 <form asp-controller="Home" asp-action="Sort" method="post">
  <div class="form-group">
@@ -56,3 +65,16 @@
 
 
 
+<div class="sidenav row  ">
+    
+        
+          <img class=" col-7  " style="border-radius: 50%;
+    margin-top:1rem;
+    width:54%;
+    margin-left:3.2rem;
+    height:22%;"  src="~/images/Default.png">
+          <p class="text-center">Welcome to our BolgCentral application   </p>
+          
+         
+           
+</div>

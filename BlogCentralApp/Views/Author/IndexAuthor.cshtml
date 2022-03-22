@@ -1,8 +1,5 @@
 ﻿@model HomePageViewModel
-
-
-
-
+ 
 @if(UserManager.GetUserId(User)==@Model.Author.Id){
   <div class="row " >
         <div class="col-6">
@@ -14,7 +11,15 @@
    </div>
 }
 else{
-    <h1>Welcome to @Model.Author.FirstName's blog  </h1>
+     <div class="row " >
+        <div class="col-6">
+            <h1>Welcome to @Model.Author.FirstName's blog  </h1>
+          </div>
+         <div class="col-6 text-end" >
+
+          </div>    
+   </div>
+    
 }
 <br />
 <form asp-controller="Author" asp-action="Sort" method="post">
@@ -41,7 +46,7 @@ else{
                 overflow: hidden;
                 text-overflow: ellipsis;">@blogPost.Content</p>
            
-             <a class="btn btn-info  " style="position:absolute; top:5px ;right:5px;" asp-controller="BlogDetail" asp-action="PostDetail" asp-route-id="@blogPost.Id"> <i class="bi bi-book"></i> &nbsp;Read</a>
+             <a class="btn btn-info  " style="position:absolute; top:5px ;right:5px;" asp-controller="BlogDetail" asp-action="Index" asp-route-id="@blogPost.Id"> <i class="bi bi-book"></i> &nbsp;Read</a>
                    @if(UserManager.GetUserId(User)==@blogPost.AuthorId){
                      <p class="text-center mb-1" > <a asp-controller="BlogDetail" asp-action="CreateEditBlogpost" asp-route-id="@blogPost.Id" class="btn btn-primary"><i class="bi bi-pencil-square"></i></a> &nbsp;
                      <a asp-controller="BlogDetail" asp-action="DeletePost" asp-route-id="@blogPost.Id" class="btn btn-danger"> <i class="bi bi-trash-fill"></i></a></p>
@@ -65,6 +70,19 @@ else{
     <a class="btn btn-primary" asp-controller="Author" asp-action="Index" asp-route-sort="test" asp-route-count="10">Next 10</a>
 }
 
-
-
-
+<div class="sidenav row  ">
+    
+        
+          <img class=" col-7  " style="border-radius: 50%;
+    margin-top:1rem;
+    width:54%;
+    margin-left:3.2rem;
+    height:22%;"  src="@Model.Author.ImageUrl">
+          <span class="text-side ml-5  col-12" >@Model.Author.FirstName @Model.Author.LastName</span>
+          <a class=" text-side col-12 " href="#services">Services</a>
+          <a class=" text-side col-12 " href="#clients">Clients</a>
+         @if(UserManager.GetUserId(User)==@Model.Author.Id){
+             <a class="text-side col-12"  asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Settings</a>
+             }
+           
+</div>
