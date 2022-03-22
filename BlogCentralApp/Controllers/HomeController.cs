@@ -163,29 +163,31 @@ namespace BlogCentralApp.Controllers
         [HttpPost]
        public async Task<IActionResult> Sort(HomePageViewModel model)
         {
-            model = new HomePageViewModel();
             HttpContext.Response.Cookies.Append("count", "6");
-            model.EndOfSelection = false;
-            model.StartOfSelection = true;
-
+            
             switch (model.Sort)
             {
                 case "Oldest first":
+                    model = new HomePageViewModel();
                     HttpContext.Response.Cookies.Append("lastSort", "Oldest first");
                     model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderBy(x => x.Date).ToList().Take(6);
                     break;
 
                 case "Most popular First":
                     HttpContext.Response.Cookies.Append("lastSort", "Most popular First");
+                    model = new HomePageViewModel();
                     model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderByDescending(x => x.Likes).ToList().Take(6);
                     break;
 
                 default:
                     HttpContext.Response.Cookies.Append("lastSort", "Newest first");
+                    model = new HomePageViewModel();
                     model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList().Take(6);
                     break;
             }
 
+            model.EndOfSelection = false;
+            model.StartOfSelection = true;
             return View("index", model);
         }
 

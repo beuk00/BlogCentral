@@ -10,6 +10,8 @@ namespace BlogCentralApp.Models
 
         public Author Author { get; set; }
 
+        public string AuthorId { get; set; }
+
         public string Sort { get; set; }
 
         public bool EndOfSelection { get; set; }
