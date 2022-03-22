@@ -1,5 +1,6 @@
 ﻿using BlogCentralApp.Models;
 using BlogCentralApp.Repositories;
+using BlogCentralLib.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -14,8 +15,8 @@ namespace BlogCentralApp.Controllers
     public class HomeController : Controller
     {
         private readonly BlogPostRepository _blogPostRepository;
-        
-        
+
+
 
         public HomeController(BlogPostRepository blogPostRepository)
         {
@@ -26,7 +27,7 @@ namespace BlogCentralApp.Controllers
         public async Task<IActionResult> Index()
         {
             HomePageViewModel vm = new HomePageViewModel();
-            
+
             vm.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList().Take(6);
             HttpContext.Response.Cookies.Append("count", "6");
             HttpContext.Response.Cookies.Append("lastSort", "Newest first");
@@ -34,10 +35,10 @@ namespace BlogCentralApp.Controllers
         }
 
 
-        
+
         public async Task<IActionResult> Detail(int id)
         {
-            return RedirectToAction("IndexAsync", "BlogDetail",id);
+            return RedirectToAction("IndexAsync", "BlogDetail", id);
         }
 
         //public async Task<IActionResult> GoToAuthorHomePage(string id)
@@ -60,32 +61,32 @@ namespace BlogCentralApp.Controllers
             }
             else
             {
-                    range = 10;
-                    countShow = int.Parse(HttpContext.Request.Cookies["count"]) + 10;
-                }
+                range = 10;
+                countShow = int.Parse(HttpContext.Request.Cookies["count"]) + 10;
+            }
 
-                HttpContext.Response.Cookies.Append("count", countShow.ToString());
+            HttpContext.Response.Cookies.Append("count", countShow.ToString());
 
-                switch (HttpContext.Request.Cookies["lastSort"])
-                {
-                    case "Oldest first":
-                        model = new HomePageViewModel();
-                        model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderBy(x => x.Date).ToList().GetRange(int.Parse(HttpContext.Request.Cookies["count"]), range);
+            switch (HttpContext.Request.Cookies["lastSort"])
+            {
+                case "Oldest first":
+                    model = new HomePageViewModel();
+                    model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderBy(x => x.Date).ToList().GetRange(int.Parse(HttpContext.Request.Cookies["count"]), range);
 
                     return View("index", model);
 
-                    case "Most popular First":
-                        model = new HomePageViewModel();
-                        model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderByDescending(x => x.Likes).ToList().GetRange(int.Parse(HttpContext.Request.Cookies["count"]), range);
+                case "Most popular First":
+                    model = new HomePageViewModel();
+                    model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderByDescending(x => x.Likes).ToList().GetRange(int.Parse(HttpContext.Request.Cookies["count"]), range);
                     return View("index", model);
 
-                    default:
-                        model = new HomePageViewModel();
-                        model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList().GetRange(int.Parse(HttpContext.Request.Cookies["count"]), range);
-                        return View("index", model);
-                }
-           
-            
+                default:
+                    model = new HomePageViewModel();
+                    model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList().GetRange(int.Parse(HttpContext.Request.Cookies["count"]), range);
+                    return View("index", model);
+            }
+
+
         }
 
         public async Task<IActionResult> Previous10(HomePageViewModel model)
@@ -105,17 +106,17 @@ namespace BlogCentralApp.Controllers
                     case "Oldest first":
                         model = new HomePageViewModel();
                         model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderBy(x => x.Date).ToList().GetRange(int.Parse(HttpContext.Request.Cookies["count"]) - 20, 10);
-                    return View("index", model);
+                        return View("index", model);
 
                     case "Most popular First":
                         model = new HomePageViewModel();
                         model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderByDescending(x => x.Likes).ToList().GetRange(int.Parse(HttpContext.Request.Cookies["count"]) - 20, 10);
-                    return View("index", model);
+                        return View("index", model);
 
                     default:
                         model = new HomePageViewModel();
                         model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList().GetRange(int.Parse(HttpContext.Request.Cookies["count"]) - 20, 10);
-                    return View("index", model);
+                        return View("index", model);
                 }
             }
 
@@ -123,9 +124,9 @@ namespace BlogCentralApp.Controllers
 
         public async Task<IActionResult> Last10(HomePageViewModel model)
         {
-           
+
             HttpContext.Response.Cookies.Append("count", _blogPostRepository.GetAll().Count().ToString());
-            
+
             switch (HttpContext.Request.Cookies["lastSort"])
             {
                 case "Oldest first":
@@ -148,7 +149,7 @@ namespace BlogCentralApp.Controllers
 
         public async Task<IActionResult> First10(HomePageViewModel model)
         {
-             
+
             HttpContext.Response.Cookies.Append("count", "10");
 
             switch (HttpContext.Request.Cookies["lastSort"])
@@ -170,13 +171,13 @@ namespace BlogCentralApp.Controllers
 
             };
         }
-        
+
 
         [HttpPost]
-       public async Task<IActionResult> Sort(HomePageViewModel model)
+        public async Task<IActionResult> Sort(HomePageViewModel model)
         {
             HttpContext.Response.Cookies.Append("count", "6");
-            
+
             switch (model.Sort)
             {
                 case "Oldest first":
@@ -211,7 +212,38 @@ namespace BlogCentralApp.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        
-        
+        [HttpGet]
+        public async Task<IActionResult> Search(string searchString)
+        {
+            searchString = searchString.ToLower();
+            List<BlogPost> allBlogPosts = (List<BlogPost>)await _blogPostRepository.ListAll();
+            List<BlogPost> searchedBlogPosts = new List<BlogPost>();
+
+            foreach (var blogPost in allBlogPosts)
+            {
+                string tepmTitle = blogPost.Title;
+                blogPost.Title = blogPost.Title.ToLower();
+                if (!String.IsNullOrEmpty(searchString) && blogPost.Title.Contains(searchString))
+                {
+                    blogPost.Title = tepmTitle;
+                    searchedBlogPosts.Add(blogPost);
+                }
+            }
+            foreach (var blogPost in allBlogPosts)
+            {
+                string tepmAuthor = blogPost.Author.UserName;
+                blogPost.Author.UserName = blogPost.Author.UserName.ToLower();
+                if (!String.IsNullOrEmpty(searchString) && blogPost.Author.UserName.Contains(searchString))
+                {
+                    blogPost.Author.UserName = tepmAuthor;
+                    searchedBlogPosts.Add(blogPost);
+                }
+            }
+
+            SearchIndexViewModel vm = new SearchIndexViewModel();
+            vm.BlogPosts = searchedBlogPosts;
+            return View("~/Views/SearchResults/SearchIndex.cshtml", vm);
+        }
+
     }
 }
