@@ -32,6 +32,7 @@ namespace BlogCentralApp.Controllers
                 model.AuthorId = comment.AuthorId;
                 model.Content = comment.Content;
                 model.CommentId = comment.Id;
+                model.CreationDate = comment.CreationDate;
                 return View(model);
             }
             else
@@ -53,6 +54,7 @@ namespace BlogCentralApp.Controllers
                 comment.BlogpostId = model.BlogpostId;
                 comment.Content = model.Content;
                 comment.Id = model.CommentId;
+                comment.CreationDate = model.CreationDate;
 
                 if (model.CommentId == 0)
                 {
