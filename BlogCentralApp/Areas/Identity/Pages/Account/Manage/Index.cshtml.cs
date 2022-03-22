@@ -43,7 +43,7 @@ namespace BlogCentralApp.Areas.Identity.Pages.Account.Manage
         public InputModel Input { get; set; }
 
         [BindProperty]
-        public IFormFile file { get; set; }
+        public IFormFile File { get; set; }
 
         public class InputModel
         {
@@ -126,11 +126,11 @@ namespace BlogCentralApp.Areas.Identity.Pages.Account.Manage
 
             ///
             string wwwRootPath = _hostEnvironment.WebRootPath;
-            if (file != null)
+            if (File != null)
             {
                 string fileName = Guid.NewGuid().ToString();
                 var uploads = Path.Combine(wwwRootPath, @"images\Users");
-                var extension = Path.GetExtension(file.FileName);
+                var extension = Path.GetExtension(File.FileName);
 
                 if (Input.ImageUrl != null)
                 {
@@ -143,7 +143,7 @@ namespace BlogCentralApp.Areas.Identity.Pages.Account.Manage
 
                 using (var fileStreams = new FileStream(Path.Combine(uploads, fileName + extension), FileMode.Create))
                 {
-                    file.CopyTo(fileStreams);
+                    File.CopyTo(fileStreams);
                 }
                 Input.ImageUrl = @"\images\Users\" + fileName + extension;
             } /////
