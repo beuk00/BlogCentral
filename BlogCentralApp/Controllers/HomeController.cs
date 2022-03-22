@@ -212,38 +212,6 @@ namespace BlogCentralApp.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Search(string searchString)
-        {
-            searchString = searchString.ToLower();
-            List<BlogPost> allBlogPosts = (List<BlogPost>)await _blogPostRepository.ListAll();
-            List<BlogPost> searchedBlogPosts = new List<BlogPost>();
-
-            foreach (var blogPost in allBlogPosts)
-            {
-                string tepmTitle = blogPost.Title;
-                blogPost.Title = blogPost.Title.ToLower();
-                if (!String.IsNullOrEmpty(searchString) && blogPost.Title.Contains(searchString))
-                {
-                    blogPost.Title = tepmTitle;
-                    searchedBlogPosts.Add(blogPost);
-                }
-            }
-            foreach (var blogPost in allBlogPosts)
-            {
-                string tepmAuthor = blogPost.Author.UserName;
-                blogPost.Author.UserName = blogPost.Author.UserName.ToLower();
-                if (!String.IsNullOrEmpty(searchString) && blogPost.Author.UserName.Contains(searchString))
-                {
-                    blogPost.Author.UserName = tepmAuthor;
-                    searchedBlogPosts.Add(blogPost);
-                }
-            }
-
-            SearchIndexViewModel vm = new SearchIndexViewModel();
-            vm.BlogPosts = searchedBlogPosts;
-            return View("~/Views/SearchResults/SearchIndex.cshtml", vm);
-        }
 
     }
 }
