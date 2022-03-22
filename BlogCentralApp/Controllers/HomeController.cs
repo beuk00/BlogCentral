@@ -1,5 +1,7 @@
 ﻿using BlogCentralApp.Models;
 using BlogCentralApp.Repositories;
+using BlogCentralLib.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -16,20 +18,30 @@ namespace BlogCentralApp.Controllers
 
         private readonly BlogPostRepository _blogPostRepository;
 
-        public HomeController(BlogPostRepository blogPostRepository)
+        private readonly SignInManager<IdentityUser> _signManager;
+
+        private readonly UserManager<IdentityUser> _userManager;
+
+        public HomeController(BlogPostRepository blogPostRepository, SignInManager<IdentityUser> signInManager,UserManager<IdentityUser>userManager)
         {
             _blogPostRepository = blogPostRepository;
+            _signManager = signInManager;
+            _userManager = userManager;
         }
 
         [HttpGet]
         public async Task<IActionResult> Index()
         {
+
             HomePageViewModel vm = new HomePageViewModel();
 
             vm.StartOfSelection = true;
             vm.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList().Take(6);
             HttpContext.Response.Cookies.Append("count", "6");
             HttpContext.Response.Cookies.Append("lastSort", "Newest first");
+            if (_signManager.IsSignedIn(User)){
+                vm.Author= (Author) await _userManager.GetUserAsync(User);
+            }
             return View("index", vm);
         }
 
@@ -73,6 +85,10 @@ namespace BlogCentralApp.Controllers
                         model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList().GetRange(int.Parse(HttpContext.Request.Cookies["count"]), range);
                         break;
             }
+            if (_signManager.IsSignedIn(User))
+            {
+                model.Author = (Author)await _userManager.GetUserAsync(User);
+            }
 
             return View("index", model);
         }
@@ -105,6 +121,10 @@ namespace BlogCentralApp.Controllers
                         model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList().GetRange(int.Parse(HttpContext.Request.Cookies["count"]) - 20, 10);
                         break;
                 }
+                if (_signManager.IsSignedIn(User))
+                {
+                    model.Author = (Author)await _userManager.GetUserAsync(User);
+                }
 
                 return View("index", model);
             }
@@ -131,6 +151,10 @@ namespace BlogCentralApp.Controllers
                     model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList().TakeLast(10);
                     break;
             }
+            if (_signManager.IsSignedIn(User))
+            {
+                model.Author = (Author)await _userManager.GetUserAsync(User);
+            }
 
             return View("index", model);
         }
@@ -156,7 +180,10 @@ namespace BlogCentralApp.Controllers
                     model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList().Take(10);
                     break;
             }
-
+            if (_signManager.IsSignedIn(User))
+            {
+                model.Author = (Author)await _userManager.GetUserAsync(User);
+            }
             return View("index", model);
         }
         
@@ -184,6 +211,10 @@ namespace BlogCentralApp.Controllers
                     HttpContext.Response.Cookies.Append("lastSort", "Newest first");
                     model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList().Take(6);
                     break;
+            }
+            if (_signManager.IsSignedIn(User))
+            {
+                model.Author = (Author)await _userManager.GetUserAsync(User);
             }
 
             return View("index", model);

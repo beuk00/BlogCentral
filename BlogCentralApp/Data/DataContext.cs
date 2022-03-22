@@ -36,7 +36,12 @@ namespace BlogCentralApp.Data
 
             modelBuilder.Entity<Author>()
                .Property(a => a.UserName).IsRequired();
-
+            modelBuilder.Entity<BlogPost>()
+              .HasOne(c => c.Author)
+              .WithMany(fc => fc.Posts)
+              .HasForeignKey(c => c.AuthorId)
+              .IsRequired(false)
+              .OnDelete(DeleteBehavior.Cascade);
 
             PasswordHasher<Author> hasher = new PasswordHasher<Author>();
             string hashedPassword = hasher.HashPassword(new Author(), "Test");
