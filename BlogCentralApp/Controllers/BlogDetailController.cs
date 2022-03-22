@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BlogCentralLib.Entities;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 
@@ -38,6 +37,7 @@ namespace BlogCentralApp.Controllers
        
             vm.blogPost = await _blogPostRepository.GetById(id);
             vm.blogPost.Author = await _authorRepository.GetById(vm.blogPost.AuthorId);
+            vm.blogPost.Comments = vm.blogPost.Comments.OrderBy(c => c.CreationDate).Reverse();
 
             return View("Detail", vm);
         }

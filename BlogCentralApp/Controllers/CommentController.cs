@@ -4,6 +4,7 @@ using BlogCentralLib.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 
 namespace BlogCentralApp.Controllers
@@ -19,7 +20,7 @@ namespace BlogCentralApp.Controllers
             _userManager = userManager;
         }
 
-        //[HttpGet("{blogPostId}")]
+        
         [Authorize]
         public async Task<IActionResult> CreateEditComment(int blogPostId, int commentId)
         {
@@ -36,7 +37,7 @@ namespace BlogCentralApp.Controllers
             else
             {
                 model.BlogpostId = blogPostId;
-                //model.CommentId = commentId;
+                
             return View(model);
             }
         }
@@ -54,7 +55,8 @@ namespace BlogCentralApp.Controllers
                 comment.Id = model.CommentId;
 
                 if (model.CommentId == 0)
-                {                  
+                {
+                    comment.CreationDate = DateTime.Now;
                     await _commentRepository.Create(comment);
                     TempData["success"] = "Comment created!";
                 }
@@ -64,7 +66,7 @@ namespace BlogCentralApp.Controllers
                     TempData["success"] = "Comment updated!";
                 }
                 return RedirectToAction("Index", "BlogDetail", new { id = comment.BlogpostId });
-                //return RedirectToAction("Index", "BlogDetail", model.BlogpostId);
+                
             }
             return View(model);
         }

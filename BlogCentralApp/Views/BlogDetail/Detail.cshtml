@@ -63,7 +63,11 @@
                                 </div>
                                 <div class="mx-2 card p-2" style="max-width: 50%;">
                                     <div>
-                                        <a asp-controller="Author" asp-action="Index1" asp-route-id="@comment.AuthorId">@comment.Author</a>
+                                        <a asp-controller="Author" asp-action="Index1" asp-route-id="@comment.AuthorId" style="display: inline-block;">@comment.Author</a>
+                                        <div style="display: inline-block; font-size:smaller;" class="text-muted font-italic">
+                                            @comment.CreationDate.ToString("MMMM") @comment.CreationDate.Day, @comment.CreationDate.Year
+                                            
+                                        </div>
                                     </div>
                                     @comment.Content
                                 </div>
