@@ -1,5 +1,6 @@
 using BlogCentralApp.Data;
 using BlogCentralApp.Repositories;
+using BlogCentralLib.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -32,7 +33,7 @@ namespace BlogCentralApp
             services.AddRazorPages();
             
             services.AddDbContext<DataContext>(option => option.UseSqlServer(Configuration.GetConnectionString("BlogCentralDB")));
-            services.AddIdentity<IdentityUser, IdentityRole>(
+            services.AddIdentity<Author, IdentityRole>(
 
               options =>
               {

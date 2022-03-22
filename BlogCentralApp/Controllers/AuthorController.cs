@@ -14,7 +14,7 @@ namespace BlogCentralApp.Controllers
         private readonly BlogPostRepository _blogPostRepository;
         private readonly UserManager<IdentityUser> _userManager;
 
-        private static HomePageViewModel vm = new HomePageViewModel();
+        //private static HomePageViewModel vm = new HomePageViewModel();
         private static string _authorId;
        
     
@@ -25,6 +25,7 @@ namespace BlogCentralApp.Controllers
         }
         public async Task<IActionResult> Index1(string id)
         {
+            HomePageViewModel vm = new HomePageViewModel();
             if (id!=null)
             {
             _authorId=id;
@@ -42,6 +43,8 @@ namespace BlogCentralApp.Controllers
         public async Task<IActionResult> Next10(HomePageViewModel model)
         {
             model = new HomePageViewModel();
+            model.AuthorId = _authorId;
+            
             int countShow;
             int range = _blogPostRepository.GetAll().Where(a => a.AuthorId == _authorId).Count() - int.Parse(HttpContext.Request.Cookies["count"]);
             model.StartOfSelection = false;
