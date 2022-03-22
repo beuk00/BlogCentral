@@ -13,6 +13,7 @@ namespace BlogCentralApp.Controllers
 {
     public class HomeController : Controller
     {
+
         private readonly BlogPostRepository _blogPostRepository;
         
         

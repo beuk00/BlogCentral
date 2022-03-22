@@ -30,7 +30,7 @@ namespace BlogCentralApp
             services.AddControllersWithViews();
             //added to run the identityPages(Razor pages)
             services.AddRazorPages();
-           
+            
             services.AddDbContext<DataContext>(option => option.UseSqlServer(Configuration.GetConnectionString("BlogCentralDB")));
             services.AddIdentity<IdentityUser, IdentityRole>(
 
