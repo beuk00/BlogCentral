@@ -20,11 +20,11 @@ namespace BlogCentralApp.Controllers
             _userManager = userManager;
         }
 
-        
+
         [Authorize]
         public async Task<IActionResult> CreateEditComment(int blogPostId, int commentId)
         {
-                CreateEditCommentViewModel model = new CreateEditCommentViewModel();
+            CreateEditCommentViewModel model = new CreateEditCommentViewModel();
             if (commentId != 0)
             {
                 Comment comment = await _commentRepository.GetById(commentId);
@@ -38,11 +38,12 @@ namespace BlogCentralApp.Controllers
             else
             {
                 model.BlogpostId = blogPostId;
-                
-            return View(model);
+
+                return View(model);
             }
         }
-        
+
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateEditComment(CreateEditCommentViewModel model)
         {
@@ -68,7 +69,7 @@ namespace BlogCentralApp.Controllers
                     TempData["success"] = "Comment updated!";
                 }
                 return RedirectToAction("Index", "BlogDetail", new { id = comment.BlogpostId });
-                
+
             }
             return View(model);
         }
@@ -77,7 +78,7 @@ namespace BlogCentralApp.Controllers
         {
             await _commentRepository.DeleteById(id);
             TempData["success"] = "Comment deleted!";
-            return RedirectToAction("Index", "BlogDetail", new { id = blogPostId});
+            return RedirectToAction("Index", "BlogDetail", new { id = blogPostId });
         }
 
 

@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Text.RegularExpressions;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BlogCentralApp.Controllers
 {
@@ -38,16 +39,6 @@ namespace BlogCentralApp.Controllers
             vm.blogPost = await _blogPostRepository.GetById(id);
             vm.blogPost.Author = await _authorRepository.GetById(vm.blogPost.AuthorId);
             vm.blogPost.Comments = vm.blogPost.Comments.OrderBy(c => c.CreationDate).Reverse();
-
-
-            System.Text.RegularExpressions.Regex regex = new Regex(@"http(s)?://([\w-]+\.)+[\w-]+(/[\w- ./?%&=]*)?");
-            System.Text.RegularExpressions.MatchCollection matchCollection = regex.Matches(vm.blogPost.Content);
-
-            foreach (Match m in matchCollection)
-            {
-
-                vm.blogPost.Content = vm.blogPost.Content.Replace(m.Value, "<a href=" + m.Value + ">" + m.Value + "</a>");
-            }
 
 
             return View("Detail", vm);
@@ -83,6 +74,7 @@ namespace BlogCentralApp.Controllers
             return View("Detail", vm);
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult> CreateEditBlogpost(int? id)
          {
@@ -99,11 +91,12 @@ namespace BlogCentralApp.Controllers
             }
 
            
-
+            
             return View("CreateEditPost");
         }
 
-       [HttpPost]
+        [Authorize]
+        [HttpPost]
         public async Task<ActionResult> CreateEditBlogpost(CreateEditPost model)
         {
             if (ModelState.IsValid)

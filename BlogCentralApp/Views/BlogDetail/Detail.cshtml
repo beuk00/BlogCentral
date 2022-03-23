@@ -2,7 +2,7 @@
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
- 
+
 
 
 
@@ -19,6 +19,7 @@
                     <a asp-controller="Author" asp-action="Index1" asp-route-id="@Model.blogPost.AuthorId">@Model.blogPost.Author.UserName</a>
                 </div>
             </header>
+            <hr />
             <section class="mb-5">
                 <div class="line-breaks">@Model.blogPost.Content</div>
                 @*<textarea readonly="true">@Model.blogPost.Content</textarea>*@
