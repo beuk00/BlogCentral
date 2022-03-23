@@ -73,14 +73,11 @@ else{
 <div class="sidenav row  ">
     
         
-          <img class=" col-7  " style="border-radius: 50%;
-    margin-top:1rem;
-    width:54%;
-    margin-left:3.2rem;
-    height:22%;"  src="@Model.Author.ImageUrl">
+          <img class=" col-12 img-side " 
+   
+      src="@Model.Author.ImageUrl">
           <span class="text-side ml-5  col-12" >@Model.Author.FirstName @Model.Author.LastName</span>
-          <a class=" text-side col-12 " href="#services">Services</a>
-          <a class=" text-side col-12 " href="#clients">Clients</a>
+          
          @if(UserManager.GetUserId(User)==@Model.Author.Id){
              <a class="text-side col-12"  asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Settings</a>
              }
