@@ -20,7 +20,7 @@ namespace BlogCentralApp.Data
         public DbSet<BlogPost> BlogPosts { get; set; }
 
         public DbSet<Comment> Comments { get; set; }
-
+        public DbSet<Like> Likes { get; set; }
        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

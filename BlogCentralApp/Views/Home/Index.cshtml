@@ -5,11 +5,7 @@
 
 <div class="row">
 <h1 class="col-6">HomePage</h1>
-@if (SignInManager.IsSignedIn(User))
-    {
-        
-    <a class="col-2 btn btn-primary m-auto" style="width:30%" asp-controller="Author" asp-action="Index1" asp-route-id="@(UserManager.GetUserId(User))">My Blog</a>
-    }
+
 
 </div>
 <br />
