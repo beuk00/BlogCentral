@@ -37,18 +37,15 @@
             color: #f1f1f1;
         }
 
-.img-side {
-   border-radius:50%;
-   margin-top: 2rem;
-    /*width:100%;*/
-    /* margin-left: 3.2rem;*/
-    /*    height: 200px;
-    width: 200px;*/
-    max-width: 182px;
-    max-height: 169px;
-    margin-left:auto;
-    margin-right:auto;
-}
+/*.img-side {
+    border-radius: 50%;
+   
+   
+    max-width: 77%;
+    max-height: 16%;
+    margin-left: auto;
+    margin-right: auto;
+}*/
 
 .text-side {
     color: #adb5bd;

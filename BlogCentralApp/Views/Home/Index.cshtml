@@ -65,7 +65,12 @@
     
         
           <img class=" col-12 img-side " 
-    
+     style=" border-radius: 50%;
+   
+    max-width: 67%;
+    max-height: 16%;
+    margin-left: auto;
+    margin-right: auto;"
       src="~/images/Default.png">
           <p class=" text-side ml-4 ">Welcome to our BolgCentral    </p>
           
@@ -79,7 +84,12 @@ else
     <div class="sidenav row  ">
     
         
-          <img class=" col-12 img-side  "
+          <img class=" col-12 img-side  " style=" border-radius: 50%;
+   
+    max-width: 67%;
+    max-height: 16%;
+    margin-left: auto;
+    margin-right: auto;"
      src="@Model.Author.ImageUrl">
           <span class="text-side ml-5  col-12" >@Model.Author.FirstName @Model.Author.LastName</span>
              <a class="text-side col-12" style="width:30%" asp-controller="Author" asp-action="Index1" asp-route-id="@(UserManager.GetUserId(User))">My Blog</a>
