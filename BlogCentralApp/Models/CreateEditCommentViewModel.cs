@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace BlogCentralApp.Models
 {
@@ -7,6 +8,7 @@ namespace BlogCentralApp.Models
         public int CommentId { get; set; }
         public int BlogpostId { get; set; }
         public string AuthorId { get; set; }
+        public DateTime CreationDate { get; set; }
 
         [Display(Name = "Add new comment:")]
         [Required(ErrorMessage = "Please write your comment!")]

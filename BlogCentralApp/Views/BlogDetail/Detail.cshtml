@@ -3,56 +3,96 @@
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
-<h1>@Model.blogPost.Title</h1>
-@*<a asp-controller="" asp-action="" asp-route-id="@Model.blogPost.AuthorId">@Model.blogPost.Author.UserName</a>*@
 
 
-<h5>@Model.blogPost.Date</h5>
 
-<p style="border:solid">@Model.blogPost.Content</p>
-<br />
 
-@if (Model.hasLiked)
-{
-    <a asp-controller="BlogDetail" asp-action="Unlike" asp-route-id="@Model.blogPost.Id" class="btn btn-danger"> Unlike</a>
-}
-else
-{
-    <a asp-controller="BlogDetail" asp-action="Like" asp-route-id="@Model.blogPost.Id" class="btn btn-info"> Like</a>
 
-}
-<p class="badge badge-secondary">@Model.blogPost.Likes </p>
-<br />
-@foreach (var comment in Model.blogPost.Comments)
-{
-    <div style="border:solid">
-    
-        <p>@comment.Content</p>
-        @if (UserManager.GetUserId(User) == comment.AuthorId)
-        {
-            
-            <a asp-controller="Comment" asp-action="CreateEditComment" asp-route-blogPostId="@Model.blogPost.Id" asp-route-commentId="@comment.Id" style="float:left">Edit comment</a>
-        }
-        @if (UserManager.GetUserId(User) == Model.blogPost.AuthorId || UserManager.GetUserId(User) == comment.AuthorId)
-        {
-            <a asp-controller="Comment" asp-action="DeleteComment" asp-route-id="@comment.Id">Delete comment</a>
-        }
+<div class="container mt-5">
+    <div class="col-lg-8">
+        <article>
+            <header>
+                <h1>@Model.blogPost.Title</h1>
+                <div class="text-muted font-italic mb-2">
+                    Created on @Model.blogPost.Date.ToString("MMMM") @Model.blogPost.Date.Day,
+                    @Model.blogPost.Date.Year by
+                    <a asp-controller="Author" asp-action="Index1" asp-route-id="@Model.blogPost.AuthorId">@Model.blogPost.Author.UserName</a>
+                </div>
+            </header>
+            <hr />
+            <section class="mb-5">
+                <div class="line-breaks">@Model.blogPost.Content</div>
+                @*<textarea readonly="true">@Model.blogPost.Content</textarea>*@
+                <hr />
+                <div class="flex">
+                    <div class="d-inline-block">
+                        @if (Model.hasLiked)
+                        {
+                            <a asp-controller="BlogDetail" asp-action="Unlike" asp-route-id="@Model.blogPost.Id" class="btn btn-danger my-2"> Unlike</a>
+                        }
+                        else
+                        {
+                            <a asp-controller="BlogDetail" asp-action="Like" asp-route-id="@Model.blogPost.Id" class="btn btn-info my-2"> Like</a>
+
+                        }
+                        <p class="badge badge-secondary">@Model.blogPost.Likes </p>
+                    </div>
+                    <div class="d-inline-flex mx-3">
+                        @if (UserManager.GetUserId(User) == Model.blogPost.AuthorId)
+                        {
+                            <a asp-controller="BlogDetail" asp-action="CreateEditBlogpost" asp-route-id="@Model.blogPost.Id" class="mr-3">Edit post</a>
+                            <br />
+                            <a asp-controller="BlogDetail" asp-action="DeletePost" asp-route-id="@Model.blogPost.Id">Delete post</a>
+                        }
+                    </div>
+                </div>
+            </section>
+            <section class="mb-5">
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <div class="mb-4">
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <a asp-controller="Comment" asp-action="CreateEditComment" asp-route-blogPostId="@Model.blogPost.Id">Create Comment</a>
+                            }
+                            else
+                            {
+                                <a asp-controller="Comment" asp-action="CreateEditComment" asp-route-blogPostId="@Model.blogPost.Id">Login to comment</a>
+                            }
+                        </div>
+                        @foreach (var comment in Model.blogPost.Comments)
+                        {
+                            <div class="d-flex my-3">
+                                <div class="flex-shrink-0">
+                                    <img class="rounded-circle" width="50" height="50" src=@Model.blogPost.Author.ImageUrl />
+                                </div>
+                                <div class="mx-2 card p-2" style="max-width: 50%;">
+                                    <div>
+                                        <a asp-controller="Author" asp-action="Index1" asp-route-id="@comment.AuthorId" style="display: inline-block;">@comment.Author</a>
+                                        <div style="display: inline-block; font-size:smaller;" class="text-muted font-italic">
+                                            @comment.CreationDate.ToString("MMMM") @comment.CreationDate.Day, @comment.CreationDate.Year
+
+                                        </div>
+                                    </div>
+                                    @comment.Content
+                                </div>
+                                <div>
+                                    @if (UserManager.GetUserId(User) == comment.AuthorId)
+                                    {
+                                        <a asp-controller="Comment" asp-action="CreateEditComment" asp-route-blogPostId="@Model.blogPost.Id" asp-route-commentId="@comment.Id" style="float:left">Edit comment</a>
+                                    }
+                                    <br>
+                                    @if (UserManager.GetUserId(User) == Model.blogPost.AuthorId || UserManager.GetUserId(User) == comment.AuthorId)
+                                    {
+                                        <a asp-controller="Comment" asp-action="DeleteComment" asp-route-id="@comment.Id" asp-route-blogPostId="@Model.blogPost.Id">Delete comment</a>
+                                    }
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </section>
+        </article>
+
     </div>
-}
-
-
-<br />
-@if (User.Identity.IsAuthenticated)
-{
-    <a asp-controller="Comment" asp-action="CreateEditComment" asp-route-blogPostId="@Model.blogPost.Id" asp-route-commentId="0">Create Comment</a>
-
-}
-else
-{
-    <div>Login to comment</div>
-}
-@if (UserManager.GetUserId(User) == Model.blogPost.AuthorId)
-{
-    <a asp-controller="" asp-action="" asp-route-id="">Delete post</a>
-    <a asp-controller="" asp-action="" asp-route-id="" style="float:left">Edit post</a>
-}
+</div>

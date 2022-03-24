@@ -30,7 +30,7 @@ namespace BlogCentralApp
             services.AddControllersWithViews();
             //added to run the identityPages(Razor pages)
             services.AddRazorPages();
-            
+
             services.AddDbContext<DataContext>(option => option.UseSqlServer(Configuration.GetConnectionString("BlogCentralDB")));
             services.AddIdentity<IdentityUser, IdentityRole>(
 
@@ -44,10 +44,10 @@ namespace BlogCentralApp
 
                   options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
                   options.Lockout.MaxFailedAccessAttempts = 5;
-                 
+
                   options.User.RequireUniqueEmail = true;
                   options.SignIn.RequireConfirmedEmail = false;
-                  
+
               }
           )
         .AddEntityFrameworkStores<DataContext>()
@@ -57,6 +57,7 @@ namespace BlogCentralApp
             services.AddScoped<AuthorRepository>();
             services.AddScoped<CommentRepository>();
 
+            services.AddScoped<LikeRepository>();
            
             services.ConfigureApplicationCookie(options =>
             {
@@ -66,7 +67,7 @@ namespace BlogCentralApp
 
                 options.Events.OnSigningIn = (context) =>
                 {
-                 
+
                     context.CookieOptions.Expires = DateTimeOffset.Now.AddMinutes(5);
                     return Task.CompletedTask;
                 };
@@ -93,6 +94,9 @@ namespace BlogCentralApp
             {
                 //added to run the identityPages(Razor pages)
                 endpoints.MapRazorPages();
+                endpoints.MapControllerRoute(
+                     name: "blogpost comment edit",
+                    pattern: "{controller=Home}/{action=Index}/{blogPostId?}/{commentId?}");
                 endpoints.MapControllerRoute(
                     name: "sort",
                     pattern: "{controller=Home}/{action=Index}/{sort?}/{count?}");

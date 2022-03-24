@@ -1,5 +1,7 @@
 ﻿using BlogCentralApp.Models;
 using BlogCentralApp.Repositories;
+using BlogCentralLib.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -16,15 +18,24 @@ namespace BlogCentralApp.Controllers
 
         private readonly BlogPostRepository _blogPostRepository;
 
-        public HomeController(BlogPostRepository blogPostRepository)
+
+        private readonly SignInManager<IdentityUser> _signManager;
+
+        private readonly UserManager<IdentityUser> _userManager;
+
+        public HomeController(BlogPostRepository blogPostRepository, SignInManager<IdentityUser> signInManager,UserManager<IdentityUser>userManager)
         {
             _blogPostRepository = blogPostRepository;
+            _signManager = signInManager;
+            _userManager = userManager;
         }
 
         [HttpGet]
         public async Task<IActionResult> Index()
         {
+
             HomePageViewModel vm = new HomePageViewModel();
+
 
             vm.StartOfSelection = true;
             vm.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList().Take(6);
@@ -32,12 +43,18 @@ namespace BlogCentralApp.Controllers
             HttpContext.Response.Cookies.Append("count", "6");
             HttpContext.Response.Cookies.Append("lastSort", "Newest first");
 
+
+            if (_signManager.IsSignedIn(User)){
+                vm.Author= (Author) await _userManager.GetUserAsync(User);
+            }
             return View("index", vm);
         }
 
+
+
         public async Task<IActionResult> Detail(int id)
         {
-            return RedirectToAction("IndexAsync", "BlogDetail",id);
+            return RedirectToAction("IndexAsync", "BlogDetail", id);
         }
 
         public async Task<IActionResult> Next10(HomePageViewModel model)
@@ -55,6 +72,7 @@ namespace BlogCentralApp.Controllers
             }
             else
             {
+
                     range = 10;
                     countShow = int.Parse(HttpContext.Request.Cookies["count"]) + 10;
                     model.EndOfSelection = false;
@@ -64,6 +82,7 @@ namespace BlogCentralApp.Controllers
 
             switch (HttpContext.Request.Cookies["lastSort"])
             {
+
                     case "Oldest first":
                         model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderBy(x => x.Date).ToList().GetRange(int.Parse(HttpContext.Request.Cookies["count"]), range);
                         break;
@@ -75,6 +94,10 @@ namespace BlogCentralApp.Controllers
                     default:
                         model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList().GetRange(int.Parse(HttpContext.Request.Cookies["count"]), range);
                         break;
+            }
+            if (_signManager.IsSignedIn(User))
+            {
+                model.Author = (Author)await _userManager.GetUserAsync(User);
             }
 
             return View("index", model);
@@ -109,6 +132,10 @@ namespace BlogCentralApp.Controllers
                         model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList().GetRange(int.Parse(HttpContext.Request.Cookies["count"]) - 20, 10);
                         break;
                 }
+                if (_signManager.IsSignedIn(User))
+                {
+                    model.Author = (Author)await _userManager.GetUserAsync(User);
+                }
 
                 return View("index", model);
             }
@@ -116,6 +143,7 @@ namespace BlogCentralApp.Controllers
 
         public async Task<IActionResult> Last10(HomePageViewModel model)
         {
+
             model = new HomePageViewModel();
             model.EndOfSelection = true;
 
@@ -146,12 +174,17 @@ namespace BlogCentralApp.Controllers
                     model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList().TakeLast(10);
                     break;
             }
+            if (_signManager.IsSignedIn(User))
+            {
+                model.Author = (Author)await _userManager.GetUserAsync(User);
+            }
 
             return View("index", model);
         }
 
         public async Task<IActionResult> First10(HomePageViewModel model)
         {
+
             model = new HomePageViewModel();
             model.StartOfSelection = true;
 
@@ -184,12 +217,15 @@ namespace BlogCentralApp.Controllers
                     model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList().Take(10);
                     break;
             }
-
+            if (_signManager.IsSignedIn(User))
+            {
+                model.Author = (Author)await _userManager.GetUserAsync(User);
+            }
             return View("index", model);
         }
-        
+
         [HttpPost]
-       public async Task<IActionResult> Sort(HomePageViewModel model)
+        public async Task<IActionResult> Sort(HomePageViewModel model)
         {
             int countShow = _blogPostRepository.GetAll().Count();
 
@@ -212,6 +248,10 @@ namespace BlogCentralApp.Controllers
                     model = new HomePageViewModel();
                     model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList().Take(6);
                     break;
+            }
+            if (_signManager.IsSignedIn(User))
+            {
+                model.Author = (Author)await _userManager.GetUserAsync(User);
             }
 
             if (countShow <= 6)
@@ -240,5 +280,6 @@ namespace BlogCentralApp.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
     }
 }
