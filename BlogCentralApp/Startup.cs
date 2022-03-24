@@ -56,7 +56,7 @@ namespace BlogCentralApp
             services.AddScoped<BlogPostRepository>();
             services.AddScoped<AuthorRepository>();
             services.AddScoped<CommentRepository>();
-
+            services.AddScoped<LikeRepository>();
            
             services.ConfigureApplicationCookie(options =>
             {

@@ -38,13 +38,13 @@
         }
 
 /*.img-side {
-  
     border-radius: 50%;
-    margin-top:1rem;
-    width:100%;
-    margin-left:3.2rem;
-    height:20%;
    
+   
+    max-width: 77%;
+    max-height: 16%;
+    margin-left: auto;
+    margin-right: auto;
 }*/
 
 .text-side {

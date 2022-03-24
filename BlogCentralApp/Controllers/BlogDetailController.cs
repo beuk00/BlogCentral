@@ -19,14 +19,16 @@ namespace BlogCentralApp.Controllers
 
         private readonly AuthorRepository _authorRepository;
         private readonly UserManager<IdentityUser> _userManager;
-
+        private readonly LikeRepository _likeRepository;
         
-        public BlogDetailController(BlogPostRepository blogPostRepository, UserManager<IdentityUser> userManager,AuthorRepository authorRepository )
+        public BlogDetailController(BlogPostRepository blogPostRepository, UserManager<IdentityUser> userManager,AuthorRepository authorRepository ,LikeRepository likeRepository)
         
         {
             _blogPostRepository = blogPostRepository;
             _userManager = userManager;
             _authorRepository = authorRepository;
+            _likeRepository = likeRepository;
+
         }
 
 
@@ -38,14 +40,32 @@ namespace BlogCentralApp.Controllers
        
             vm.blogPost = await _blogPostRepository.GetById(id);
             vm.blogPost.Author = await _authorRepository.GetById(vm.blogPost.AuthorId);
+            var Likedpost = _likeRepository.GetAll().Where(l => l.BlogPostId == id && l.AuthorId == _userManager.GetUserId(User)).Any();
+            if (Likedpost)
+            {
+            vm.hasLiked = true;
 
+            }
             return View("Detail", vm);
         }
         [HttpGet]
         public async Task<ActionResult> LikeAsync(int id, DetailIndexViewModel vm)
         {
+             var Likedpost = _likeRepository.GetAll().Where(l=>l.BlogPostId==id&&l.AuthorId==_userManager.GetUserId(User)).Any();
+           
 
-            vm.hasLiked = true;
+            if (Likedpost==false)
+            {
+                Like newLike = new Like()
+                {
+                    BlogPostId = id,
+                    AuthorId = _userManager.GetUserId(User),
+
+                };
+               await _likeRepository.Create(newLike);
+                vm.hasLiked = true;
+            }
+           
             vm.blogPost = await _blogPostRepository.GetById(id);
             await _blogPostRepository.Like(id);
 
@@ -55,8 +75,11 @@ namespace BlogCentralApp.Controllers
         public async Task<ActionResult> UnlikeAsync(int id, DetailIndexViewModel vm)
         {
 
+            var Likedpost = _likeRepository.GetAll().Where(l => l.BlogPostId == id && l.AuthorId == _userManager.GetUserId(User)).FirstOrDefault();
+
 
             vm.hasLiked = false;
+            await _likeRepository.Delete(Likedpost);
             vm.blogPost = await _blogPostRepository.GetById(id);
             await _blogPostRepository.Unlike(id);
 

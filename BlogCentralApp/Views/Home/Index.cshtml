@@ -4,12 +4,8 @@
 }
 
 <div class="row">
-<h1 class="col-6">HomePage</h1>
-@if (SignInManager.IsSignedIn(User))
-    {
-        
-    <a class="col-2 btn btn-primary m-auto" style="width:30%" asp-controller="Author" asp-action="Index1" asp-route-id="@(UserManager.GetUserId(User))">My Blog</a>
-    }
+<h1 class="col-6">Home Page</h1>
+
 
 </div>
 <br />
@@ -63,18 +59,48 @@
 
 
 
-
-
-<div class="sidenav row  ">
+@if (!SignInManager.IsSignedIn(User))
+{
+    <div class="sidenav row  ">
     
         
-          <img class=" col-7  " style="border-radius: 50%;
-    margin-top:1rem;
-    width:54%;
-    margin-left:3.2rem;
-    height:22%;"  src="~/images/Default.png">
-          <p class="text-center">Welcome to our BolgCentral application   </p>
+          <img class=" col-12 img-side " 
+     style=" border-radius: 50%;
+   
+    max-width: 67%;
+    max-height: 16%;
+    margin-left: auto;
+    margin-right: auto;"
+      src="~/images/Default.png">
+          <p class=" text-side ml-4 ">Welcome to our BolgCentral    </p>
+          
           
          
            
+    </div>
+}
+else
+{
+    <div class="sidenav row  ">
+    
+        
+          <img class=" col-12 img-side  " style=" border-radius: 50%;
+   
+    max-width: 67%;
+    max-height: 16%;
+    margin-left: auto;
+    margin-right: auto;"
+     src="@Model.Author.ImageUrl">
+          <span class="text-side ml-5  col-12" >@Model.Author.FirstName @Model.Author.LastName</span>
+             <a class="text-side col-12" style="width:30%" asp-controller="Author" asp-action="Index1" asp-route-id="@(UserManager.GetUserId(User))">My Blog</a>
+
+          
+         @if(UserManager.GetUserId(User)==@Model.Author.Id){
+             <a class="text-side col-12"  asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Settings</a>
+             }
+           
 </div>
+}
+
+
+
