@@ -82,7 +82,7 @@ else{
     margin-right: auto;"
       src="@Model.Author.ImageUrl">
           <span class="text-side  col-12" >@Model.Author.FirstName @Model.Author.LastName</span>
-          
+          <p class=" text-side ml-2 ">Views:&nbsp; @Model.Views   </p>
          @if(UserManager.GetUserId(User)==@Model.Author.Id){
              <a class="text-side col-12"  asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Settings</a>
              }

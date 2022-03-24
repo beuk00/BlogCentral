@@ -13,11 +13,13 @@ namespace BlogCentralApp.Controllers
     {
         private readonly BlogPostRepository _blogPostRepository;
         private readonly UserManager<IdentityUser> _userManager;
-    
-        public AuthorController(BlogPostRepository blogPostRepository, UserManager<IdentityUser> userManager)
+        private readonly VisitRepository _visitRepository;
+
+        public AuthorController(BlogPostRepository blogPostRepository, UserManager<IdentityUser> userManager,VisitRepository visitRepository)
         {
             _blogPostRepository = blogPostRepository;
             _userManager = userManager; 
+            _visitRepository = visitRepository;
         }
 
         public async Task<IActionResult> Index1(string id)
@@ -49,6 +51,7 @@ namespace BlogCentralApp.Controllers
             vm.BlogPosts = _blogPostRepository.GetAll().Where(a=>a.AuthorId== vm.AuthorId).Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList().Take(6);
             
             HttpContext.Response.Cookies.Append("lastSort", "Newest first");
+            vm.Views = await _visitRepository.GetAll().CountAsync();
 
             return View("IndexAuthor", vm);
         }
@@ -91,6 +94,7 @@ namespace BlogCentralApp.Controllers
                     model.BlogPosts = _blogPostRepository.GetAll().Where(a => a.AuthorId == model.AuthorId).Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList().GetRange(int.Parse(HttpContext.Request.Cookies["count"]), range);
                     break;
             }
+            model.Views = await _visitRepository.GetAll().CountAsync();
 
             return View("IndexAuthor", model);
         }
@@ -126,8 +130,9 @@ namespace BlogCentralApp.Controllers
                             model.BlogPosts = _blogPostRepository.GetAll().Where(a => a.AuthorId == model.AuthorId).Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList().GetRange(int.Parse(HttpContext.Request.Cookies["count"]) - 20, 10);
                             break;
                         }
-                        
-                    return View("IndexAuthor", model);
+            model.Views = await _visitRepository.GetAll().CountAsync();
+
+                return View("IndexAuthor", model);
                     }
                 }
 
@@ -166,6 +171,7 @@ namespace BlogCentralApp.Controllers
                     model.BlogPosts = _blogPostRepository.GetAll().Where(a => a.AuthorId == model.AuthorId).Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList().TakeLast(10);
                     break;
             }
+            model.Views = await _visitRepository.GetAll().CountAsync();
 
             return View("IndexAuthor", model);
         }
@@ -204,6 +210,7 @@ namespace BlogCentralApp.Controllers
                     model.BlogPosts = _blogPostRepository.GetAll().Where(a => a.AuthorId == model.AuthorId).Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList().Take(10);
                     break;
             }
+            model.Views = await _visitRepository.GetAll().CountAsync();
 
             return View("IndexAuthor", model);
         }
@@ -251,6 +258,7 @@ namespace BlogCentralApp.Controllers
             
             model.StartOfSelection = true;
             model.Author = (Author)await _userManager.FindByIdAsync(AuthorId);
+            model.Views = await _visitRepository.GetAll().CountAsync();
 
             return View("IndexAuthor", model);
         }

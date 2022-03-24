@@ -1,6 +1,7 @@
 ﻿using BlogCentralApp.Models;
 using BlogCentralApp.Repositories;
 using BlogCentralLib.Entities;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace BlogCentralApp.Controllers
@@ -22,18 +24,89 @@ namespace BlogCentralApp.Controllers
         private readonly SignInManager<IdentityUser> _signManager;
 
         private readonly UserManager<IdentityUser> _userManager;
+      private readonly VisitorRepository _visitorRepository;
+        private readonly VisitRepository _visitRepository;
 
-        public HomeController(BlogPostRepository blogPostRepository, SignInManager<IdentityUser> signInManager,UserManager<IdentityUser>userManager)
+
+        public HomeController(BlogPostRepository blogPostRepository, SignInManager<IdentityUser> signInManager,UserManager<IdentityUser>userManager,VisitorRepository visitorRepository,VisitRepository visitRepository)
         {
             _blogPostRepository = blogPostRepository;
             _signManager = signInManager;
             _userManager = userManager;
+            _visitorRepository = visitorRepository;
+            _visitRepository = visitRepository;
+
         }
 
         [HttpGet]
         public async Task<IActionResult> Index()
         {
+            var userId=HttpContext.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.Name)?.Value??Guid.NewGuid().ToString();
 
+            if (!_visitorRepository.GetAll().Any(v => v.UserId == userId))
+            {
+
+                await _visitorRepository.Create(new Visitor { UserId = userId });
+            }
+
+            await _visitRepository.Create(new Visit());
+
+
+            int count=_visitRepository.GetAll().Count(); 
+
+            //var userId=HttpContext.User?.Claims?.FirstOrDefault(x=>x.Type==ClaimTypes.Name)?.Value??Guid.NewGuid().ToString();
+
+
+
+
+
+            //int count = _visitorRepository.GetAll().Count();
+            //HomePageViewModel vm = new HomePageViewModel();
+
+
+            //vm.StartOfSelection = true;
+            //vm.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList().Take(6);
+
+            //HttpContext.Response.Cookies.Append("count", "6");
+            //HttpContext.Response.Cookies.Append("lastSort", "Newest first");
+
+
+            //if (_signManager.IsSignedIn(User)){
+            //    vm.Author= (Author) await _userManager.GetUserAsync(User);
+            //}
+            return RedirectToAction("Index1");
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> Index1()
+        {
+            //var userId = HttpContext.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.Name)?.Value ?? Guid.NewGuid().ToString();
+            //if (_id == null)
+            //{
+            //    if (_userManager.GetUserId(User) != null)
+            //    {
+            //        _id = _userManager.GetUserId(User);
+
+            //    }
+            //    else
+            //    {
+            //        _id = Guid.NewGuid().ToString();
+            //    }
+            //    await _visitorRepository.Create(new Visitor { UserId = _id });
+
+
+            //}
+
+
+            //var userId=HttpContext.User?.Claims?.FirstOrDefault(x=>x.Type==ClaimTypes.Name)?.Value??Guid.NewGuid().ToString();
+            //if (!_visitorRepository.GetAll().Any(v=>v.UserId==userId))
+            //{
+
+            //  await  _visitorRepository.Create(new Visitor { UserId=userId});
+            //}
+
+          
             HomePageViewModel vm = new HomePageViewModel();
 
 
@@ -44,11 +117,16 @@ namespace BlogCentralApp.Controllers
             HttpContext.Response.Cookies.Append("lastSort", "Newest first");
 
 
-            if (_signManager.IsSignedIn(User)){
-                vm.Author= (Author) await _userManager.GetUserAsync(User);
+            if (_signManager.IsSignedIn(User))
+            {
+                vm.Author = (Author)await _userManager.GetUserAsync(User);
             }
+
+            vm.Views=await _visitRepository.GetAll().CountAsync();
             return View("index", vm);
         }
+
+
 
 
 
@@ -100,6 +178,10 @@ namespace BlogCentralApp.Controllers
                 model.Author = (Author)await _userManager.GetUserAsync(User);
             }
 
+
+            model.Views = await _visitRepository.GetAll().CountAsync();
+
+
             return View("index", model);
         }
 
@@ -136,6 +218,7 @@ namespace BlogCentralApp.Controllers
                 {
                     model.Author = (Author)await _userManager.GetUserAsync(User);
                 }
+                model.Views = await _visitRepository.GetAll().CountAsync();
 
                 return View("index", model);
             }
@@ -178,6 +261,7 @@ namespace BlogCentralApp.Controllers
             {
                 model.Author = (Author)await _userManager.GetUserAsync(User);
             }
+            model.Views = await _visitRepository.GetAll().CountAsync();
 
             return View("index", model);
         }
@@ -221,6 +305,9 @@ namespace BlogCentralApp.Controllers
             {
                 model.Author = (Author)await _userManager.GetUserAsync(User);
             }
+
+            model.Views = await _visitRepository.GetAll().CountAsync();
+
             return View("index", model);
         }
 
@@ -266,6 +353,7 @@ namespace BlogCentralApp.Controllers
             }
 
             model.StartOfSelection = true;
+            model.Views = await _visitRepository.GetAll().CountAsync();
 
             return View("index", model);
         }

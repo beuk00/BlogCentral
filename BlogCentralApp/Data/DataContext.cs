@@ -21,7 +21,8 @@ namespace BlogCentralApp.Data
 
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Like> Likes { get; set; }
-       
+       public DbSet<Visitor> Visitors { get; set; }
+        public DbSet<Visit> Views { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<BlogPost>()

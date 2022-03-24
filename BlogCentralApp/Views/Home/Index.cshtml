@@ -77,6 +77,8 @@
     margin-right: auto;"
       src="~/images/Default.png">
           <p class=" text-side  ">Welcome to our BolgCentral    </p>
+        <p class=" text-side  ml-2 ">Views:&nbsp; @Model.Views   </p>
+
           
           
          
@@ -96,6 +98,8 @@ else
     margin-right: auto;"
      src="@Model.Author.ImageUrl">
           <span class="text-side   col-12" >@Model.Author.FirstName @Model.Author.LastName</span>
+          <p class=" text-side ml-2  ">Views:&nbsp; @Model.Views   </p>
+
              <a class="text-side col-12" style="width:30%" asp-controller="Author" asp-action="Index1" asp-route-id="@(UserManager.GetUserId(User))">My Blog</a>
 
           
