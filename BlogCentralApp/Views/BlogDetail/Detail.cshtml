@@ -15,7 +15,7 @@
                 <h1>@Model.blogPost.Title</h1>
                 <div class="text-muted font-italic mb-2">
                     Created on @Model.blogPost.Date.ToString("MMMM") @Model.blogPost.Date.Day,
-                    @Model.blogPost.Date.Year 
+                    @Model.blogPost.Date.Year by 
                  <a asp-controller="Author" asp-action="Index1" asp-route-id="@Model.blogPost.AuthorId">@Model.blogPost.Author.UserName</a>
                 </div>
                 <p class="badge badge-secondary"><i class="bi bi-hand-thumbs-up"></i> &nbsp;@Model.blogPost.Likes </p>
