@@ -9,6 +9,8 @@ namespace BlogCentralApp.Models
         [Display(Name ="Title")]
         public string PostTitle { get; set; }
         [Display(Name = "Content")]
+
+        //[AllowHTML]
         public string PostContent { get; set; }
         public string AuthorId { get; set; }
 

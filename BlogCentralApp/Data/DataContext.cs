@@ -75,7 +75,8 @@ namespace BlogCentralApp.Data
 
             var comments = new Comment[]
             {
-                new Comment{Id= 1, Content = "Comment 01", AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", BlogpostId = 1},
+                new Comment{Id= 1, Content = "Comment 01", AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", BlogpostId = 23, CreationDate = DateTime.Now.AddDays(-1)},
+                new Comment{Id= 2, Content = "Comment 02", AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", BlogpostId = 23, CreationDate = DateTime.Now.AddDays(-2)},
                 //new Comment{Id= 2, Content = "Comment 02"},
             };
 
@@ -83,28 +84,30 @@ namespace BlogCentralApp.Data
             {
 
 
-                new BlogPost{Id=1, Title="BlogPost1",Content="content1",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", Date = DateTime.Now.AddDays(-1),Likes=0 },
-                new BlogPost{Id=2, Title="BlogPost2",Content="content2",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",Date = DateTime.Now.AddDays(-2) ,Likes=0 },
-                new BlogPost{Id=3, Title="BlogPost3",Content="content3",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", Date = DateTime.Now.AddDays(-3),Likes=0 },
-                new BlogPost{Id=4, Title="BlogPost4",Content="content4",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", Date = DateTime.Now.AddDays(-4),Likes=0 },
-                new BlogPost{Id=5, Title="BlogPost5",Content="content5",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", Date = DateTime.Now.AddDays(-5),Likes=0 },
-                new BlogPost{Id=6, Title="BlogPost6",Content="content6",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", Date = DateTime.Now.AddDays(-6),Likes=0 },
-                new BlogPost{Id=7, Title="BlogPost7",Content="content7",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", Date = DateTime.Now.AddDays(-7),Likes=0 },
-                new BlogPost{Id=8, Title="BlogPost8",Content="content8",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", Date = DateTime.Now.AddDays(-8),Likes=0 },
-                new BlogPost{Id=9, Title="BlogPost9",Content="content9",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", Date = DateTime.Now.AddDays(-9),Likes=0 },
-                new BlogPost{Id=10, Title="BlogPost10",Content="content10",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", Date = DateTime.Now.AddDays(-10),Likes=0 },
-                new BlogPost{Id=11, Title="BlogPost11",Content="content11",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", Date = DateTime.Now.AddDays(-11),Likes=0 },
-                new BlogPost{Id=12, Title="BlogPost12",Content="content1",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", Date = DateTime.Now.AddDays(-12),Likes=0 },
-                new BlogPost{Id=13, Title="BlogPost13",Content="content2",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",Date = DateTime.Now.AddDays(-13) ,Likes=0 },
-                new BlogPost{Id=14, Title="BlogPost14",Content="content3",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", Date = DateTime.Now.AddDays(-14),Likes=0 },
-                new BlogPost{Id=15, Title="BlogPost15",Content="content4",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", Date = DateTime.Now.AddDays(-15),Likes=0},
-                new BlogPost{Id=16, Title="BlogPost16",Content="content5",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", Date = DateTime.Now.AddDays(-16),Likes=0 },
-                new BlogPost{Id=17, Title="BlogPost17",Content="content6",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", Date = DateTime.Now.AddDays(-17),Likes=0 },
-                new BlogPost{Id=18, Title="BlogPost18",Content="content7",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", Date = DateTime.Now.AddDays(-18),Likes=0 },
-                new BlogPost{Id=19, Title="BlogPost19",Content="content8",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", Date = DateTime.Now.AddDays(-19),Likes=0 },
-                new BlogPost{Id=20, Title="BlogPost20",Content="content9",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", Date = DateTime.Now.AddDays(-20),Likes=0 },
-                new BlogPost{Id=21, Title="BlogPost21",Content="content10",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", Date = DateTime.Now.AddDays(-21),Likes=0 },
-                new BlogPost{Id=22, Title="BlogPost22",Content="content11",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", Date = DateTime.Now.AddDays(-22),Likes=0 },
+                new BlogPost{Id=1, Title="BlogPost1",Content="content1",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", Date = DateTime.Now.AddDays(-1), Likes = 1},
+                new BlogPost{Id=2, Title="BlogPost2",Content="content2",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",Date = DateTime.Now.AddDays(-2) , Likes = 1},
+                new BlogPost{Id=3, Title="BlogPost3",Content="content3",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", Date = DateTime.Now.AddDays(-3), Likes = 3},
+                new BlogPost{Id=4, Title="BlogPost4",Content="content4",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", Date = DateTime.Now.AddDays(-4), Likes = 1},
+                new BlogPost{Id=5, Title="BlogPost5",Content="content5",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", Date = DateTime.Now.AddDays(-5), Likes = 1},
+                new BlogPost{Id=6, Title="BlogPost6",Content="content6",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", Date = DateTime.Now.AddDays(-6), Likes = 6},
+                new BlogPost{Id=7, Title="BlogPost7",Content="content7",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", Date = DateTime.Now.AddDays(-7), Likes = 1},
+                new BlogPost{Id=8, Title="BlogPost8",Content="content8",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", Date = DateTime.Now.AddDays(-8), Likes = 1},
+                new BlogPost{Id=9, Title="BlogPost9",Content="content9",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", Date = DateTime.Now.AddDays(-9), Likes = 1},
+                new BlogPost{Id=10, Title="BlogPost10",Content="content10",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", Date = DateTime.Now.AddDays(-10), Likes = 1},
+                new BlogPost{Id=11, Title="BlogPost11",Content="content11",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", Date = DateTime.Now.AddDays(-11), Likes = 1},
+                new BlogPost{Id=12, Title="BlogPost12",Content="content1",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", Date = DateTime.Now.AddDays(-12), Likes = 1},
+                new BlogPost{Id=13, Title="BlogPost13",Content="content2",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",Date = DateTime.Now.AddDays(-13) , Likes = 1},
+                new BlogPost{Id=14, Title="BlogPost14",Content="content3",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", Date = DateTime.Now.AddDays(-14), Likes = 3},
+                new BlogPost{Id=15, Title="BlogPost15",Content="content4",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", Date = DateTime.Now.AddDays(-15), Likes = 1},
+                new BlogPost{Id=16, Title="BlogPost16",Content="content5",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", Date = DateTime.Now.AddDays(-16), Likes = 1},
+                new BlogPost{Id=17, Title="BlogPost17",Content="content6",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", Date = DateTime.Now.AddDays(-17), Likes = 6},
+                new BlogPost{Id=18, Title="BlogPost18",Content="content7",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", Date = DateTime.Now.AddDays(-18), Likes = 1},
+                new BlogPost{Id=19, Title="BlogPost19",Content="content8",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", Date = DateTime.Now.AddDays(-19), Likes = 1},
+                new BlogPost{Id=20, Title="BlogPost20",Content="content9",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", Date = DateTime.Now.AddDays(-20), Likes = 1},
+                new BlogPost{Id=21, Title="BlogPost21",Content="content10",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", Date = DateTime.Now.AddDays(-21), Likes = 1},
+                new BlogPost{Id=22, Title="BlogPost22",Content="content11",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", Date = DateTime.Now.AddDays(-22), Likes = 1},
+                new BlogPost{Id=23, Title="Japan waarschuwt voor black-outs in Tokio",Content="De Japanse regering waarschuwt vandaag voor mogelijke stroomonderbrekingen in de regio van Tokio. Een koudeprik in combinatie met verschillende centrales die er uitliggen na de aardbeving van vorige week zetten het stroomnet er onder druk. De overheden waarschuwen voor mogelijke stroomonderbrekingen dinsdagavond. Twee tot drie miljoen huishoudens dreigen er enkele uren in het donker te zitten.De regering roept gezinnen en bedrijven op deze week zo weinig mogelijk elektriciteit te verbruiken.Door abnormaal koud weer is er veel vraag naar stroom, terwijl de capaciteit krap is. Japan werd vorige week getroffen door een zware aardbeving. Verscheidene thermische centrales liggen als gevolg uit.Het gaat om de eerste waarschuwingen voor black-outs sinds 2011, toen een tsunami een kernramp veroorzaakte in Fukushima.", AuthorId= "ce8a91ab-41ca-4e08-8cae-40d4cda1a938", Date = DateTime.Now, Likes = 10},
+                new BlogPost{Id=24, Title="JapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapan",Content="JapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapan", AuthorId= "ce8a91ab-41ca-4e08-8cae-40d4cda1a938", Date = DateTime.Now, Likes = 10},
 
             };
 
