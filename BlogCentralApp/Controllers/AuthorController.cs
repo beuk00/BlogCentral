@@ -64,13 +64,16 @@ namespace BlogCentralApp.Controllers
             {
                 case "Oldest first":
                     model.BlogPosts = _blogPostRepository.GetAll().Where(a => a.AuthorId == _authorId).Include(b => b.Author).ToList().OrderBy(x => x.Date).ToList().GetRange(int.Parse(HttpContext.Request.Cookies["count"]), range);
+                    model.Author= (Author)await _userManager.FindByIdAsync(_authorId);
                     break;
 
                 case "Most popular First":
                     model.BlogPosts = _blogPostRepository.GetAll().Where(a => a.AuthorId == _authorId).Include(b => b.Author).ToList().OrderByDescending(x => x.Likes).ToList().GetRange(int.Parse(HttpContext.Request.Cookies["count"]), range);
+                    model.Author = (Author)await _userManager.FindByIdAsync(_authorId);
                     break;
 
                 default:
+                    model.Author = (Author)await _userManager.FindByIdAsync(_authorId);
                     model.BlogPosts = _blogPostRepository.GetAll().Where(a => a.AuthorId == _authorId).Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList().GetRange(int.Parse(HttpContext.Request.Cookies["count"]), range);
                     break;
             }
@@ -96,14 +99,18 @@ namespace BlogCentralApp.Controllers
                         {
                             case "Oldest first":
                             model.BlogPosts = _blogPostRepository.GetAll().Where(a => a.AuthorId == _authorId).Include(b => b.Author).ToList().OrderBy(x => x.Date).ToList().GetRange(int.Parse(HttpContext.Request.Cookies["count"]) - 20, 10);
-                            break;
+                        model.Author = (Author)await _userManager.FindByIdAsync(_authorId);
+                        break;
 
                             case "Most popular First":
-                            model.BlogPosts = _blogPostRepository.GetAll().Where(a => a.AuthorId == _authorId).Include(b => b.Author).ToList().OrderByDescending(x => x.Likes).ToList().GetRange(int.Parse(HttpContext.Request.Cookies["count"]) - 20, 10);
+                        model.Author = (Author)await _userManager.FindByIdAsync(_authorId);
+                        model.BlogPosts = _blogPostRepository.GetAll().Where(a => a.AuthorId == _authorId).Include(b => b.Author).ToList().OrderByDescending(x => x.Likes).ToList().GetRange(int.Parse(HttpContext.Request.Cookies["count"]) - 20, 10);
                             break;
 
-                            default:
-                            model.BlogPosts = _blogPostRepository.GetAll().Where(a => a.AuthorId == _authorId).Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList().GetRange(int.Parse(HttpContext.Request.Cookies["count"]) - 20, 10);
+                           
+                    default:
+                        model.Author = (Author)await _userManager.FindByIdAsync(_authorId);
+                        model.BlogPosts = _blogPostRepository.GetAll().Where(a => a.AuthorId == _authorId).Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList().GetRange(int.Parse(HttpContext.Request.Cookies["count"]) - 20, 10);
                             break;
                         }
                         
@@ -122,14 +129,17 @@ namespace BlogCentralApp.Controllers
             {
                 case "Oldest first":
                     model.BlogPosts = _blogPostRepository.GetAll().Where(a => a.AuthorId == _authorId).Include(b => b.Author).ToList().OrderBy(x => x.Date).ToList().TakeLast(10);
+                    model.Author = (Author)await _userManager.FindByIdAsync(_authorId);
                     break;
 
                 case "Most popular First":
                     model.BlogPosts = _blogPostRepository.GetAll().Where(a => a.AuthorId == _authorId).Include(b => b.Author).ToList().OrderBy(x => x.Likes).ToList().TakeLast(10);
+                    model.Author = (Author)await _userManager.FindByIdAsync(_authorId);
                     break;
 
                 default:
                     model.BlogPosts = _blogPostRepository.GetAll().Where(a => a.AuthorId == _authorId).Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList().TakeLast(10);
+                    model.Author = (Author)await _userManager.FindByIdAsync(_authorId);
                     break;
 
             }
@@ -147,14 +157,17 @@ namespace BlogCentralApp.Controllers
             {
                 case "Oldest first":
                     model.BlogPosts = _blogPostRepository.GetAll().Where(a => a.AuthorId == _authorId).Include(b => b.Author).ToList().OrderBy(x => x.Date).ToList().Take(10);
+                    model.Author = (Author)await _userManager.FindByIdAsync(_authorId);
                     break;
 
                 case "Most popular First":
                     model.BlogPosts = _blogPostRepository.GetAll().Where(a => a.AuthorId == _authorId).Include(b => b.Author).ToList().OrderBy(x => x.Likes).ToList().Take(10);
+                    model.Author = (Author)await _userManager.FindByIdAsync(_authorId);
                     break;
 
                 default:
                     model.BlogPosts = _blogPostRepository.GetAll().Where(a => a.AuthorId == _authorId).Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList().Take(10);
+                    model.Author = (Author)await _userManager.FindByIdAsync(_authorId);
                     break;
 
             }
@@ -176,16 +189,19 @@ namespace BlogCentralApp.Controllers
                 case "Oldest first":
                     HttpContext.Response.Cookies.Append("lastSort", "Oldest first");
                     model.BlogPosts = _blogPostRepository.GetAll().Where(a => a.AuthorId == _authorId).Include(b => b.Author).ToList().OrderBy(x => x.Date).ToList().Take(6);
+                    model.Author = (Author)await _userManager.FindByIdAsync(_authorId);
                     break;
 
                 case "Most popular First":
                     HttpContext.Response.Cookies.Append("lastSort", "Most popular First");
                     model.BlogPosts = _blogPostRepository.GetAll().Where(a => a.AuthorId == _authorId).Include(b => b.Author).ToList().OrderByDescending(x => x.Likes).ToList().Take(6);
+                    model.Author = (Author)await _userManager.FindByIdAsync(_authorId);
                     break;
 
                 default:
                     HttpContext.Response.Cookies.Append("lastSort", "Newest first");
                     model.BlogPosts = _blogPostRepository.GetAll().Where(a => a.AuthorId == _authorId).Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList().Take(6);
+                    model.Author = (Author)await _userManager.FindByIdAsync(_authorId);
                     break;
             }
 

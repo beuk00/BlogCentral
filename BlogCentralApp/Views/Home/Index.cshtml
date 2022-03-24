@@ -3,14 +3,14 @@
     Layout = "_Layout";
 }
 
-<div class="row">
+<div class="row justify-content-center">
 <h1 class="col-6">Home Page</h1>
 
 
 </div>
 <br />
-<form asp-controller="Home" asp-action="Sort" method="post">
-    <div class="form-group">
+<form asp-controller="Home" asp-action="Sort" method="post" class=" text-center">
+    <div class="form-group  " >
         <label asp-for="Sort"></label>
         <select asp-for="Sort" class="form-control" asp-items="@Model.SortSelections">
             <option Value="">Select a SortFunction</option>
@@ -19,7 +19,7 @@
     <input type="Submit" />
 </form>
 <br />
-<div class="row">
+<div class="row justify-content-center">
 
     @foreach (var blogPost in @Model.BlogPosts)
     {
@@ -71,12 +71,12 @@
           <img class=" col-12 img-side " 
      style=" border-radius: 50%;
    
-    max-width: 67%;
-    max-height: 16%;
+    max-width: 100px;
+    max-height: 100px;
     margin-left: auto;
     margin-right: auto;"
       src="~/images/Default.png">
-          <p class=" text-side ml-4 ">Welcome to our BolgCentral    </p>
+          <p class=" text-side  ">Welcome to our BolgCentral    </p>
           
           
          
@@ -90,12 +90,12 @@ else
         
           <img class=" col-12 img-side  " style=" border-radius: 50%;
    
-    max-width: 67%;
-    max-height: 16%;
+    max-width: 100px;
+    max-height: 100px;
     margin-left: auto;
     margin-right: auto;"
      src="@Model.Author.ImageUrl">
-          <span class="text-side ml-5  col-12" >@Model.Author.FirstName @Model.Author.LastName</span>
+          <span class="text-side   col-12" >@Model.Author.FirstName @Model.Author.LastName</span>
              <a class="text-side col-12" style="width:30%" asp-controller="Author" asp-action="Index1" asp-route-id="@(UserManager.GetUserId(User))">My Blog</a>
 
           

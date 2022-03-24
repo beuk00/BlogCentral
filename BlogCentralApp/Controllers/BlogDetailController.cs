@@ -70,7 +70,7 @@ namespace BlogCentralApp.Controllers
            
             vm.blogPost = await _blogPostRepository.GetById(id);
             await _blogPostRepository.Like(id);
-
+            
             return View("Detail", vm);
         }
         [HttpGet]
