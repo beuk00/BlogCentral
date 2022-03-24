@@ -76,19 +76,29 @@ namespace BlogCentralApp.Controllers
             {
                 case "Oldest first":
                     HttpContext.Response.Cookies.Append("lastSort", "Oldest first");
-                 
-                    
-                    return View("~/Views/SearchResults/SearchIndex.cshtml", model);
+                    var uniqueItems1 = _blogPostRepository.SearchAsync(model.SearchString).OrderBy(x => x.Date).ToList().Take(6);
+                    HomePageViewModel vm1 = new HomePageViewModel();
+                    vm1.BlogPosts = uniqueItems1;
+                    vm1.SearchString = model.SearchString;
+
+                    return View("~/Views/SearchResults/SearchIndex.cshtml", vm1);
 
                 case "Most popular First":
                     HttpContext.Response.Cookies.Append("lastSort", "Most popular First");
-                  
-                    
-                    return View("~/Views/SearchResults/SearchIndex.cshtml", model);
+                    var uniqueItems2 = _blogPostRepository.SearchAsync(model.SearchString).OrderByDescending(x => x.Likes).ToList().Take(6);
+                    HomePageViewModel vm2 = new HomePageViewModel();
+                    vm2.BlogPosts = uniqueItems2;
+                    vm2.SearchString = model.SearchString;
+
+                    return View("~/Views/SearchResults/SearchIndex.cshtml", vm2);
 
                 default:
                     HttpContext.Response.Cookies.Append("lastSort", "Newest first");
-                    return View("~/Views/SearchResults/SearchIndex.cshtml", model);
+                    var uniqueItems3 = _blogPostRepository.SearchAsync(model.SearchString).OrderByDescending(x => x.Date).ToList().Take(6);
+                    HomePageViewModel vm3 = new HomePageViewModel();
+                    vm3.BlogPosts = uniqueItems3;
+                    vm3.SearchString = model.SearchString;
+                    return View("~/Views/SearchResults/SearchIndex.cshtml", vm3);
 
             }
         }
