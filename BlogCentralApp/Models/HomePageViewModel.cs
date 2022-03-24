@@ -12,7 +12,11 @@ namespace BlogCentralApp.Models
 
         public string Sort { get; set; }
 
+
         public string SearchString { get; set; }
+        public bool EndOfSelection { get; set; }
+        public bool StartOfSelection { get; set; }
+
 
         public IEnumerable<SelectListItem> SortSelections = new List<SelectListItem>() 
         { 

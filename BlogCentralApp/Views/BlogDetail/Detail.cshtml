@@ -8,20 +8,29 @@
 
 
 <h5>@Model.blogPost.Date</h5>
-
+<p class="badge badge-secondary"><i class="bi bi-hand-thumbs-up"></i> &nbsp;@Model.blogPost.Likes </p>
 <p style="border:solid">@Model.blogPost.Content</p>
 <br />
-
-@if (Model.hasLiked)
+@if (SignInManager.IsSignedIn(User))
 {
-    <a asp-controller="BlogDetail" asp-action="Unlike" asp-route-id="@Model.blogPost.Id" class="btn btn-danger"> Unlike</a>
-}
-else
-{
-    <a asp-controller="BlogDetail" asp-action="Like" asp-route-id="@Model.blogPost.Id" class="btn btn-info"> Like</a>
+        @if (Model.hasLiked)
+        {
+            <a asp-controller="BlogDetail" asp-action="Unlike" asp-route-id="@Model.blogPost.Id" class="btn btn-primary "> <i class="bi bi-hand-thumbs-up"></i></a>
+        }
+        else
+        {
+            <a asp-controller="BlogDetail" asp-action="Like" asp-route-id="@Model.blogPost.Id" class="btn btn-outline-dark  "> <i class="bi bi-hand-thumbs-up"></i></a>
 
-}
-<p class="badge badge-secondary">@Model.blogPost.Likes </p>
+        }
+
+
+
+}@*else{
+
+<p class="badge badge-secondary"><i class="bi bi-hand-thumbs-up"></i> &nbsp;@Model.blogPost.Likes </p>
+
+}*@
+
 <br />
 @foreach (var comment in Model.blogPost.Comments)
 {

@@ -30,7 +30,7 @@ namespace BlogCentralApp
             services.AddControllersWithViews();
             //added to run the identityPages(Razor pages)
             services.AddRazorPages();
-           
+            
             services.AddDbContext<DataContext>(option => option.UseSqlServer(Configuration.GetConnectionString("BlogCentralDB")));
             services.AddIdentity<IdentityUser, IdentityRole>(
 
@@ -56,7 +56,7 @@ namespace BlogCentralApp
             services.AddScoped<BlogPostRepository>();
             services.AddScoped<AuthorRepository>();
             services.AddScoped<CommentRepository>();
-
+            services.AddScoped<LikeRepository>();
            
             services.ConfigureApplicationCookie(options =>
             {
