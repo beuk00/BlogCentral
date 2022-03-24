@@ -18,6 +18,7 @@ namespace BlogCentralApp.Controllers
 
         private readonly BlogPostRepository _blogPostRepository;
 
+
         private readonly SignInManager<IdentityUser> _signManager;
 
         private readonly UserManager<IdentityUser> _userManager;
@@ -35,6 +36,7 @@ namespace BlogCentralApp.Controllers
 
             HomePageViewModel vm = new HomePageViewModel();
 
+
             vm.StartOfSelection = true;
             vm.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList().Take(6);
             HttpContext.Response.Cookies.Append("count", "6");
@@ -45,9 +47,11 @@ namespace BlogCentralApp.Controllers
             return View("index", vm);
         }
 
+
+
         public async Task<IActionResult> Detail(int id)
         {
-            return RedirectToAction("IndexAsync", "BlogDetail",id);
+            return RedirectToAction("IndexAsync", "BlogDetail", id);
         }
 
         public async Task<IActionResult> Next10(HomePageViewModel model)
@@ -64,6 +68,7 @@ namespace BlogCentralApp.Controllers
             }
             else
             {
+
                     range = 10;
                     countShow = int.Parse(HttpContext.Request.Cookies["count"]) + 10;
                     model.EndOfSelection = false;
@@ -73,6 +78,7 @@ namespace BlogCentralApp.Controllers
 
             switch (HttpContext.Request.Cookies["lastSort"])
             {
+
                     case "Oldest first":
                         model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderBy(x => x.Date).ToList().GetRange(int.Parse(HttpContext.Request.Cookies["count"]), range);
                         break;
@@ -132,6 +138,7 @@ namespace BlogCentralApp.Controllers
 
         public async Task<IActionResult> Last10(HomePageViewModel model)
         {
+
             model = new HomePageViewModel();
             HttpContext.Response.Cookies.Append("count", _blogPostRepository.GetAll().Count().ToString());
             model.EndOfSelection = true;
@@ -161,6 +168,7 @@ namespace BlogCentralApp.Controllers
 
         public async Task<IActionResult> First10(HomePageViewModel model)
         {
+
             model = new HomePageViewModel();
             HttpContext.Response.Cookies.Append("count", "10");
             model.EndOfSelection = false;
@@ -186,12 +194,13 @@ namespace BlogCentralApp.Controllers
             }
             return View("index", model);
         }
-        
+
         [HttpPost]
-       public async Task<IActionResult> Sort(HomePageViewModel model)
+        public async Task<IActionResult> Sort(HomePageViewModel model)
         {
             model = new HomePageViewModel();
             HttpContext.Response.Cookies.Append("count", "6");
+
             model.EndOfSelection = false;
             model.StartOfSelection = true;
 
@@ -230,5 +239,6 @@ namespace BlogCentralApp.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
     }
 }
