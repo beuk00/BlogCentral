@@ -28,8 +28,10 @@ namespace BlogCentralApp.Controllers
 
             vm.StartOfSelection = true;
             vm.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList().Take(6);
+
             HttpContext.Response.Cookies.Append("count", "6");
             HttpContext.Response.Cookies.Append("lastSort", "Newest first");
+
             return View("index", vm);
         }
 
@@ -41,9 +43,10 @@ namespace BlogCentralApp.Controllers
         public async Task<IActionResult> Next10(HomePageViewModel model)
         {
             model = new HomePageViewModel();
+            model.StartOfSelection = false;
+
             int countShow;
             int range = _blogPostRepository.GetAll().Count() - int.Parse(HttpContext.Request.Cookies["count"]);
-            model.StartOfSelection = false;
 
             if (range <= 9 )
             {
@@ -80,9 +83,10 @@ namespace BlogCentralApp.Controllers
         public async Task<IActionResult> Previous10(HomePageViewModel model)
         {
             model = new HomePageViewModel();
-            int range = int.Parse(HttpContext.Request.Cookies["count"]) - 10;
             model.EndOfSelection = false;
 
+            int range = int.Parse(HttpContext.Request.Cookies["count"]) - 10;
+            
             if (range <= 11)
             {
                 return RedirectToAction("First10");
@@ -113,9 +117,20 @@ namespace BlogCentralApp.Controllers
         public async Task<IActionResult> Last10(HomePageViewModel model)
         {
             model = new HomePageViewModel();
-            HttpContext.Response.Cookies.Append("count", _blogPostRepository.GetAll().Count().ToString());
             model.EndOfSelection = true;
-            model.StartOfSelection = false;
+
+            int countShow = _blogPostRepository.GetAll().Count();
+
+            HttpContext.Response.Cookies.Append("count", countShow.ToString());
+            
+            if (countShow <= 10)
+            {
+                model.StartOfSelection = true;
+            }
+            else
+            {
+                model.StartOfSelection = false;
+            }
 
             switch (HttpContext.Request.Cookies["lastSort"])
             {
@@ -138,9 +153,22 @@ namespace BlogCentralApp.Controllers
         public async Task<IActionResult> First10(HomePageViewModel model)
         {
             model = new HomePageViewModel();
-            HttpContext.Response.Cookies.Append("count", "10");
-            model.EndOfSelection = false;
             model.StartOfSelection = true;
+
+            int countShow = _blogPostRepository.GetAll().Count();
+
+            HttpContext.Response.Cookies.Append("count", "10");
+            
+            if (countShow <= 10)
+            {
+                HttpContext.Response.Cookies.Append("count", countShow.ToString());
+                model.EndOfSelection = true;
+            }
+            else
+            {
+                HttpContext.Response.Cookies.Append("count", "10");
+                model.EndOfSelection = false;
+            }
 
             switch (HttpContext.Request.Cookies["lastSort"])
             {
@@ -163,13 +191,13 @@ namespace BlogCentralApp.Controllers
         [HttpPost]
        public async Task<IActionResult> Sort(HomePageViewModel model)
         {
-            HttpContext.Response.Cookies.Append("count", "6");
-            
+            int countShow = _blogPostRepository.GetAll().Count();
+
             switch (model.Sort)
             {
                 case "Oldest first":
-                    model = new HomePageViewModel();
                     HttpContext.Response.Cookies.Append("lastSort", "Oldest first");
+                    model = new HomePageViewModel();
                     model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderBy(x => x.Date).ToList().Take(6);
                     break;
 
@@ -186,8 +214,19 @@ namespace BlogCentralApp.Controllers
                     break;
             }
 
-            model.EndOfSelection = false;
+            if (countShow <= 6)
+            {
+                HttpContext.Response.Cookies.Append("count", countShow.ToString());
+                model.EndOfSelection = true;
+            }
+            else
+            {
+                HttpContext.Response.Cookies.Append("count", "6");
+                model.EndOfSelection = false;
+            }
+
             model.StartOfSelection = true;
+
             return View("index", model);
         }
 

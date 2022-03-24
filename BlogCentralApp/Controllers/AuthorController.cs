@@ -13,18 +13,17 @@ namespace BlogCentralApp.Controllers
     {
         private readonly BlogPostRepository _blogPostRepository;
         private readonly UserManager<IdentityUser> _userManager;
-
-        
     
         public AuthorController(BlogPostRepository blogPostRepository, UserManager<IdentityUser> userManager)
         {
             _blogPostRepository = blogPostRepository;
             _userManager = userManager; 
         }
+
         public async Task<IActionResult> Index1(string id)
         {
             HomePageViewModel vm = new HomePageViewModel();
-            
+
             if (id!=null)
             {
                vm.AuthorId = id;
@@ -32,11 +31,25 @@ namespace BlogCentralApp.Controllers
 
             }
 
+            int countShow = _blogPostRepository.GetAll().Where(a => a.AuthorId == vm.AuthorId).Count();
+
+            if (countShow <= 6)
+            {
+                HttpContext.Response.Cookies.Append("count", countShow.ToString());
+                vm.EndOfSelection = true;
+            }
+            else
+            {
+                HttpContext.Response.Cookies.Append("count", "6");
+                vm.EndOfSelection = false;
+            }
+
             vm.StartOfSelection = true;
             vm.Author = (Author)await _userManager.FindByIdAsync(vm.AuthorId);
             vm.BlogPosts = _blogPostRepository.GetAll().Where(a=>a.AuthorId== vm.AuthorId).Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList().Take(6);
-            HttpContext.Response.Cookies.Append("count", "6");
+            
             HttpContext.Response.Cookies.Append("lastSort", "Newest first");
+
             return View("IndexAuthor", vm);
         }
 
@@ -45,9 +58,10 @@ namespace BlogCentralApp.Controllers
             model = new HomePageViewModel();
             model.AuthorId = HttpContext.Request.Cookies["id"];
             model.Author = (Author)await _userManager.FindByIdAsync(model.AuthorId);
+            model.StartOfSelection = false;
+
             int countShow;
             int range = _blogPostRepository.GetAll().Where(a => a.AuthorId == model.AuthorId).Count() - int.Parse(HttpContext.Request.Cookies["count"]);
-            model.StartOfSelection = false;
 
             if (range <= 9 )
             {
@@ -84,12 +98,13 @@ namespace BlogCentralApp.Controllers
                 public async Task<IActionResult> Previous10(HomePageViewModel model)
                 {
                     model = new HomePageViewModel();
-                    int range = int.Parse(HttpContext.Request.Cookies["count"]) - 10;
                     model.EndOfSelection = false;
                     model.AuthorId = HttpContext.Request.Cookies["id"];
                     model.Author = (Author)await _userManager.FindByIdAsync(model.AuthorId);
 
-            if (range <= 11)
+                    int range = int.Parse(HttpContext.Request.Cookies["count"]) - 10;
+
+                    if (range <= 11)
                     {
                         return RedirectToAction("First10");
                     }
@@ -119,9 +134,21 @@ namespace BlogCentralApp.Controllers
         public async Task<IActionResult> Last10(HomePageViewModel model)
         {
             model = new HomePageViewModel();
-            HttpContext.Response.Cookies.Append("count", _blogPostRepository.GetAll().Count().ToString());
+
+            int countShow = _blogPostRepository.GetAll().Where(a => a.AuthorId == model.AuthorId).Count();
+
+            HttpContext.Response.Cookies.Append("count", countShow.ToString());
+
+            if (countShow <= 10)
+            {
+                model.StartOfSelection = true;
+            }
+            else
+            {
+                model.StartOfSelection = false;
+            }
+
             model.EndOfSelection = true;
-            model.StartOfSelection = false;
             model.AuthorId = HttpContext.Request.Cookies["id"];
             model.Author = (Author)await _userManager.FindByIdAsync(model.AuthorId);
 
@@ -138,19 +165,30 @@ namespace BlogCentralApp.Controllers
                 default:
                     model.BlogPosts = _blogPostRepository.GetAll().Where(a => a.AuthorId == model.AuthorId).Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList().TakeLast(10);
                     break;
-
             }
+
             return View("IndexAuthor", model);
         }
 
         public async Task<IActionResult> First10(HomePageViewModel model)
         {
+            int countShow = _blogPostRepository.GetAll().Where(a => a.AuthorId == model.AuthorId).Count();
+
             model = new HomePageViewModel();
-            HttpContext.Response.Cookies.Append("count", "10");
-            model.EndOfSelection = false;
             model.StartOfSelection = true;
             model.AuthorId = HttpContext.Request.Cookies["id"];
             model.Author = (Author)await _userManager.FindByIdAsync(model.AuthorId);
+
+            if (countShow <= 10)
+            {
+                HttpContext.Response.Cookies.Append("count", countShow.ToString());
+                model.EndOfSelection = true;
+            }
+            else
+            {
+                HttpContext.Response.Cookies.Append("count", "10");
+                model.EndOfSelection = false;
+            }
 
             switch (HttpContext.Request.Cookies["lastSort"])
             {
@@ -165,7 +203,6 @@ namespace BlogCentralApp.Controllers
                 default:
                     model.BlogPosts = _blogPostRepository.GetAll().Where(a => a.AuthorId == model.AuthorId).Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList().Take(10);
                     break;
-
             }
 
             return View("IndexAuthor", model);
@@ -175,32 +212,43 @@ namespace BlogCentralApp.Controllers
         [HttpPost]
         public async Task<IActionResult> Sort(HomePageViewModel model)
         {
+
             
-            HttpContext.Response.Cookies.Append("count", "6");
             string AuthorId = HttpContext.Request.Cookies["id"];
+            int countShow = _blogPostRepository.GetAll().Where(a => a.AuthorId == model.AuthorId).Count();
 
             switch (model.Sort)
             {
                 case "Oldest first":
-                    model = new HomePageViewModel();
                     HttpContext.Response.Cookies.Append("lastSort", "Oldest first");
+                    model = new HomePageViewModel();
                     model.BlogPosts = _blogPostRepository.GetAll().Where(a => a.AuthorId == AuthorId).Include(b => b.Author).ToList().OrderBy(x => x.Date).ToList().Take(6);
                     break;
 
                 case "Most popular First":
-                    model = new HomePageViewModel();
                     HttpContext.Response.Cookies.Append("lastSort", "Most popular First");
+                    model = new HomePageViewModel();
                     model.BlogPosts = _blogPostRepository.GetAll().Where(a => a.AuthorId == AuthorId).Include(b => b.Author).ToList().OrderByDescending(x => x.Likes).ToList().Take(6);
                     break;
 
                 default:
-                    model = new HomePageViewModel();
                     HttpContext.Response.Cookies.Append("lastSort", "Newest first");
+                    model = new HomePageViewModel();
                     model.BlogPosts = _blogPostRepository.GetAll().Where(a => a.AuthorId == AuthorId).Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList().Take(6);
                     break;
             }
 
-            model.EndOfSelection = false;
+            if (countShow <= 6)
+            {
+                HttpContext.Response.Cookies.Append("count", countShow.ToString());
+                model.EndOfSelection = true;
+            }
+            else
+            {
+                HttpContext.Response.Cookies.Append("count", "6");
+                model.EndOfSelection = false;
+            }
+            
             model.StartOfSelection = true;
             model.Author = (Author)await _userManager.FindByIdAsync(AuthorId);
 
