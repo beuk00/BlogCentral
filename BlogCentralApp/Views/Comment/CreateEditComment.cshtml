@@ -12,7 +12,7 @@
     }
 
 *@
-   @if (Model != null)
+   @if (Model != null && (UserManager.GetUserId(User) == Model.AuthorId || Model.AuthorId == null))
 {
     <p>@(Model.CommentId == 0 ? "Create" : "Edit")</p>
 
@@ -20,6 +20,7 @@
 
         <input asp-for="CommentId" hidden />
         <input asp-for="BlogpostId" hidden />
+        <input asp-for="CreationDate" hidden />
         <div class="form-group">
             <label asp-for="Content"></label>
             <textarea asp-for="Content" rows="5" style="resize:none" class="form-control" maxlength="500"></textarea>
@@ -27,4 +28,8 @@
         </div>
         <button type="submit" class=" btn btn-primary">@(Model.CommentId == 0 ? "Create" : "Edit")</button>
     </form>
+}
+else
+{
+    <div>ERROR 001 -- U can't acces this page!</div>
 }

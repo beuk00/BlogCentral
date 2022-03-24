@@ -7,9 +7,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BlogCentralLib.Entities;
 using Microsoft.AspNetCore.Mvc.Rendering;
-
+using System.Text.RegularExpressions;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BlogCentralApp.Controllers
 {
@@ -40,6 +40,8 @@ namespace BlogCentralApp.Controllers
        
             vm.blogPost = await _blogPostRepository.GetById(id);
             vm.blogPost.Author = await _authorRepository.GetById(vm.blogPost.AuthorId);
+            vm.blogPost.Comments = vm.blogPost.Comments.OrderBy(c => c.CreationDate).Reverse();
+
             var Likedpost = _likeRepository.GetAll().Where(l => l.BlogPostId == id && l.AuthorId == _userManager.GetUserId(User)).Any();
             if (Likedpost)
             {
@@ -95,6 +97,7 @@ namespace BlogCentralApp.Controllers
             return View("Detail", vm);
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult> CreateEditBlogpost(int? id)
          {
@@ -111,11 +114,12 @@ namespace BlogCentralApp.Controllers
             }
 
            
-
+            
             return View("CreateEditPost");
         }
 
-       [HttpPost]
+        [Authorize]
+        [HttpPost]
         public async Task<ActionResult> CreateEditBlogpost(CreateEditPost model)
         {
             if (ModelState.IsValid)
