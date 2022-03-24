@@ -1,6 +1,6 @@
 ﻿@model HomePageViewModel
  
-@if(UserManager.GetUserId(User)==@Model.Author.Id){
+@if(UserManager.GetUserId(User)==@Model.AuthorId){
   <div class="row " >
         <div class="col-6">
              <h1 class="text-start">Welcome back, @Model.Author.FirstName  </h1>
@@ -67,7 +67,7 @@ else{
 
 @if (@Model.EndOfSelection == false)
 {
-    <a class="btn btn-primary" asp-controller="Author" asp-action="Index" asp-route-sort="test" asp-route-count="10">Next 10</a>
+    <a class="btn btn-primary" asp-controller="Author" asp-action="Next10" asp-route-id="blogPost.Id">Next 10</a>
 }
 
 <div class="sidenav row  ">
