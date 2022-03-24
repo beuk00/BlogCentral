@@ -1,45 +1,110 @@
 ﻿@model HomePageViewModel
+@{
+    Layout = "_Layout";
+}
+
+<div class="row">
+<h1 class="col-6">Home Page</h1>
 
 
-
-<h1>HomePage</h1>
+</div>
 <br />
 <form asp-controller="Home" asp-action="Sort" method="post">
- <div class="form-group">
-        <label asp-for="Sort"></label>                                                                                                 
+    <div class="form-group">
+        <label asp-for="Sort"></label>
         <select asp-for="Sort" class="form-control" asp-items="@Model.SortSelections">
             <option Value="">Select a SortFunction</option>
         </select>
     </div>
     <input type="Submit" />
-    </form>
-    <br />
+</form>
+<br />
 <div class="row">
 
-@foreach (var blogPost in @Model.BlogPosts)
-{
+    @foreach (var blogPost in @Model.BlogPosts)
+    {
         <div class="card col-3 " style=" min-width: 18rem; overflow: hidden; margin: 10px; ">
-          <div class="card-body " style=" position:relative;">
-            <h5 class="card-title">@blogPost.Title</h5>
-            <a asp-controller="Author" asp-action="Index1" asp-route-id="@blogPost.AuthorId">@blogPost.Author.FirstName @blogPost.Author.LastName</a>
-            <p class="card-text">@blogPost.Date</p>
-            <p class="card-text pb-3 " style=" white-space: nowrap;
+            <div class="card-body " style=" position:relative;">
+                <h5 class="card-title">@blogPost.Title</h5>
+                <a asp-controller="Author" asp-action="Index1" asp-route-id="@blogPost.AuthorId">@blogPost.Author.FirstName @blogPost.Author.LastName</a>
+                <p class="card-text">@blogPost.Date</p>
+                <p class="card-text pb-3 " style=" white-space: nowrap;
                 width: 200px;
                 overflow: hidden;
                 text-overflow: ellipsis;">@blogPost.Content</p>
+
            
              <a class="btn btn-info" style="position:absolute; top:5px ;right:5px;" asp-controller="BlogDetail" asp-action="Index" asp-route-id="@blogPost.Id"> <i class="bi bi-book"></i> &nbsp;Read</a>
                   
             
+
+
+
+            </div>
         </div>
-    </div>
-}
+    }
 </div>
 <br />
-<a class="btn btn-primary" asp-controller="Home" asp-action="Next10" asp-route-id="blogPost.Id">Next 10</a>
-<a class="btn btn-primary" asp-controller="Home" asp-action="Previous10" asp-route-id="blogPost.Id">Previous 10</a>
-<a class="btn btn-primary" asp-controller="Home" asp-action="Last10" asp-route-id="blogPost.Id">Last 10</a>
 <a class="btn btn-primary" asp-controller="Home" asp-action="First10" asp-route-id="blogPost.Id">First 10</a>
+<a class="btn btn-primary" asp-controller="Home" asp-action="Last10" asp-route-id="blogPost.Id">Last 10</a>
+
+@if (@Model.StartOfSelection == false)
+{
+    <a class="btn btn-primary" asp-controller="Home" asp-action="Previous10" asp-route-id="blogPost.Id">Previous 10</a>
+
+}
+
+@if (@Model.EndOfSelection == false)
+{
+    <a class="btn btn-primary" asp-controller="Home" asp-action="Next10" asp-route-id="blogPost.Id">Next 10</a>
+}
+
+
+
+
+
+@if (!SignInManager.IsSignedIn(User))
+{
+    <div class="sidenav row  ">
+    
+        
+          <img class=" col-12 img-side " 
+     style=" border-radius: 50%;
+   
+    max-width: 67%;
+    max-height: 16%;
+    margin-left: auto;
+    margin-right: auto;"
+      src="~/images/Default.png">
+          <p class=" text-side ml-4 ">Welcome to our BolgCentral    </p>
+          
+          
+         
+           
+    </div>
+}
+else
+{
+    <div class="sidenav row  ">
+    
+        
+          <img class=" col-12 img-side  " style=" border-radius: 50%;
+   
+    max-width: 67%;
+    max-height: 16%;
+    margin-left: auto;
+    margin-right: auto;"
+     src="@Model.Author.ImageUrl">
+          <span class="text-side ml-5  col-12" >@Model.Author.FirstName @Model.Author.LastName</span>
+             <a class="text-side col-12" style="width:30%" asp-controller="Author" asp-action="Index1" asp-route-id="@(UserManager.GetUserId(User))">My Blog</a>
+
+          
+         @if(UserManager.GetUserId(User)==@Model.Author.Id){
+             <a class="text-side col-12"  asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Settings</a>
+             }
+           
+</div>
+}
 
 
 

@@ -20,7 +20,7 @@ namespace BlogCentralApp.Data
         public DbSet<BlogPost> BlogPosts { get; set; }
 
         public DbSet<Comment> Comments { get; set; }
-
+        public DbSet<Like> Likes { get; set; }
        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -36,7 +36,31 @@ namespace BlogCentralApp.Data
 
             modelBuilder.Entity<Author>()
                .Property(a => a.UserName).IsRequired();
+            modelBuilder.Entity<BlogPost>()
+              .HasOne(c => c.Author)
+              .WithMany(fc => fc.Posts)
+              .HasForeignKey(c => c.AuthorId)
+              .IsRequired(false)
+              .OnDelete(DeleteBehavior.Cascade);
 
+            modelBuilder.Entity<Like>()
+                .HasOne(a => a.Author)
+                .WithMany(a => a.Likes)
+                .HasForeignKey(a => a.AuthorId)
+                .IsRequired(false)
+                .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Like>()
+               .HasOne(a => a.BlogPost)
+               .WithMany(a => a.likes)
+               .HasForeignKey(a => a.BlogPostId)
+               .IsRequired(false)
+               .OnDelete(DeleteBehavior.ClientSetNull);
+            modelBuilder.Entity<Like>()
+              .HasOne(a => a.BlogPost)
+              .WithMany(a => a.likes)
+              .HasForeignKey(a => a.BlogPostId)
+              .IsRequired(false)
+              .OnDelete(DeleteBehavior.ClientSetNull);
 
             PasswordHasher<Author> hasher = new PasswordHasher<Author>();
             string hashedPassword = hasher.HashPassword(new Author(), "Test");
@@ -84,6 +108,7 @@ namespace BlogCentralApp.Data
                 new BlogPost{Id=22, Title="BlogPost22",Content="content11",AuthorId= "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", Date = DateTime.Now.AddDays(-22), Likes = 1},
                 new BlogPost{Id=23, Title="Japan waarschuwt voor black-outs in Tokio",Content="De Japanse regering waarschuwt vandaag voor mogelijke stroomonderbrekingen in de regio van Tokio. Een koudeprik in combinatie met verschillende centrales die er uitliggen na de aardbeving van vorige week zetten het stroomnet er onder druk. De overheden waarschuwen voor mogelijke stroomonderbrekingen dinsdagavond. Twee tot drie miljoen huishoudens dreigen er enkele uren in het donker te zitten.De regering roept gezinnen en bedrijven op deze week zo weinig mogelijk elektriciteit te verbruiken.Door abnormaal koud weer is er veel vraag naar stroom, terwijl de capaciteit krap is. Japan werd vorige week getroffen door een zware aardbeving. Verscheidene thermische centrales liggen als gevolg uit.Het gaat om de eerste waarschuwingen voor black-outs sinds 2011, toen een tsunami een kernramp veroorzaakte in Fukushima.", AuthorId= "ce8a91ab-41ca-4e08-8cae-40d4cda1a938", Date = DateTime.Now, Likes = 10},
                 new BlogPost{Id=24, Title="JapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapan",Content="JapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapan", AuthorId= "ce8a91ab-41ca-4e08-8cae-40d4cda1a938", Date = DateTime.Now, Likes = 10},
+
             };
 
             modelBuilder.Entity<Author>().HasData(authors);

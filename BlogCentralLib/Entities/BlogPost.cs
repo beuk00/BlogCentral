@@ -19,5 +19,6 @@ namespace BlogCentralLib.Entities
         public int Likes { get; set; }
 
         public IEnumerable<Comment> Comments { get; set; }
+        public IEnumerable<Like> likes { get; set; }
     }
 }

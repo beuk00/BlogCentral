@@ -57,7 +57,8 @@ namespace BlogCentralApp
             services.AddScoped<AuthorRepository>();
             services.AddScoped<CommentRepository>();
 
-
+            services.AddScoped<LikeRepository>();
+           
             services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = $"/Identity/Account/Login";
