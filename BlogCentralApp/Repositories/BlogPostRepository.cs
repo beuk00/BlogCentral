@@ -20,7 +20,7 @@ namespace BlogCentralApp.Repositories
 
         public override async Task<BlogPost> GetById<P>(P id)
         {
-            return await _dbContext.BlogPosts.Include(b => b.Comments).ThenInclude(c => c.Author).Where(a => a.Id.Equals(id)).FirstOrDefaultAsync();
+            return await _dbContext.BlogPosts.Include(a=>a.Author).Include(b => b.Comments).ThenInclude(c => c.Author).Where(a => a.Id.Equals(id)).FirstOrDefaultAsync();
         }
 
         public async Task Like(int id)
