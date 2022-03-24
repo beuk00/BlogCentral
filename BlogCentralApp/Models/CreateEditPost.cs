@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using BlogCentralLib.Entities;
+using System.ComponentModel.DataAnnotations;
 
 namespace BlogCentralApp.Models
 {
@@ -13,6 +14,8 @@ namespace BlogCentralApp.Models
         //[AllowHTML]
         public string PostContent { get; set; }
         public string AuthorId { get; set; }
+
+        public Author Author { get; set; }
 
     }
 }

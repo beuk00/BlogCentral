@@ -30,6 +30,10 @@ namespace BlogCentralApp.Controllers
                HttpContext.Response.Cookies.Append("id", id);
 
             }
+            else
+            {
+                vm.AuthorId = HttpContext.Request.Cookies["id"];
+            }
 
             int countShow = _blogPostRepository.GetAll().Where(a => a.AuthorId == vm.AuthorId).Count();
 

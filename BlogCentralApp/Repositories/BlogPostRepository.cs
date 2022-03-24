@@ -34,7 +34,7 @@ namespace BlogCentralApp.Repositories
         {
 
             BlogPost blogPost = await GetById(id);
-            blogPost.Likes =blogPost.Likes-1;
+            blogPost.Likes = blogPost.Likes-1;
             await Update(blogPost);
         }
         public override async Task<IEnumerable<BlogPost>> ListAll()
