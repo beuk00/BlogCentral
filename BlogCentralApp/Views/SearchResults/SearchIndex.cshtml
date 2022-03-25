@@ -1,7 +1,7 @@
 ﻿@model HomePageViewModel
 
-@if (Model.BlogPosts.Count() > 0)
-{
+@*@if (Model.BlogPosts.Count() != 0)
+{*@
 
     <form asp-controller="Search" asp-action="Sort" method="post">
         <div class="form-group">
@@ -14,7 +14,7 @@
         <input type="Submit" />
     </form>
     <br />
-}
+@*  *@}
 
 <div class="row">
 
