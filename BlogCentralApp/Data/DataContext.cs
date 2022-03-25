@@ -46,8 +46,8 @@ namespace BlogCentralApp.Data
               .IsRequired(false)
               .OnDelete(DeleteBehavior.Cascade);
 
-
            
+
 
 
             modelBuilder.Entity<Comment>()
@@ -63,7 +63,8 @@ namespace BlogCentralApp.Data
             .WithMany(fc => fc.Comments)
             .HasForeignKey(c => c.AuthorId)
             .IsRequired(false)
-            .OnDelete(DeleteBehavior.ClientSetNull);
+            .OnDelete(DeleteBehavior.Cascade);
+
 
             modelBuilder.Entity<Like>()
                 .HasOne(a => a.Author)
