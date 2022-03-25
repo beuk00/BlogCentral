@@ -47,6 +47,9 @@ namespace BlogCentralApp.Controllers
             if (_signManager.IsSignedIn(User)){
                 vm.Author= (Author) await _userManager.GetUserAsync(User);
             }
+
+            vm.Author = new Author();
+
             return View("index", vm);
         }
 
