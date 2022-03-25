@@ -1,9 +1,10 @@
 ﻿@model HomePageViewModel
  
+<span class="text-center"><i class="bi bi-eye"></i> &nbsp;@Model.Author.Views</span>
 @if(UserManager.GetUserId(User)==@Model.AuthorId){
   <div class="row " >
         <div class="col-6">
-             <h1 class="text-start">Welcome back, @Model.Author.FirstName  </h1>
+             <h1 class="text-start">Welcome, @Model.Author.FirstName  </h1>
           </div>
          <div class="col-6 text-end" >
            <a  asp-controller="BlogDetail" asp-action="CreateEditBlogpost" asp-route-id="@Model.Author.Id" class="btn btn-primary "><i class="bi bi-plus-circle"></i> &nbsp; Create new post</a>
@@ -70,21 +71,42 @@ else{
     <a class="btn btn-primary" asp-controller="Author" asp-action="Next10" asp-route-id="blogPost.Id">Next 10</a>
 }
 
-<div class="sidenav row  ">
+
+
+@if (!SignInManager.IsSignedIn(User))
+{
+    <div class="sidenav row  ">
     
         
           <img class=" col-12 img-side " 
-    style=" border-radius: 50%;
+            style=" border-radius: 50%;
    
-    max-width: 100px;
-    max-height: 100px;
-    margin-left: auto;
-    margin-right: auto;"
-      src="@Model.Author.ImageUrl">
-          <span class="text-side  col-12" >@Model.Author.FirstName @Model.Author.LastName</span>
-          <p class=" text-side ml-2 ">Views:&nbsp; @Model.Views   </p>
-         @if(UserManager.GetUserId(User)==@Model.Author.Id){
+            max-width: 100px;
+            max-height: 100px;
+            margin-left: auto;
+            margin-right: auto;"
+              src="~/images/Default.png">
+        <a class="text-side   col-12" id="login" asp-area="Identity" asp-page="/Account/Login">Join us</a>
+
+        <p class=" text-side  col-12   ">Online Users:&nbsp; @Model.Visitors   </p>
+        <p class="text-side  col-12">Visitors:&nbsp; @Model.Views</p>
+    </div>
+}
+else
+{
+    <div class="sidenav row  ">
+         <img class=" col-12 img-side  " style=" border-radius: 50%;
+                max-width: 100px;
+                max-height: 100px;
+                margin-left: auto;
+                margin-right: auto;"
+                src="@Model.Author.ImageUrl">
+          <span class="text-side   col-12" >@Model.SignedInAuthor.FirstName @Model.SignedInAuthor.LastName</span>
+          <p class=" text-side  col-12 ">Online Users:&nbsp; @Model.Visitors   </p>
+          <span class=" text-side  col-12  ">Visitors:&nbsp; @Model.Views   </span>
+             <a class="text-side col-12" style="width:30%" asp-controller="Author" asp-action="Index1" asp-route-id="@(UserManager.GetUserId(User))">My Blog</a>
+      
              <a class="text-side col-12"  asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Settings</a>
-             }
-           
-</div>
+
+    </div>
+}

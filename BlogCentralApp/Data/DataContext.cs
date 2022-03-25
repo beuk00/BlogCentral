@@ -37,6 +37,8 @@ namespace BlogCentralApp.Data
 
             modelBuilder.Entity<Author>()
                .Property(a => a.UserName).IsRequired();
+
+
             modelBuilder.Entity<BlogPost>()
               .HasOne(c => c.Author)
               .WithMany(fc => fc.Posts)
@@ -44,24 +46,38 @@ namespace BlogCentralApp.Data
               .IsRequired(false)
               .OnDelete(DeleteBehavior.Cascade);
 
+
+           
+
+
+            modelBuilder.Entity<Comment>()
+             .HasOne(c => c.BlogPost)
+             .WithMany(fc => fc.Comments)
+             .HasForeignKey(c => c.BlogpostId)
+             .IsRequired(false)
+             .OnDelete(DeleteBehavior.Cascade);
+
+
+            modelBuilder.Entity<Comment>()
+            .HasOne(c => c.Author)
+            .WithMany(fc => fc.Comments)
+            .HasForeignKey(c => c.AuthorId)
+            .IsRequired(false)
+            .OnDelete(DeleteBehavior.ClientSetNull);
+
             modelBuilder.Entity<Like>()
                 .HasOne(a => a.Author)
                 .WithMany(a => a.Likes)
                 .HasForeignKey(a => a.AuthorId)
                 .IsRequired(false)
-                .OnDelete(DeleteBehavior.Cascade);
-            modelBuilder.Entity<Like>()
-               .HasOne(a => a.BlogPost)
-               .WithMany(a => a.likes)
-               .HasForeignKey(a => a.BlogPostId)
-               .IsRequired(false)
-               .OnDelete(DeleteBehavior.ClientSetNull);
+                .OnDelete(DeleteBehavior.ClientSetNull);
+          
             modelBuilder.Entity<Like>()
               .HasOne(a => a.BlogPost)
               .WithMany(a => a.likes)
               .HasForeignKey(a => a.BlogPostId)
               .IsRequired(false)
-              .OnDelete(DeleteBehavior.ClientSetNull);
+              .OnDelete(DeleteBehavior.Cascade);
 
             PasswordHasher<Author> hasher = new PasswordHasher<Author>();
             string hashedPassword = hasher.HashPassword(new Author(), "Test");

@@ -4,7 +4,9 @@ using BlogCentralLib.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace BlogCentralApp.Controllers
@@ -14,16 +16,27 @@ namespace BlogCentralApp.Controllers
         private readonly BlogPostRepository _blogPostRepository;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly VisitRepository _visitRepository;
+        private readonly VisitorRepository _visitorRepository;
+        private readonly AuthorRepository _authorRepository;
+        public AuthorController(BlogPostRepository blogPostRepository, UserManager<IdentityUser> userManager,VisitRepository visitRepository,VisitorRepository visitorRepository, AuthorRepository authorRepository)
 
-        public AuthorController(BlogPostRepository blogPostRepository, UserManager<IdentityUser> userManager,VisitRepository visitRepository)
         {
             _blogPostRepository = blogPostRepository;
             _userManager = userManager; 
             _visitRepository = visitRepository;
+            _visitorRepository = visitorRepository;
+            _authorRepository = authorRepository;
         }
 
+       
+        [HttpGet]
         public async Task<IActionResult> Index1(string id)
         {
+           
+
+            await _authorRepository.AddView(id);
+
+
             HomePageViewModel vm = new HomePageViewModel();
 
             if (id!=null)
@@ -47,11 +60,15 @@ namespace BlogCentralApp.Controllers
             }
 
             vm.StartOfSelection = true;
+          vm.SignedInAuthor =(Author)await _userManager.GetUserAsync(User);
+            // var user  = await _userManager.GetUserAsync(HttpContext.User);
+
             vm.Author = (Author)await _userManager.FindByIdAsync(vm.AuthorId);
             vm.BlogPosts = _blogPostRepository.GetAll().Where(a=>a.AuthorId== vm.AuthorId).Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList().Take(6);
             
             HttpContext.Response.Cookies.Append("lastSort", "Newest first");
             vm.Views = await _visitRepository.GetAll().CountAsync();
+            vm.Visitors = await _visitorRepository.GetAll().CountAsync();
 
             return View("IndexAuthor", vm);
         }
@@ -95,6 +112,7 @@ namespace BlogCentralApp.Controllers
                     break;
             }
             model.Views = await _visitRepository.GetAll().CountAsync();
+            model.Visitors = await _visitorRepository.GetAll().CountAsync();
 
             return View("IndexAuthor", model);
         }
@@ -131,6 +149,7 @@ namespace BlogCentralApp.Controllers
                             break;
                         }
             model.Views = await _visitRepository.GetAll().CountAsync();
+                model.Visitors = await _visitorRepository.GetAll().CountAsync();
 
                 return View("IndexAuthor", model);
                     }
@@ -172,6 +191,7 @@ namespace BlogCentralApp.Controllers
                     break;
             }
             model.Views = await _visitRepository.GetAll().CountAsync();
+            model.Visitors = await _visitorRepository.GetAll().CountAsync();
 
             return View("IndexAuthor", model);
         }
@@ -211,6 +231,7 @@ namespace BlogCentralApp.Controllers
                     break;
             }
             model.Views = await _visitRepository.GetAll().CountAsync();
+            model.Visitors = await _visitorRepository.GetAll().CountAsync();
 
             return View("IndexAuthor", model);
         }
@@ -259,6 +280,7 @@ namespace BlogCentralApp.Controllers
             model.StartOfSelection = true;
             model.Author = (Author)await _userManager.FindByIdAsync(AuthorId);
             model.Views = await _visitRepository.GetAll().CountAsync();
+            model.Visitors = await _visitorRepository.GetAll().CountAsync();
 
             return View("IndexAuthor", model);
         }
