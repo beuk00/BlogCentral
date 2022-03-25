@@ -135,6 +135,7 @@ namespace BlogCentralApp.Controllers
                        
 
                        AuthorId = _user.Id,
+                       Author =  (Author)_user,
                         Content = model.PostContent,
                         Title = model.PostTitle,
                         Date = DateTime.Now,
@@ -168,9 +169,9 @@ namespace BlogCentralApp.Controllers
         public async Task<IActionResult> DeletePost(int id)
         {
             var _user = await _userManager.GetUserAsync(HttpContext.User);
-
             await _blogPostRepository.DeleteById(id);
             TempData["success"] = "Post Deleted successfully";
+            
 
             return RedirectToAction("Index1", "Author" , new {_user.Id});
         }
