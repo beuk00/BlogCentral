@@ -136,6 +136,7 @@ namespace BlogCentralApp.Controllers
                        
 
                        AuthorId = _user.Id,
+                       Author =  (Author)_user,
                         Content = model.PostContent,
                         Title = model.PostTitle,
                         Date = DateTime.Now,
