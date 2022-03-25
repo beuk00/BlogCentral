@@ -31,7 +31,18 @@ namespace BlogCentralApp
             //added to run the identityPages(Razor pages)
             services.AddRazorPages();
 
-            services.AddDbContext<DataContext>(option => option.UseSqlServer(Configuration.GetConnectionString("BlogCentralDB")));
+            //services.AddDbContext<DataContext>(option => option.UseSqlServer(Configuration.GetConnectionString("BlogCentralDB")));
+            services.AddDbContext<DataContext>(
+            options => options.UseMySql(Configuration.GetConnectionString("BlogCentralDB"),
+
+                    mySqlOptions =>
+                    {
+                        mySqlOptions.EnableRetryOnFailure(
+                        maxRetryCount: 10,
+                        maxRetryDelay: TimeSpan.FromSeconds(30),
+                        errorNumbersToAdd: null);
+                    }
+            ));
             services.AddIdentity<IdentityUser, IdentityRole>(
 
               options =>
@@ -58,7 +69,7 @@ namespace BlogCentralApp
             services.AddScoped<CommentRepository>();
 
             services.AddScoped<LikeRepository>();
-           
+
             services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = $"/Identity/Account/Login";
