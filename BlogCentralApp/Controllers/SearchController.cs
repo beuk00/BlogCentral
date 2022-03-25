@@ -159,7 +159,7 @@ namespace BlogCentralApp.Controllers
                 HttpContext.Response.Cookies.Append("count", "10");
                 model.EndOfSelection = false;
             }
-            vm.EndOfSelection = vm.EndOfSelection;
+            vm.EndOfSelection = model.EndOfSelection;
             vm.StartOfSelection = model.StartOfSelection;
             switch (HttpContext.Request.Cookies["lastSort"])
             {
