@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Threading.Tasks;
+using BlogCentralApp.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -13,15 +15,18 @@ namespace BlogCentralApp.Areas.Identity.Pages.Account.Manage
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<DeletePersonalDataModel> _logger;
-
+        private readonly CommentRepository _commentRepository;
         public DeletePersonalDataModel(
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
-            ILogger<DeletePersonalDataModel> logger)
+            ILogger<DeletePersonalDataModel> logger,
+            CommentRepository commentRepository)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
+            _commentRepository = commentRepository;
+
         }
 
         [BindProperty]
@@ -65,7 +70,10 @@ namespace BlogCentralApp.Areas.Identity.Pages.Account.Manage
                     return Page();
                 }
             }
+            var _user = await _userManager.GetUserAsync(User);
 
+            var comments =  _commentRepository.GetAll().Where(c=>c.AuthorId==_user.Id);
+            _commentRepository.RemoveRange(comments);
             var result = await _userManager.DeleteAsync(user);
             var userId = await _userManager.GetUserIdAsync(user);
             if (!result.Succeeded)

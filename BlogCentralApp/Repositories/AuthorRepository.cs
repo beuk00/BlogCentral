@@ -18,5 +18,12 @@ namespace BlogCentralApp.Repositories
             return await _dbContext.Authors.Where(a => a.Id.Equals(id)).FirstOrDefaultAsync();
 
         }
+
+        public async Task AddView(string authorId)
+        {
+            Author author = await GetById(authorId);
+            author.Views++;
+            await Update(author);
+        }
     }
 }

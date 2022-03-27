@@ -9,11 +9,13 @@ namespace BlogCentralLib.Entities
     {
         [Key]
         public int Id { get; set; }
-        [Required]
-        public int BlogpostId { get; set; }
-        public string AuthorId { get; set; }
+  
+        public int? BlogpostId { get; set; }
+        public BlogPost BlogPost { get; set; }
+        public string? AuthorId { get; set; }
+        public Author Author { get; set; }
+
         public string Content { get; set; }
         public DateTime CreationDate { get; set; }
-        public Author Author { get; set; }
     }
 }
