@@ -158,7 +158,7 @@ namespace BlogCentralApp.Controllers
                 }
 
 
-                return RedirectToAction("Index1", "Author", new {id = _user.Id });
+                return RedirectToAction("Index1", "Author", new { _user.Id });
 
             }
 
