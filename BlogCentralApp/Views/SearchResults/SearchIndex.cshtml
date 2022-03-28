@@ -1,4 +1,5 @@
-﻿@model HomePageViewModel
+﻿@using System.Text.RegularExpressions
+@model HomePageViewModel
 
 @*@if (Model.BlogPosts.Count() != 0)
 {*@
@@ -30,7 +31,7 @@
                     <p class="card-text pb-3 " style=" white-space: nowrap;
                 width: 200px;
                 overflow: hidden;
-                text-overflow: ellipsis;">@blogPost.Content</p>
+                text-overflow: ellipsis;">@Regex.Replace(@blogPost.Content, @"<[^>]+>|\&nbsp;", "")</p>
 
                 <a class="btn btn-info  " style="position:absolute; top:5px ;right:5px;" asp-controller="BlogDetail" asp-action="Index" asp-route-id="@blogPost.Id"> <i class="bi bi-book"></i> &nbsp;Read</a>
 
