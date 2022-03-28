@@ -56,9 +56,13 @@ namespace BlogCentralApp
             services.AddScoped<BlogPostRepository>();
             services.AddScoped<AuthorRepository>();
             services.AddScoped<CommentRepository>();
-
             services.AddScoped<LikeRepository>();
-           
+
+            services.AddScoped<VisitorRepository>();
+            services.AddScoped<VisitRepository>();
+
+
+
             services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = $"/Identity/Account/Login";
@@ -96,16 +100,16 @@ namespace BlogCentralApp
                 endpoints.MapRazorPages();
                 endpoints.MapControllerRoute(
                      name: "blogpost comment edit",
-                    pattern: "{controller=Home}/{action=Index}/{blogPostId?}/{commentId?}");
+                    pattern: "{controller=Home}/{action=Index1}/{blogPostId?}/{commentId?}");
                 endpoints.MapControllerRoute(
                     name: "sort",
-                    pattern: "{controller=Home}/{action=Index}/{sort?}/{count?}");
+                    pattern: "{controller=Home}/{action=Index1}/{sort?}/{count?}");
                 endpoints.MapControllerRoute(
                      name: "areas",
-                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{area:exists}/{controller=Home}/{action=Index1}/{id?}");
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index1}/{id?}");
             });
         }
     }

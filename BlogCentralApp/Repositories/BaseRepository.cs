@@ -92,5 +92,12 @@ namespace BlogCentralApp.Repositories
             return entity;
         }
 
+        public void RemoveRange(IEnumerable<T> entity)
+        {
+            _dbContext.RemoveRange(entity);
+          
+            _dbContext.SaveChanges();
+        }
+
     }
 }
