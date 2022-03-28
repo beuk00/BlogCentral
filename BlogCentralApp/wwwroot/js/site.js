@@ -9,3 +9,16 @@
         new bootstrap.Tooltip(tooltipTriggerEl)
     })
 })()
+
+tinymce.init({
+    selector: '#editable',
+    plugins: ['autoresize', 'autolink'],
+    autoresize_bottom_margin: 0,
+    brand: false,
+    menubar: false,
+    default_link_target: '_blank',
+    link_default_protocol: 'https',
+    statusbar: false,
+
+
+});
