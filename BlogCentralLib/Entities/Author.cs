@@ -19,6 +19,8 @@ namespace BlogCentralLib.Entities
         public string ImageUrl { get; set; }
        public IEnumerable<BlogPost> Posts { get; set; }
         public IEnumerable<Like> Likes { get; set; }
-
+      public IEnumerable<Comment> Comments { get; set; }
+       
+        public int Views { get; set; }
     }
 }

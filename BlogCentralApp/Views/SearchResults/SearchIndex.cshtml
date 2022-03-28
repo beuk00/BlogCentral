@@ -84,21 +84,20 @@ else
 @if (!SignInManager.IsSignedIn(User))
 {
     <div class="sidenav row  ">
+    
+        
+          <img class=" col-12 img-side " 
+            style=" border-radius: 50%;
+   
+            max-width: 100px;
+            max-height: 100px;
+            margin-left: auto;
+            margin-right: auto;"
+              src="~/images/Default.png">
+        <a class="text-side   col-12" id="login" asp-area="Identity" asp-page="/Account/Login">Start your Journey</a>
 
-
-        <img class=" col-12 img-side "
-             style=" border-radius: 50%;
-
-    max-width: 100px;
-    max-height: 100px;
-    margin-left: auto;
-    margin-right: auto;"
-             src="~/images/Default.png">
-        <p class=" text-side  ">Welcome to our BolgCentral    </p>
-
-
-
-
+        <p class=" text-side   col-12   ">Visitors:&nbsp; @Model.Views   </p>
+        <p class=" text-side  col-12   ">Online Users:&nbsp; @Model.Visitors   </p>
     </div>
 }
 else

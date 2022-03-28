@@ -34,6 +34,7 @@ namespace BlogCentralApp.Controllers
 
         [HttpGet]
         public async Task<IActionResult> IndexAsync(int id)
+        
         {
           
             DetailIndexViewModel vm = new DetailIndexViewModel();
@@ -144,6 +145,7 @@ namespace BlogCentralApp.Controllers
               TempData["success"] = "Post created successfully";
 
                     await _blogPostRepository.Create(post);
+
                 }
                 else
                 {
@@ -156,11 +158,11 @@ namespace BlogCentralApp.Controllers
                 }
 
 
-                return RedirectToAction("Index1","Author", new { _user.Id });
+                return RedirectToAction("Index1", "Author", new { _user.Id });
 
             }
 
-           
+
 
             return View("CreateEditPost",model);
         }
@@ -173,7 +175,7 @@ namespace BlogCentralApp.Controllers
             TempData["success"] = "Post Deleted successfully";
             
 
-            return RedirectToAction("Index1", "Author", new { _user.Id });
+            return RedirectToAction("Index1", "Author" , new {_user.Id});
         }
 
     }

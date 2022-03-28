@@ -14,7 +14,7 @@ namespace BlogCentralLib.Entities
         public string Title { get; set; }
         public string Content { get; set; }
         public DateTime Date { get; set; }
-        public string AuthorId { get; set; } 
+        public string? AuthorId { get; set; } 
         public Author Author { get; set; }
         public int Likes { get; set; }
 

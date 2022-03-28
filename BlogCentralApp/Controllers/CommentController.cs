@@ -28,7 +28,7 @@ namespace BlogCentralApp.Controllers
             if (commentId != 0)
             {
                 Comment comment = await _commentRepository.GetById(commentId);
-                model.BlogpostId = comment.BlogpostId;
+                model.BlogpostId = (int)comment.BlogpostId;
                 model.AuthorId = comment.AuthorId;
                 model.Content = comment.Content;
                 model.CommentId = comment.Id;
