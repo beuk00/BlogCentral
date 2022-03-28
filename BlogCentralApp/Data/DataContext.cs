@@ -58,13 +58,7 @@ namespace BlogCentralApp.Data
              .OnDelete(DeleteBehavior.Cascade);
 
 
-            modelBuilder.Entity<Comment>()
-            .HasOne(c => c.Author)
-            .WithMany(fc => fc.Comments)
-            .HasForeignKey(c => c.AuthorId)
-            .IsRequired(false)
-            .OnDelete(DeleteBehavior.Cascade);
-
+          
 
             modelBuilder.Entity<Like>()
                 .HasOne(a => a.Author)
