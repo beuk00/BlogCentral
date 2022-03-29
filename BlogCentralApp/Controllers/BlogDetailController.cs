@@ -120,7 +120,7 @@ namespace BlogCentralApp.Controllers
                 vm.PostId = (int)id;
                 vm.PostContent = postFromDb.Content;
                 vm.PostTitle = postFromDb.Title;
-              
+                vm.AuthorId = postFromDb.AuthorId;
             }
 
 
