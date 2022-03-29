@@ -15,13 +15,14 @@
 tinymce.init({
     selector: '#editable',
     plugins: ['autoresize', 'autolink', 'image', 'advlist', 'preview'],
+    content_css: 'default',
+    skin: 'tinymce-5',
     autoresize_bottom_margin: 0,
     statusbar: false,
     brand: false,
     menubar: false,
-    default_link_target: '_blank',
     link_default_protocol: 'https',
     min_height: 400,
-    toolbar: 'undo redo | lineheight  forecolor | bold italic underline strikethrough | alignleft aligncenter alignright | image | selectall preview|',
+    toolbar: 'undo redo | h1 h2 h3 h4 h5 | lineheight  forecolor | fontsizeselect bold italic underline strikethrough | alignleft aligncenter alignright | image | selectall preview|',
  
 });
