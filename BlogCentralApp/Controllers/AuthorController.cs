@@ -79,6 +79,7 @@ namespace BlogCentralApp.Controllers
             model.AuthorId = HttpContext.Request.Cookies["id"];
             model.Author = (Author)await _userManager.FindByIdAsync(model.AuthorId);
             model.StartOfSelection = false;
+            model.SignedInAuthor = (Author)await _userManager.GetUserAsync(User);
 
             int countShow;
             int range = _blogPostRepository.GetAll().Where(a => a.AuthorId == model.AuthorId).Count() - int.Parse(HttpContext.Request.Cookies["count"]);
@@ -123,8 +124,9 @@ namespace BlogCentralApp.Controllers
                     model.EndOfSelection = false;
                     model.AuthorId = HttpContext.Request.Cookies["id"];
                     model.Author = (Author)await _userManager.FindByIdAsync(model.AuthorId);
+                    model.SignedInAuthor = (Author)await _userManager.GetUserAsync(User);
 
-                    int range = int.Parse(HttpContext.Request.Cookies["count"]) - 10;
+            int range = int.Parse(HttpContext.Request.Cookies["count"]) - 10;
 
                     if (range <= 11)
                     {
@@ -175,6 +177,7 @@ namespace BlogCentralApp.Controllers
             model.EndOfSelection = true;
             model.AuthorId = HttpContext.Request.Cookies["id"];
             model.Author = (Author)await _userManager.FindByIdAsync(model.AuthorId);
+            model.SignedInAuthor = (Author)await _userManager.GetUserAsync(User);
 
             switch (HttpContext.Request.Cookies["lastSort"])
             {
@@ -204,7 +207,7 @@ namespace BlogCentralApp.Controllers
             model.StartOfSelection = true;
             model.AuthorId = HttpContext.Request.Cookies["id"];
             model.Author = (Author)await _userManager.FindByIdAsync(model.AuthorId);
-
+            model.SignedInAuthor = (Author)await _userManager.GetUserAsync(User);
             if (countShow <= 10)
             {
                 HttpContext.Response.Cookies.Append("count", countShow.ToString());
@@ -281,6 +284,7 @@ namespace BlogCentralApp.Controllers
             model.Author = (Author)await _userManager.FindByIdAsync(AuthorId);
             model.Views = await _visitRepository.GetAll().CountAsync();
             model.Visitors = await _visitorRepository.GetAll().CountAsync();
+            model.SignedInAuthor = (Author)await _userManager.GetUserAsync(User);
 
             return View("IndexAuthor", model);
         }

@@ -17,12 +17,16 @@ namespace BlogCentralApp.Controllers
         private readonly BlogPostRepository _blogPostRepository;
         private readonly SignInManager<IdentityUser> _signManager;
         private readonly UserManager<IdentityUser> _userManager;
-
-        public SearchController(BlogPostRepository blogPostRepository, SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager)
+        private readonly VisitorRepository _visitorRepository;
+        private readonly VisitRepository _visitRepository;
+        public SearchController(BlogPostRepository blogPostRepository, SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager, VisitorRepository visitorRepository, VisitRepository visitRepository)
         {
             _blogPostRepository = blogPostRepository;
             _signManager = signInManager;
             _userManager = userManager;
+            _visitorRepository = visitorRepository;
+            _visitRepository = visitRepository;
+
         }
 
         [HttpGet]
@@ -39,6 +43,8 @@ namespace BlogCentralApp.Controllers
             {
                 vm.Author = (Author)await _userManager.GetUserAsync(User);
             }
+            vm.Visitors = await _visitorRepository.GetAll().CountAsync();
+            vm.Views = await _visitRepository.GetAll().CountAsync();
             return RedirectToAction("First10", vm);
         }
 
@@ -55,7 +61,9 @@ namespace BlogCentralApp.Controllers
                     HomePageViewModel vm1 = new HomePageViewModel();
                     vm1.BlogPosts = uniqueItems1;
                     vm1.SearchString = model.SearchString;
-
+                    vm1.Author = (Author)await _userManager.GetUserAsync(User);
+                    vm1.Visitors = await _visitorRepository.GetAll().CountAsync();
+                    vm1.Views = await _visitRepository.GetAll().CountAsync();
                     return View("~/Views/SearchResults/SearchIndex.cshtml", vm1);
 
                 case "Most popular First":
@@ -64,7 +72,9 @@ namespace BlogCentralApp.Controllers
                     HomePageViewModel vm2 = new HomePageViewModel();
                     vm2.BlogPosts = uniqueItems2;
                     vm2.SearchString = model.SearchString;
-
+                    vm2.Author = (Author)await _userManager.GetUserAsync(User);
+                    vm2.Visitors = await _visitorRepository.GetAll().CountAsync();
+                    vm2.Views = await _visitRepository.GetAll().CountAsync();
                     return View("~/Views/SearchResults/SearchIndex.cshtml", vm2);
 
                 default:
@@ -73,6 +83,9 @@ namespace BlogCentralApp.Controllers
                     HomePageViewModel vm3 = new HomePageViewModel();
                     vm3.BlogPosts = uniqueItems3;
                     vm3.SearchString = model.SearchString;
+                    vm3.Author = (Author)await _userManager.GetUserAsync(User);
+                    vm3.Visitors = await _visitorRepository.GetAll().CountAsync();
+                    vm3.Views = await _visitRepository.GetAll().CountAsync();
                     return View("~/Views/SearchResults/SearchIndex.cshtml", vm3);
 
             }
@@ -109,12 +122,16 @@ namespace BlogCentralApp.Controllers
                     uniqueItems = _blogPostRepository.SearchAsync(model.SearchString).OrderBy(x => x.Date).ToList().TakeLast(10);
                     vm.BlogPosts = uniqueItems;
                     vm.SearchString = model.SearchString;
+                    vm.Author = (Author)await _userManager.GetUserAsync(User);
+                    
                     break;
                 case "Most popular First":
                     HttpContext.Response.Cookies.Append("lastSort", "Most popular First");
                     uniqueItems = _blogPostRepository.SearchAsync(model.SearchString).OrderByDescending(x => x.Likes).ToList().TakeLast(10);
                     vm.BlogPosts = uniqueItems;
                     vm.SearchString = model.SearchString;
+                    vm.Author = (Author)await _userManager.GetUserAsync(User);
+                     
                     break;
                     
 
@@ -122,13 +139,16 @@ namespace BlogCentralApp.Controllers
                     uniqueItems = _blogPostRepository.SearchAsync(model.SearchString).OrderByDescending(x => x.Date).ToList().TakeLast(10);
                     vm.BlogPosts = uniqueItems;
                     vm.SearchString = model.SearchString;
+                    vm.Author = (Author)await _userManager.GetUserAsync(User);
+                   
                     break;
             }
             if (_signManager.IsSignedIn(User))
             {
                 vm.Author = (Author)await _userManager.GetUserAsync(User);
             }
-
+            vm.Visitors = await _visitorRepository.GetAll().CountAsync();
+            vm.Views = await _visitRepository.GetAll().CountAsync();
             return View("~/Views/SearchResults/SearchIndex.cshtml", vm);
         }
 
@@ -168,6 +188,8 @@ namespace BlogCentralApp.Controllers
                     uniqueItems = _blogPostRepository.SearchAsync(model.SearchString).OrderBy(x => x.Date).ToList().Take(10);
                     vm.BlogPosts = uniqueItems;
                     vm.SearchString = model.SearchString;
+                    vm.Author = (Author)await _userManager.GetUserAsync(User);
+                    
                     break;
 
                 case "Most popular First":
@@ -175,18 +197,24 @@ namespace BlogCentralApp.Controllers
                     uniqueItems = _blogPostRepository.SearchAsync(model.SearchString).OrderByDescending(x => x.Likes).ToList().Take(10);
                     vm.BlogPosts = uniqueItems;
                     vm.SearchString = model.SearchString;
+                    vm.Author = (Author)await _userManager.GetUserAsync(User);
+                    
                     break;
 
                 default:
                     uniqueItems = _blogPostRepository.SearchAsync(model.SearchString).OrderByDescending(x => x.Date).ToList().Take(10);
                     vm.BlogPosts = uniqueItems;
                     vm.SearchString = model.SearchString;
+                    vm.Author = (Author)await _userManager.GetUserAsync(User);
+                    
                     break;
             }
             if (_signManager.IsSignedIn(User))
             {
                 vm.Author = (Author)await _userManager.GetUserAsync(User);
             }
+            vm.Visitors = await _visitorRepository.GetAll().CountAsync();
+            vm.Views = await _visitRepository.GetAll().CountAsync();
             return View("~/Views/SearchResults/SearchIndex.cshtml", vm);
         }
         public async Task<IActionResult> Previous10(HomePageViewModel model)
@@ -217,25 +245,32 @@ namespace BlogCentralApp.Controllers
                         uniqueItems = _blogPostRepository.SearchAsync(model.SearchString).ToList().OrderBy(x => x.Date).ToList().GetRange(int.Parse(HttpContext.Request.Cookies["count"]) - 20, 10);
                         vm.BlogPosts = uniqueItems;
                         vm.SearchString = model.SearchString;
+                        vm.Author = (Author)await _userManager.GetUserAsync(User);
+
                         break;
 
                     case "Most popular First":
                         uniqueItems = _blogPostRepository.SearchAsync(model.SearchString).ToList().OrderByDescending(x => x.Likes).ToList().GetRange(int.Parse(HttpContext.Request.Cookies["count"]) - 20, 10);
                         vm.BlogPosts = uniqueItems;
                         vm.SearchString = model.SearchString;
+                        vm.Author = (Author)await _userManager.GetUserAsync(User);
+
                         break;
 
                     default:
                         uniqueItems = _blogPostRepository.SearchAsync(model.SearchString).ToList().OrderByDescending(x => x.Date).ToList().GetRange(int.Parse(HttpContext.Request.Cookies["count"]) - 20, 10);
                         vm.BlogPosts = uniqueItems;
                         vm.SearchString = model.SearchString;
+                        vm.Author = (Author)await _userManager.GetUserAsync(User);
+
                         break;
                 }
                 if (_signManager.IsSignedIn(User))
                 {
                     vm.Author = (Author)await _userManager.GetUserAsync(User);
                 }
-
+                vm.Visitors = await _visitorRepository.GetAll().CountAsync();
+                vm.Views = await _visitRepository.GetAll().CountAsync();
                 return View("~/Views/SearchResults/SearchIndex.cshtml", model);
             }
 
@@ -278,25 +313,29 @@ namespace BlogCentralApp.Controllers
                     uniqueItems = _blogPostRepository.SearchAsync(model.SearchString).ToList().OrderBy(x => x.Date).ToList().GetRange(int.Parse(HttpContext.Request.Cookies["count"]), range);
                     vm.BlogPosts = uniqueItems;
                     vm.SearchString = model.SearchString;
+
                     break;
 
                 case "Most popular First":
                     uniqueItems = _blogPostRepository.SearchAsync(model.SearchString).ToList().OrderByDescending(x => x.Likes).ToList().GetRange(int.Parse(HttpContext.Request.Cookies["count"]), range);
                     vm.BlogPosts = uniqueItems;
                     vm.SearchString = model.SearchString;
+
                     break;
 
                 default:
                     uniqueItems = _blogPostRepository.SearchAsync(model.SearchString).ToList().OrderByDescending(x => x.Date).ToList().GetRange(int.Parse(HttpContext.Request.Cookies["count"]), range);
                     vm.BlogPosts = uniqueItems;
                     vm.SearchString = model.SearchString;
+
                     break;
             }
             if (_signManager.IsSignedIn(User))
             {
                 vm.Author = (Author)await _userManager.GetUserAsync(User);
             }
-
+            vm.Visitors = await _visitorRepository.GetAll().CountAsync();
+            vm.Views = await _visitRepository.GetAll().CountAsync();
             return View("~/Views/SearchResults/SearchIndex.cshtml", vm);
         }
     }
