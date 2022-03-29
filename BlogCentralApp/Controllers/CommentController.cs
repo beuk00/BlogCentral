@@ -14,14 +14,12 @@ namespace BlogCentralApp.Controllers
     {
         private readonly CommentRepository _commentRepository;
         private readonly UserManager<IdentityUser> _userManager;
-        private readonly VisitorRepository _visitorRepository;
-        private readonly VisitRepository _visitRepository;
-        public CommentController(CommentRepository commentRepository, UserManager<IdentityUser> userManager, VisitorRepository visitorRepository, VisitRepository visitRepository)
+         
+        public CommentController(CommentRepository commentRepository, UserManager<IdentityUser> userManager)
         {
             _commentRepository = commentRepository;
             _userManager = userManager;
-            _visitorRepository = visitorRepository;
-            _visitRepository = visitRepository;
+           
         }
 
 
@@ -38,16 +36,14 @@ namespace BlogCentralApp.Controllers
                 model.CommentId = comment.Id;
                 model.CreationDate = comment.CreationDate;
                 model.Author = (Author)await _userManager.GetUserAsync(User);
-                model.Views = await _visitRepository.GetAll().CountAsync();
-                model.Visitors = await _visitorRepository.GetAll().CountAsync();
+               
                 return View(model);
             }
             else
             {
                 model.BlogpostId = blogPostId;
                 model.Author=(Author) await _userManager.GetUserAsync(User);
-                model.Views = await _visitRepository.GetAll().CountAsync();
-                model.Visitors = await _visitorRepository.GetAll().CountAsync();
+               
                 return View(model);
             }
         }
@@ -82,8 +78,7 @@ namespace BlogCentralApp.Controllers
             }
             model.Author = (Author)await _userManager.GetUserAsync(User);
 
-            model.Views = await _visitRepository.GetAll().CountAsync();
-            model.Visitors = await _visitorRepository.GetAll().CountAsync();
+           
             return View(model);
         }
         [HttpGet]

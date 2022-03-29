@@ -21,18 +21,16 @@ namespace BlogCentralApp.Controllers
         private readonly AuthorRepository _authorRepository;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly LikeRepository _likeRepository;
-        private readonly VisitorRepository _visitorRepository;
-        private readonly VisitRepository _visitRepository;
+       
 
-        public BlogDetailController(BlogPostRepository blogPostRepository, UserManager<IdentityUser> userManager,AuthorRepository authorRepository ,LikeRepository likeRepository, VisitRepository visitRepository, VisitorRepository visitorRepository)
+        public BlogDetailController(BlogPostRepository blogPostRepository, UserManager<IdentityUser> userManager,AuthorRepository authorRepository ,LikeRepository likeRepository)
         
         {
             _blogPostRepository = blogPostRepository;
             _userManager = userManager;
             _authorRepository = authorRepository;
             _likeRepository = likeRepository;
-            _visitRepository = visitRepository;
-            _visitorRepository = visitorRepository;
+           
 
         }
 
@@ -47,8 +45,7 @@ namespace BlogCentralApp.Controllers
             vm.blogPost.Author = await _authorRepository.GetById(vm.blogPost.AuthorId);
             vm.blogPost.Comments = vm.blogPost.Comments.OrderBy(c => c.CreationDate).Reverse();
             vm.Author = (Author)await _userManager.GetUserAsync(User);
-            vm.Views = await _visitRepository.GetAll().CountAsync();
-            vm.Visitors = await _visitorRepository.GetAll().CountAsync();
+           
             var Likedpost = _likeRepository.GetAll().Where(l => l.BlogPostId == id && l.AuthorId == _userManager.GetUserId(User)).Any();
             if (Likedpost)
             {
@@ -79,8 +76,7 @@ namespace BlogCentralApp.Controllers
             await _blogPostRepository.Like(id);
 
             vm.Author = (Author)await _userManager.GetUserAsync(User);
-            vm.Views = await _visitRepository.GetAll().CountAsync();
-            vm.Visitors = await _visitorRepository.GetAll().CountAsync();
+           
             return View("Detail", vm);
         }
         [HttpGet]
@@ -96,8 +92,7 @@ namespace BlogCentralApp.Controllers
             await _blogPostRepository.Unlike(id);
 
             vm.Author = (Author)await _userManager.GetUserAsync(User);
-            vm.Views = await _visitRepository.GetAll().CountAsync();
-            vm.Visitors = await _visitorRepository.GetAll().CountAsync();
+           
             return View("Detail", vm);
         }
         [HttpGet]
@@ -107,8 +102,7 @@ namespace BlogCentralApp.Controllers
             vm.blogPost = await _blogPostRepository.GetById(id);
 
             vm.Author = (Author)await _userManager.GetUserAsync(User);
-            vm.Views = await _visitRepository.GetAll().CountAsync();
-            vm.Visitors = await _visitorRepository.GetAll().CountAsync();
+            
             return View("Detail", vm);
         }
 
@@ -125,17 +119,12 @@ namespace BlogCentralApp.Controllers
                 vm.PostId = (int)id;
                 vm.PostContent = postFromDb.Content;
                 vm.PostTitle = postFromDb.Title;
-               // vm.Author = postFromDb.Author;
-            
-
-               
-               // return View("CreateEditPost",vm);
+              
             }
 
 
             vm.Author = (Author)await _userManager.GetUserAsync(User);
-            vm.Views = await _visitRepository.GetAll().CountAsync();
-            vm.Visitors = await _visitorRepository.GetAll().CountAsync();
+           
             return View("CreateEditPost",vm);
         }
 
@@ -150,7 +139,7 @@ namespace BlogCentralApp.Controllers
 
                 if (model.PostId==0)
                 {
-                   // var _user = await _userManager.GetUserAsync(HttpContext.User);
+                  
                     BlogPost post = new BlogPost()
                     {
                        

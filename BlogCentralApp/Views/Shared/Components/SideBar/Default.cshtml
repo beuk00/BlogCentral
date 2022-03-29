@@ -1,0 +1,48 @@
+﻿
+@model BlogCentralApp.Models.Components.SidebarViewModel
+
+ <style >
+    @@media (max-width: 700px) {
+        .sidenav {
+          visibility:hidden;
+        }
+    }
+</style>
+@if (!SignInManager.IsSignedIn(User))
+{
+    <div class="sidenav row  ">
+    
+       
+          <img class="col-12   img-side " 
+            style=" border-radius: 50%;
+   
+            max-width: 120px;
+            max-height: 100px;
+            margin-left: auto;
+            margin-right: auto;"
+              src="~/images/Default.png">
+        <a class="text-side   col-12" id="login" asp-area="Identity" asp-page="/Account/Login">Start your Journey</a>
+
+        <p class=" text-side   col-12   ">Visitors:&nbsp; @Model.Views   </p>
+       @* <p class=" text-side  col-12   ">Online Users:&nbsp; @Model.Visitors   </p>*@
+    </div>
+}
+else
+{
+    <div class="sidenav row  ">
+         <img class=" col-12 img-side  " style=" border-radius: 50%;
+                max-width: 120px;
+                max-height: 100px;
+                margin-left: auto;
+                margin-right: auto;"
+                src="@Model.Author.ImageUrl">
+          <span class="text-side   col-12" >@Model.Author.FirstName @Model.Author.LastName</span>
+          <p class=" text-side  col-12  ">Visitors:&nbsp; @Model.Views   </p>
+         @* <p class=" text-side  col-12 ">Online Users:&nbsp; @Model.Visitors   </p>*@
+             <a class="text-side col-12" style="width:30%" asp-controller="Author" asp-action="Index1" asp-route-id="@(UserManager.GetUserId(User))">My Blog</a>
+         @if(UserManager.GetUserId(User)==@Model.Author.Id){
+             <a class="text-side col-12"  asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Settings</a>
+             }
+    </div>
+
+ }

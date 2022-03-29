@@ -1,10 +1,9 @@
 ﻿@model HomePageViewModel
  
 <span class="text-center"><i class="bi bi-eye"></i> &nbsp;@Model.Author.Views</span>
-@if (SignInManager.IsSignedIn(User)&&UserManager.GetUserId(User)==@Model.SignedInAuthor.Id)
+@if (SignInManager.IsSignedIn(User)&&UserManager.GetUserId(User)==@Model.Author.Id)
    {
-       @* @if(UserManager.GetUserId(User)==@Model.AuthorId)
-        {*@
+      
                   <div class="row " >
                     <div class="col-6">
                          <h1 class="text-start">Welcome, @Model.SignedInAuthor.FirstName  </h1>
@@ -13,19 +12,7 @@
                        <a  asp-controller="BlogDetail" asp-action="CreateEditBlogpost" asp-route-id="@Model.SignedInAuthor.Id" class="btn btn-primary "><i class="bi bi-plus-circle"></i> &nbsp; Create new post</a>
                       </div>    
                  </div>
-      @* }*@
-         @*else
-            {
-             <div class="row " >
-                <div class="col-6">
-                    <h1>Welcome to @Model.Author.FirstName's blog  </h1>
-                  </div>
-                 <div class="col-6 text-end" >
-
-                  </div>    
-            </div>
-
-         }*@
+     
     
    }else{
      <div class="row " >

@@ -18,8 +18,7 @@ namespace BlogCentralApp.Models
         public string AuthorId { get; set; }
 
         public Author Author { get; set; }
-        public int Views { get; set; }
-        public int Visitors { get; set; }
+      
 
     }
 }

@@ -16,7 +16,6 @@ namespace BlogCentralApp.Models
         [Required(ErrorMessage = "Please write your comment!")]
         public string Content { get; set; }
         public Author Author { get; set; }
-        public int Views { get; set; }
-        public int Visitors { get; set; }
+       
     }
 }

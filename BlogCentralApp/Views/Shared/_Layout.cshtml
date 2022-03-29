@@ -15,9 +15,11 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar  navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        
+
             <div class="container" style="margin-left:20%">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                <a class="navbar-brand  " asp-area="" asp-controller="Home" asp-action="Index">Home</a>
 
 
               
@@ -70,7 +72,10 @@
         </main>
     </div>
 
- 
+     @await Component.InvokeAsync("SideBar")
+
+
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
@@ -79,7 +84,7 @@
 
 
 
-@if (!SignInManager.IsSignedIn(User))
+@*@if (!SignInManager.IsSignedIn(User))
 {
     <div class="sidenav row  ">
     
@@ -116,6 +121,6 @@ else
              }
     </div>
 
- }
+ }*@
 
 </html>
