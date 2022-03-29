@@ -16,17 +16,20 @@ namespace BlogCentralApp.Areas.Identity.Pages.Account.Manage
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<DeletePersonalDataModel> _logger;
         private readonly CommentRepository _commentRepository;
+        private readonly LikeRepository _likeRepository;
         public DeletePersonalDataModel(
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
             ILogger<DeletePersonalDataModel> logger,
-            CommentRepository commentRepository)
+            CommentRepository commentRepository,
+            LikeRepository likeRepository)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _commentRepository = commentRepository;
-
+            _likeRepository = likeRepository;
+            
         }
 
         [BindProperty]
@@ -73,7 +76,9 @@ namespace BlogCentralApp.Areas.Identity.Pages.Account.Manage
             var _user = await _userManager.GetUserAsync(User);
 
             var comments =  _commentRepository.GetAll().Where(c=>c.AuthorId==_user.Id);
+            var likes=_likeRepository.GetAll().Where(c=>c.AuthorId == _user.Id);
             _commentRepository.RemoveRange(comments);
+            _likeRepository.RemoveRange(likes); 
             var result = await _userManager.DeleteAsync(user);
             var userId = await _userManager.GetUserIdAsync(user);
             if (!result.Succeeded)

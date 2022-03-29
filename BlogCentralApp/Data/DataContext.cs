@@ -60,12 +60,12 @@ namespace BlogCentralApp.Data
 
           
 
-            modelBuilder.Entity<Like>()
-                .HasOne(a => a.Author)
-                .WithMany(a => a.Likes)
-                .HasForeignKey(a => a.AuthorId)
-                .IsRequired(false)
-                .OnDelete(DeleteBehavior.ClientSetNull);
+            //modelBuilder.Entity<Like>()
+            //    .HasOne(a => a.Author)
+            //    .WithMany(a => a.Likes)
+            //    .HasForeignKey(a => a.AuthorId)
+            //    .IsRequired(false)
+            //    .OnDelete(DeleteBehavior.ClientSetNull);
           
             modelBuilder.Entity<Like>()
               .HasOne(a => a.BlogPost)
