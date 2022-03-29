@@ -6,10 +6,12 @@
 
 @model CreateEditPost
 
+@if (Model != null && (UserManager.GetUserId(User) == Model.AuthorId || Model.AuthorId == null))
+{
+    
 <p>@(Model==null||Model.PostId==0?"Create":"Edit")</p>
 
     
-
 <form method="post" asp-controller="BlogDetail" asp-action="CreateEditBlogpost">
    @if (Model != null)
     {     
@@ -26,6 +28,11 @@
         <span class="text-danger" asp-validation-for="PostContent"></span>
     </div>
     <button type="submit" class=" btn btn-primary">@(Model==null||Model.PostId==0?"Create":"Edit")</button>
-</form>
+    </form>
+}
+else
+{
+    <div>ERROR 001 -- U can't acces this page!</div>
+}
 
    <script src="~/tinymce/tinymce.min.js" referrerpolicy="origin"></script>

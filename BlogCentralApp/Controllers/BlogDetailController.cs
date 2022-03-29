@@ -109,14 +109,16 @@ namespace BlogCentralApp.Controllers
                 {
                     PostId = (int)id,
                     PostContent = postFromDb.Content,
-                    PostTitle= postFromDb.Title,
+                    PostTitle = postFromDb.Title,
+                    AuthorId = postFromDb.AuthorId,
                 };
                 return View("CreateEditPost",vm);
             }
 
-           
-            
-            return View("CreateEditPost");
+            //Need to implement that to allow creating post and bypass view url security
+            CreateEditPost vm2 = new CreateEditPost();
+
+            return View("CreateEditPost", vm2);
         }
 
         [Authorize]
