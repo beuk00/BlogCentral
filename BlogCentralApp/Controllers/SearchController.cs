@@ -46,36 +46,52 @@ namespace BlogCentralApp.Controllers
         public async Task<IActionResult> Sort(HomePageViewModel model)
         {
             HttpContext.Response.Cookies.Append("count", "6");
+            IEnumerable<BlogPost> uniqueItems = new List<BlogPost>();
+            int countShow = _blogPostRepository.SearchAsync(model.SearchString).Count();
 
+            HomePageViewModel vm = new HomePageViewModel();
             switch (model.Sort)
             {
                 case "Oldest first":
                     HttpContext.Response.Cookies.Append("lastSort", "Oldest first");
-                    var uniqueItems1 = _blogPostRepository.SearchAsync(model.SearchString).OrderBy(x => x.Date).ToList().Take(6);
-                    HomePageViewModel vm1 = new HomePageViewModel();
-                    vm1.BlogPosts = uniqueItems1;
-                    vm1.SearchString = model.SearchString;
-
-                    return View("~/Views/SearchResults/SearchIndex.cshtml", vm1);
+                    uniqueItems = _blogPostRepository.SearchAsync(model.SearchString).OrderBy(x => x.Date).ToList().Take(6);
+                    vm.BlogPosts = uniqueItems;
+                    vm.SearchString = model.SearchString;
+                    break;
 
                 case "Most popular First":
                     HttpContext.Response.Cookies.Append("lastSort", "Most popular First");
-                    var uniqueItems2 = _blogPostRepository.SearchAsync(model.SearchString).OrderByDescending(x => x.Likes).ToList().Take(6);
-                    HomePageViewModel vm2 = new HomePageViewModel();
-                    vm2.BlogPosts = uniqueItems2;
-                    vm2.SearchString = model.SearchString;
-
-                    return View("~/Views/SearchResults/SearchIndex.cshtml", vm2);
+                    uniqueItems = _blogPostRepository.SearchAsync(model.SearchString).OrderByDescending(x => x.Likes).ToList().Take(6);
+                    vm.BlogPosts = uniqueItems;
+                    vm.SearchString = model.SearchString;
+                    break;
 
                 default:
                     HttpContext.Response.Cookies.Append("lastSort", "Newest first");
-                    var uniqueItems3 = _blogPostRepository.SearchAsync(model.SearchString).OrderByDescending(x => x.Date).ToList().Take(6);
-                    HomePageViewModel vm3 = new HomePageViewModel();
-                    vm3.BlogPosts = uniqueItems3;
-                    vm3.SearchString = model.SearchString;
-                    return View("~/Views/SearchResults/SearchIndex.cshtml", vm3);
+                    uniqueItems = _blogPostRepository.SearchAsync(model.SearchString).OrderByDescending(x => x.Date).ToList().Take(6);
+                    vm.BlogPosts = uniqueItems;
+                    vm.SearchString = model.SearchString;
+                    break;
 
             }
+            if (_signManager.IsSignedIn(User))
+            {
+                vm.Author = (Author)await _userManager.GetUserAsync(User);
+            }
+
+            if (countShow <= 6)
+            {
+                HttpContext.Response.Cookies.Append("count", countShow.ToString());
+                vm.EndOfSelection = true;
+            }
+            else
+            {
+                HttpContext.Response.Cookies.Append("count", "6");
+                vm.EndOfSelection = false;
+            }
+            vm.StartOfSelection = true;
+            return View("~/Views/SearchResults/SearchIndex.cshtml", vm);
+
         }
         public async Task<IActionResult> Last10(HomePageViewModel model)
         {
@@ -83,7 +99,7 @@ namespace BlogCentralApp.Controllers
             model = new HomePageViewModel();
             model.EndOfSelection = true;
             model.SearchString = searchSring;
-           
+
             IEnumerable<BlogPost> uniqueItems = new List<BlogPost>();
 
             int countShow = _blogPostRepository.SearchAsync(model.SearchString).Count();
@@ -116,7 +132,7 @@ namespace BlogCentralApp.Controllers
                     vm.BlogPosts = uniqueItems;
                     vm.SearchString = model.SearchString;
                     break;
-                    
+
 
                 default:
                     uniqueItems = _blogPostRepository.SearchAsync(model.SearchString).OrderByDescending(x => x.Date).ToList().TakeLast(10);
@@ -139,9 +155,9 @@ namespace BlogCentralApp.Controllers
             model = new HomePageViewModel();
             model.StartOfSelection = true;
             model.SearchString = searchSring;
-            
+
             HomePageViewModel vm = new HomePageViewModel();
-            
+
 
             IEnumerable<BlogPost> uniqueItems = new List<BlogPost>();
 
@@ -193,7 +209,7 @@ namespace BlogCentralApp.Controllers
         {
             string searchSring = model.SearchString;
             model = new HomePageViewModel();
-            
+
             model.SearchString = searchSring;
             model.EndOfSelection = false;
             HomePageViewModel vm = new HomePageViewModel();
@@ -246,9 +262,9 @@ namespace BlogCentralApp.Controllers
             model = new HomePageViewModel();
             model.StartOfSelection = false;
             model.SearchString = searchSring;
-            
+
             HomePageViewModel vm = new HomePageViewModel();
-            
+
             IEnumerable<BlogPost> uniqueItems = new List<BlogPost>();
 
             int countShow;
