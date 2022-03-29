@@ -1,39 +1,32 @@
 ﻿@model HomePageViewModel
 
-@*@if (Model.BlogPosts.Count() != 0)
-{*@
-
-    <form asp-controller="Search" asp-action="Sort" method="post">
-        <div class="form-group">
-            <label asp-for="Sort"></label>
-            <select asp-for="Sort" class="form-control" asp-items="@Model.SortSelections">
-                <option Value="">Select a SortFunction</option>
-            </select>
-            <input type="hidden" value="@Model.SearchString" name="SearchString" />
-        </div>
-        <input type="Submit" />
-    </form>
-    <br />
-@*}*@
-
+<form asp-controller="Search" asp-action="Sort" method="post">
+    <div class="form-group">
+        <label asp-for="Sort"></label>
+        <select asp-for="Sort" class="form-control" asp-items="@Model.SortSelections">
+            <option Value="">Select a SortFunction</option>
+        </select>
+        <input type="hidden" value="@Model.SearchString" name="SearchString" />
+    </div>
+    <input type="Submit" />
+</form>
+<br />
 <div class="row">
 
-  
-        @foreach (var blogPost in @Model.BlogPosts)
-        {
-            <div class="card col-3 " style=" min-width: 18rem; overflow: hidden; margin: 10px; ">
-                <div class="card-body " style=" position:relative;">
-                    <br />
-                    <h5 class="card-title">@blogPost.Title</h5>
-                    <a asp-controller="Author" asp-action="Index1" asp-route-id="@blogPost.AuthorId">@blogPost.Author.FirstName @blogPost.Author.LastName</a>
-                    <p class="card-text">@blogPost.Date</p>
-                    <p class="card-text pb-3 " style=" white-space: nowrap;
+    @foreach (var blogPost in @Model.BlogPosts)
+    {
+        <div class="card col-3 " style=" min-width: 18rem; overflow: hidden; margin: 10px; ">
+            <div class="card-body " style=" position:relative;">
+                <br />
+                <h5 class="card-title">@blogPost.Title</h5>
+                <a asp-controller="Author" asp-action="Index1" asp-route-id="@blogPost.AuthorId">@blogPost.Author.FirstName @blogPost.Author.LastName</a>
+                <p class="card-text">@blogPost.Date</p>
+                <p class="card-text pb-3 " style=" white-space: nowrap;
                 width: 200px;
                 overflow: hidden;
                 text-overflow: ellipsis;">@blogPost.Content</p>
 
                 <a class="btn btn-info  " style="position:absolute; top:5px ;right:5px;" asp-controller="BlogDetail" asp-action="Index" asp-route-id="@blogPost.Id"> <i class="bi bi-book"></i> &nbsp;Read</a>
-
 
             </div>
         </div>
@@ -84,16 +77,16 @@ else
 @if (!SignInManager.IsSignedIn(User))
 {
     <div class="sidenav row  ">
-    
-        
-          <img class=" col-12 img-side " 
-            style=" border-radius: 50%;
-   
+
+
+        <img class=" col-12 img-side "
+             style=" border-radius: 50%;
+
             max-width: 100px;
             max-height: 100px;
             margin-left: auto;
             margin-right: auto;"
-              src="~/images/Default.png">
+             src="~/images/Default.png">
         <a class="text-side   col-12" id="login" asp-area="Identity" asp-page="/Account/Login">Start your Journey</a>
 
         <p class=" text-side   col-12   ">Visitors:&nbsp; @Model.Views   </p>
