@@ -23,6 +23,6 @@ tinymce.init({
     menubar: false,
     link_default_protocol: 'https',
     min_height: 400,
-    toolbar: 'undo redo | h1 h2 h3 h4 h5 | lineheight  forecolor | fontsizeselect bold italic underline strikethrough | alignleft aligncenter alignright | image | selectall preview|',
+    toolbar: 'undo redo | h1 h2 h3 h4 h5 | lineheight  forecolor | bold italic underline strikethrough | alignleft aligncenter alignright | image | selectall preview|',
  
 });
