@@ -8,9 +8,21 @@
     tooltipTriggerList.forEach(function (tooltipTriggerEl) {
         new bootstrap.Tooltip(tooltipTriggerEl)
     })
-})()
+})();
 
 
-
-
+//Implementing RichTextEditor with tinyMCE. 
+tinymce.init({
+    selector: '#editable',
+    plugins: ['autoresize', 'autolink', 'image', 'link'],
+    autoresize_bottom_margin: 0,
+    statusbar: false,
+    brand: false,
+    menubar: false,
+    link_default_protocol: 'https',
+    min_height: 400,
+    toolbar: 'undo redo | h1 h2 h3 h4 h5 | lineheight  forecolor | bold italic underline strikethrough | alignleft aligncenter alignright | link image | selectall|',
+    content_style: "p { margin: 0; }",
+    
+});
 
