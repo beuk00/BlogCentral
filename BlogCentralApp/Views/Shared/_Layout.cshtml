@@ -15,10 +15,10 @@
 </head>
 <body>
     <header>
-        <nav class="navbar  navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar  navbar-hide navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
         
 
-            <div class="container" style="margin-left:20%">
+            <div class="container nav-i" >
                 <a class="navbar-brand  " asp-area="" asp-controller="Home" asp-action="Index">Home</a>
 
 
@@ -50,7 +50,7 @@
                                         <div class="input-group">
                                             <input id="ipt_search" type="search" class="form-control" name="searchString" />
                                             <span class="input-group-btn">
-                                                <button class="btn btn-default">
+                                                <button class="btn btn-default ml-2 mr-2" style="color:">
                                                     Search
                                                 </button>
                                             </span>
@@ -65,7 +65,7 @@
             </div>
         </nav>
     </header>
-    <div class="container"" style="margin-left:12%">
+    <div class="container" >
         <main role="main" class="pb-3">
              <partial name="_Notification" />
             @RenderBody()

@@ -3,7 +3,7 @@
     Layout = "_Layout";
 }
 
-<div class="row justify-content-center">
+<div class="row pl-5 justify-content-center ml-5">
 <h1 class="col-6">Home Page</h1>
 </div>
 <br />
@@ -37,19 +37,21 @@
     }
 </div>
 <br />
-<a class="btn btn-primary" asp-controller="Home" asp-action="First10" asp-route-id="blogPost.Id">First 10</a>
-<a class="btn btn-primary" asp-controller="Home" asp-action="Last10" asp-route-id="blogPost.Id">Last 10</a>
 
-@if (@Model.StartOfSelection == false)
-{
-    <a class="btn btn-primary" asp-controller="Home" asp-action="Previous10" asp-route-id="blogPost.Id">Previous 10</a>
-}
+<ul class="ul-buttons">
+       <li> <a class="btn btn-primary" asp-controller="Home" asp-action="First10" asp-route-id="blogPost.Id">First 10</a></li>
+      <li>  <a class="btn btn-primary" asp-controller="Home" asp-action="Last10" asp-route-id="blogPost.Id">Last 10</a></li>
 
-@if (@Model.EndOfSelection == false)
-{
-    <a class="btn btn-primary" asp-controller="Home" asp-action="Next10" asp-route-id="blogPost.Id">Next 10</a>
-}
+        @if (@Model.StartOfSelection == false)
+        {
+          <li>  <a class="btn btn-primary" asp-controller="Home" asp-action="Previous10" asp-route-id="blogPost.Id">Previous 10</a></li>
+        }
 
+        @if (@Model.EndOfSelection == false)
+        {
+           <li> <a class="btn btn-primary" asp-controller="Home" asp-action="Next10" asp-route-id="blogPost.Id">Next 10</a></li>
+        }
+</ul>
 
 
 
