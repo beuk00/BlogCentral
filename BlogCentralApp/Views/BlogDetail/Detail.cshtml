@@ -8,18 +8,17 @@
     <div class="col-lg-8">
         <article>
             <header>
-                <h1>@Model.blogPost.Title</h1>
+                <h4>@Model.blogPost.Title</h4>
                 <div class="text-muted font-italic mb-2">
                     Created on @Model.blogPost.Date.ToString("MMMM") @Model.blogPost.Date.Day,
-                    @Model.blogPost.Date.Year 
-                @* <a asp-controller="Author" asp-action="Index1" asp-route-id="@Model.blogPost.AuthorId">@Model.blogPost.Author.UserName</a>*@
+                    @Model.blogPost.Date.Year by
+                 <a asp-controller="Author" asp-action="Index1" asp-route-id="@Model.blogPost.AuthorId">@Model.blogPost.Author.UserName</a>
                 </div>
                 <p class="badge badge-secondary"><i class="bi bi-hand-thumbs-up"></i> &nbsp;@Model.blogPost.Likes </p>
             </header>
             <hr />
             <section class="mb-5">
-                <div class="line-breaks">@Model.blogPost.Content</div>
-                @*<textarea readonly="true">@Model.blogPost.Content</textarea>*@
+                @Html.Raw(@Model.blogPost.Content)
                 <hr />
                 <div class="flex">
                     <div class="d-inline-block">
@@ -67,7 +66,7 @@
                         {
                             <div class="d-flex my-3">
                                 <div class="flex-shrink-0">
-                                    <img class="rounded-circle" width="50" height="50" src=@Model.blogPost.Author.ImageUrl />
+                                    <img class="rounded-circle" width="50" height="50" src=@comment.Author.ImageUrl />
                                 </div>
                                 <div class="mx-2 card p-2" style="max-width: 50%;">
                                     <div>
@@ -100,3 +99,5 @@
     </div>
     <partial name="_Notification" />
 </div>
+
+   <script src="~/tinymce/tinymce.min.js" referrerpolicy="origin"></script>
