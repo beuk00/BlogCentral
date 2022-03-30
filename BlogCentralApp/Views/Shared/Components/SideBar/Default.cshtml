@@ -23,7 +23,7 @@
               src="~/images/Default.png">
         <a class="text-side   col-12" id="login" asp-area="Identity" asp-page="/Account/Login">Start your Journey</a>
 
-        <p class=" text-side   col-12   ">Visitors:&nbsp; @Model.Views   </p>
+        <p class=" text-side   col-12   ">Visitors: <span id="visitors">Test</span></p>
        @* <p class=" text-side  col-12   ">Online Users:&nbsp; @Model.Visitors   </p>*@
     </div>
 }
@@ -46,3 +46,6 @@ else
     </div>
 
  }
+
+     <script src="~/js/signalr/dist/browser/signalr.js"></script>
+    <script src="~/js/visit.js"></script>

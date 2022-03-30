@@ -12,7 +12,7 @@ connection.start().then(function () {
 ////Disable send button until connection is established
 //document.getElementById("sendButton").disabled = true;
 
-connection.on("Visit", function (user, message) {
+connection.on("Visit", function (message) {
     //var li = document.createElement("li");
     //document.getElementById("messagesList").appendChild(li);
     //// We can assign user-supplied strings to an element's textContent because it
@@ -20,6 +20,7 @@ connection.on("Visit", function (user, message) {
     //// should be aware of possible script injection concerns.
     //li.textContent = `${user} says ${message}`;
 
+    document.getElementById("visitors").innerHTML = `${parseInt(message)}`
     console.log("new visit")
 });
 
