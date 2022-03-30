@@ -10,41 +10,35 @@
 </style>
 @if (!SignInManager.IsSignedIn(User))
 {
-    <div class="sidenav row  ">
-    
+    <div class="sidenav   ">
+        <ul class="ul-side">
        
-          <img class="col-12   img-side " 
-            style=" border-radius: 50%;
-   
-            max-width: 120px;
-            max-height: 100px;
-            margin-left: auto;
-            margin-right: auto;"
-              src="~/images/Default.png">
-        <a class="text-side   col-12" id="login" asp-area="Identity" asp-page="/Account/Login">Log in</a>
-          <p class=" text-side  col-12  ">Visitors:&nbsp; @Model.Views   </p>
+                <li> <img 
+                      src="~/images/Default.png"> </li>
+               <li> <a class="text-side   " id="login" asp-area="Identity" asp-page="/Account/Login">Log in</a></li>
+                <li>  <p class=" text-side   ">Visitors:&nbsp; @Model.Views   </p></li>
 
-        <p class=" text-side   col-12   ">Online Users: <span id="visitors">Test</span></p>
-
+               <li> <p class=" text-side    ">Online Users: <span id="visitors"></span></p></li>
+        </ul>
     </div>
 }
 else
 {
-    <div class="sidenav row  ">
-         <img class=" col-12 img-side  " style=" border-radius: 50%;
-                max-width: 120px;
-                max-height: 100px;
-                margin-left: auto;
-                margin-right: auto;"
-                src="@Model.Author.ImageUrl">
-          <span class="text-side   col-12" >@Model.Author.FirstName @Model.Author.LastName</span>
-          <p class=" text-side  col-12  ">Visitors:&nbsp; @Model.Views   </p>
-           <p class=" text-side   col-12   ">Online Users: <span id="visitors">Test</span></p>
+    
+    <div class="sidenav  ">
+        <ul class="ul-side">
+         <li> <img  
+                src="@Model.Author.ImageUrl"></li> 
+               <li><span class="text-side   " >@Model.Author.FirstName @Model.Author.LastName</span></li>
+               <li><p class=" text-side    ">Visitors:&nbsp; @Model.Views   </p></li>
+                <li><p class=" text-side     ">Online Users: <span id="visitors">Test</span></p></li>
 
-             <a class="text-side col-12" style="width:30%" asp-controller="Author" asp-action="Index1" asp-route-id="@(UserManager.GetUserId(User))">My Blog</a>
-         @if(UserManager.GetUserId(User)==@Model.Author.Id){
-             <a class="text-side col-12"  asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Settings</a>
-             }
+                  <li><a class="text-side col-12" style="width:30%" asp-controller="Author" asp-action="Index1" asp-route-id="@(UserManager.GetUserId(User))">My Blog</a></li>
+                 @if(UserManager.GetUserId(User)==@Model.Author.Id){
+                  <li><a class="text-side col-12"  asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Settings</a></li>
+                     }
+
+       </ul>
     </div>
 
  }

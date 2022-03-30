@@ -9,7 +9,7 @@
         <article>
             <header>
                 <h4>@Model.blogPost.Title</h4>
-                <div class="text-muted font-italic mb-2">
+                <div class="text-white font-italic mb-2">
                     Created on @Model.blogPost.Date.ToString("MMMM") @Model.blogPost.Date.Day,
                     @Model.blogPost.Date.Year by
                  <a asp-controller="Author" asp-action="Index1" asp-route-id="@Model.blogPost.AuthorId">@Model.blogPost.Author.UserName</a>
@@ -42,9 +42,9 @@
                     <div class="d-inline-flex mx-3">
                         @if (UserManager.GetUserId(User) == Model.blogPost.AuthorId)
                         {
-                            <a asp-controller="BlogDetail" asp-action="CreateEditBlogpost" asp-route-id="@Model.blogPost.Id" class="mr-3">Edit post</a>
-                            <br />
-                            <a asp-controller="BlogDetail" asp-action="DeletePost" asp-route-id="@Model.blogPost.Id">Delete post</a>
+                            <a asp-controller="BlogDetail" asp-action="CreateEditBlogpost" asp-route-id="@Model.blogPost.Id" style="margin:0 20px">Edit post</a>
+                          
+                            <a  asp-controller="BlogDetail" asp-action="DeletePost" asp-route-id="@Model.blogPost.Id">Delete post</a>
                         }
                     </div>
                 </div>

@@ -7,7 +7,7 @@
       
                   <div class="row " >
                     <div class="col-6">
-                         <h1 class="text-start">Welcome, @Model.SignedInAuthor.FirstName  </h1>
+                         <h1 class="Text-start">Welcome, @Model.SignedInAuthor.FirstName  </h1>
                       </div>
                      <div class="col-6 text-end" >
                        <a  asp-controller="BlogDetail" asp-action="CreateEditBlogpost" asp-route-id="@Model.SignedInAuthor.Id" class="btn btn-primary "><i class="bi bi-plus-circle"></i> &nbsp; Create new post</a>
@@ -16,25 +16,31 @@
      
     
    }else{
-     <div class="row " >
-        <div class="col-6">
-            <h1>Welcome to @Model.Author.FirstName's blog  </h1>
-          </div>
-         <div class="col-6 text-end" >
-
-          </div>    
-    </div>
+     
+        <div class="row " >
+                    <div class="col-6">
+                         <h1 class="author-text "> @Model.Author.FirstName @Model.Author.LastName </h1>
+                      </div>
+                     <div class="col-6 text-start" >
+                      <img class="author-img" src="@Model.Author.ImageUrl">
+                      </div>    
+                 </div>
+       
+            @*<h1 class="w">Welcome to @Model.Author.FirstName's blog  </h1>*@
+          
+         
+    
 }
 <br />
 <form asp-controller="Author" asp-action="Sort" method="post" class=" text-center">
 
     <div class="form-group ">
-        <label asp-for="Sort"></label>                                                                                                 
+                                                                                                        
         <select asp-for="Sort" class="form-control" asp-items="@Model.SortSelections">
-            <option Value="">Select a SortFunction</option>
+            <option Value="">Sort</option>
         </select>
     </div>
-    <input class="btn btn-primary" type="Submit" />
+    <input class="btn btn-primary mt-2" type="Submit" />
     </form>
     <br />
 <div class="row justify-content-center">
