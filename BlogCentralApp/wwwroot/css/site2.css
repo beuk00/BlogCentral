@@ -10,6 +10,9 @@
 .nav-link:hover .fa {
     transform: rotate(360deg)
 }*/
+h1{
+    font-size:2rem;
+}
 .sidenav {
     height: 100vh;
     width: 13%;
