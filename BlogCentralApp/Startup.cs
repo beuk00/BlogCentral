@@ -1,4 +1,5 @@
 using BlogCentralApp.Data;
+using BlogCentralApp.Hubs;
 using BlogCentralApp.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -30,6 +31,7 @@ namespace BlogCentralApp
             services.AddControllersWithViews();
             //added to run the identityPages(Razor pages)
             services.AddRazorPages();
+            services.AddSignalR();
 
             services.AddDbContext<DataContext>(option => option.UseSqlServer(Configuration.GetConnectionString("BlogCentralDB")));
             services.AddIdentity<IdentityUser, IdentityRole>(
@@ -98,6 +100,7 @@ namespace BlogCentralApp
             {
                 //added to run the identityPages(Razor pages)
                 endpoints.MapRazorPages();
+                endpoints.MapHub<VisitorsHub>("/chathub");
                 endpoints.MapControllerRoute(
                      name: "blogpost comment edit",
                     pattern: "{controller=Home}/{action=Index1}/{blogPostId?}/{commentId?}");

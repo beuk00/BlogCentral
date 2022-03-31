@@ -4,6 +4,7 @@ using BlogCentralLib.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
 
@@ -13,11 +14,12 @@ namespace BlogCentralApp.Controllers
     {
         private readonly CommentRepository _commentRepository;
         private readonly UserManager<IdentityUser> _userManager;
-
+         
         public CommentController(CommentRepository commentRepository, UserManager<IdentityUser> userManager)
         {
             _commentRepository = commentRepository;
             _userManager = userManager;
+           
         }
 
 
@@ -33,12 +35,15 @@ namespace BlogCentralApp.Controllers
                 model.Content = comment.Content;
                 model.CommentId = comment.Id;
                 model.CreationDate = comment.CreationDate;
+                model.Author = (Author)await _userManager.GetUserAsync(User);
+               
                 return View(model);
             }
             else
             {
                 model.BlogpostId = blogPostId;
-
+                model.Author=(Author) await _userManager.GetUserAsync(User);
+               
                 return View(model);
             }
         }
@@ -71,6 +76,9 @@ namespace BlogCentralApp.Controllers
                 return RedirectToAction("Index", "BlogDetail", new { id = comment.BlogpostId });
 
             }
+            model.Author = (Author)await _userManager.GetUserAsync(User);
+
+           
             return View(model);
         }
         [HttpGet]

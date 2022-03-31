@@ -1,4 +1,5 @@
 ﻿
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,9 +15,11 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container" style="margin-left:20%">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+        <nav class="navbar  navbar-hide navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        
+
+            <div class="container nav-i" >
+                <a class="navbar-brand  " asp-area="" asp-controller="Home" asp-action="Index">Home</a>
 
 
               
@@ -47,7 +50,7 @@
                                         <div class="input-group">
                                             <input id="ipt_search" type="search" class="form-control" name="searchString" />
                                             <span class="input-group-btn">
-                                                <button class="btn btn-default">
+                                                <button class="btn btn-default ml-2 mr-2" style="color:">
                                                     Search
                                                 </button>
                                             </span>
@@ -62,21 +65,61 @@
             </div>
         </nav>
     </header>
-    <div class="container"" style="margin-left:12%">
+    <div class="container" >
         <main role="main" class="pb-3">
-            <partial name="_Notification" />
+             <partial name="_Notification" />
             @RenderBody()
         </main>
     </div>
 
-  @*  <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - BlogCentralApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>*@
+     @await Component.InvokeAsync("SideBar")
+
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
 </body>
+
+
+
+@*@if (!SignInManager.IsSignedIn(User))
+{
+    <div class="sidenav row  ">
+    
+        
+          <img class=" col-12 img-side " 
+            style=" border-radius: 50%;
+   
+            max-width: 100px;
+            max-height: 100px;
+            margin-left: auto;
+            margin-right: auto;"
+              src="~/images/Default.png">
+        <a class="text-side   col-12" id="login" asp-area="Identity" asp-page="/Account/Login">Start your Journey</a>
+
+        <p class=" text-side   col-12   ">Visitors:&nbsp; @Model.Views   </p>
+        <p class=" text-side  col-12   ">Online Users:&nbsp; @Model.Visitors   </p>
+    </div>
+}
+else
+{
+    <div class="sidenav row  ">
+         <img class=" col-12 img-side  " style=" border-radius: 50%;
+                max-width: 100px;
+                max-height: 100px;
+                margin-left: auto;
+                margin-right: auto;"
+                src="@Model.Author.ImageUrl">
+          <span class="text-side   col-12" >@Model.Author.FirstName @Model.Author.LastName</span>
+          <p class=" text-side  col-12  ">Visitors:&nbsp; @Model.Views   </p>
+          <p class=" text-side  col-12 ">Online Users:&nbsp; @Model.Visitors   </p>
+             <a class="text-side col-12" style="width:30%" asp-controller="Author" asp-action="Index1" asp-route-id="@(UserManager.GetUserId(User))">My Blog</a>
+         @if(UserManager.GetUserId(User)==@Model.Author.Id){
+             <a class="text-side col-12"  asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Settings</a>
+             }
+    </div>
+
+ }*@
+
 </html>

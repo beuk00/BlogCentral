@@ -13,8 +13,7 @@ namespace BlogCentralApp.Models
         public string AuthorId { get; set; }
 
         public string Sort { get; set; }
-        public int Views { get; set; }
-        public int Visitors { get; set; }
+      
         public Author SignedInAuthor { get; set; }
         public string SearchString { get; set; }
         public bool EndOfSelection { get; set; }

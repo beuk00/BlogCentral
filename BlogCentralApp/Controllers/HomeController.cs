@@ -35,6 +35,7 @@ namespace BlogCentralApp.Controllers
             _userManager = userManager;
             _visitorRepository = visitorRepository;
             _visitRepository = visitRepository;
+           
 
         }
 
@@ -78,8 +79,7 @@ namespace BlogCentralApp.Controllers
             {
                 vm.Author = (Author)await _userManager.GetUserAsync(User);
             }
-            vm.Visitors=await _visitorRepository.GetAll().CountAsync();
-            vm.Views=await _visitRepository.GetAll().CountAsync();
+           
             return View("index", vm);
         }
 
@@ -130,14 +130,7 @@ namespace BlogCentralApp.Controllers
                         model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList().GetRange(int.Parse(HttpContext.Request.Cookies["count"]), range);
                         break;
             }
-            if (_signManager.IsSignedIn(User))
-            {
-                model.Author = (Author)await _userManager.GetUserAsync(User);
-            }
-
-
-            model.Views = await _visitRepository.GetAll().CountAsync();
-            model.Visitors = await _visitorRepository.GetAll().CountAsync();
+          
 
 
             return View("index", model);
@@ -172,12 +165,7 @@ namespace BlogCentralApp.Controllers
                         model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList().GetRange(int.Parse(HttpContext.Request.Cookies["count"]) - 20, 10);
                         break;
                 }
-                if (_signManager.IsSignedIn(User))
-                {
-                    model.Author = (Author)await _userManager.GetUserAsync(User);
-                }
-                model.Views = await _visitRepository.GetAll().CountAsync();
-                model.Visitors = await _visitorRepository.GetAll().CountAsync();
+               
 
                 return View("index", model);
             }
@@ -216,12 +204,7 @@ namespace BlogCentralApp.Controllers
                     model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList().TakeLast(10);
                     break;
             }
-            if (_signManager.IsSignedIn(User))
-            {
-                model.Author = (Author)await _userManager.GetUserAsync(User);
-            }
-            model.Views = await _visitRepository.GetAll().CountAsync();
-            model.Visitors = await _visitorRepository.GetAll().CountAsync();
+           
 
             return View("index", model);
         }
@@ -261,13 +244,9 @@ namespace BlogCentralApp.Controllers
                     model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList().Take(10);
                     break;
             }
-            if (_signManager.IsSignedIn(User))
-            {
-                model.Author = (Author)await _userManager.GetUserAsync(User);
-            }
+            
 
-            model.Views = await _visitRepository.GetAll().CountAsync();
-            model.Visitors = await _visitorRepository.GetAll().CountAsync();
+          
 
             return View("index", model);
         }
@@ -297,10 +276,7 @@ namespace BlogCentralApp.Controllers
                     model.BlogPosts = _blogPostRepository.GetAll().Include(b => b.Author).ToList().OrderByDescending(x => x.Date).ToList().Take(6);
                     break;
             }
-            if (_signManager.IsSignedIn(User))
-            {
-                model.Author = (Author)await _userManager.GetUserAsync(User);
-            }
+           
 
             if (countShow <= 6)
             {
@@ -314,8 +290,7 @@ namespace BlogCentralApp.Controllers
             }
 
             model.StartOfSelection = true;
-            model.Views = await _visitRepository.GetAll().CountAsync();
-            model.Visitors = await _visitorRepository.GetAll().CountAsync();
+           
 
             return View("index", model);
         }
