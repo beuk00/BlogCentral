@@ -9,7 +9,7 @@
 @if (Model != null && (UserManager.GetUserId(User) == Model.AuthorId || Model.AuthorId == null))
 {
 
-    <p style="font-weight: bold; font-size: large;">@(Model == null || Model.PostId == 0 ? "Create new article:" : "Edit your article:")</p>
+    <p style="font-weight: bold; font-size: large;">@(Model.PostId == 0 ? "Create new article:" : "Edit your article:")</p>
 
 
     <form method="post" asp-controller="BlogDetail" asp-action="CreateEditBlogpost">
