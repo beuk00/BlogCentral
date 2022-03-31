@@ -37,9 +37,9 @@
                     <div class="d-inline-flex mx-3">
                         @if (UserManager.GetUserId(User) == Model.blogPost.AuthorId)
                         {
-                            <a class="btn btn-primary" asp-controller="BlogDetail" asp-action="CreateEditBlogpost" asp-route-id="@Model.blogPost.Id" style="margin:0 20px">Edit post</a>
+                       <p class="text-center btn-t mb-1" >     <a class="btn b btn-primary" asp-controller="BlogDetail" asp-action="CreateEditBlogpost" asp-route-id="@Model.blogPost.Id" >Edit post</a>
                           
-                            <a class="btn btn-danger"  asp-controller="BlogDetail" asp-action="DeletePost" asp-route-id="@Model.blogPost.Id">Delete post</a>
+                         &nbsp;   <a class="btn b btn-danger"  asp-controller="BlogDetail" asp-action="DeletePost" asp-route-id="@Model.blogPost.Id">Delete post</a></p>
                         }
                     </div>
                 </div>
@@ -50,11 +50,11 @@
                         <div class="mb-4">
                             @if (User.Identity.IsAuthenticated)
                             {
-                                <a class="btn btn-primary btn-pimped" asp-controller="Comment" asp-action="CreateEditComment" asp-route-blogPostId="@Model.blogPost.Id">Create Comment</a>
+                                <a class="btn b btn-primary btn-pimped" asp-controller="Comment" asp-action="CreateEditComment" asp-route-blogPostId="@Model.blogPost.Id">Create Comment</a> 
                             }
                             else
                             {
-                                <a class="btn btn-primary btn-pimped" asp-controller="Comment" asp-action="CreateEditComment" asp-route-blogPostId="@Model.blogPost.Id">Login to comment</a>
+                               <a class="btn b btn-primary btn-pimped" asp-controller="Comment" asp-action="CreateEditComment" asp-route-blogPostId="@Model.blogPost.Id">Login to comment</a>
                             }
                         </div>
                         @foreach (var comment in Model.blogPost.Comments)
@@ -76,12 +76,12 @@
                                 <div>
                                     @if (UserManager.GetUserId(User) == comment.AuthorId)
                                     {
-                                        <a class="btn btn-primary" asp-controller="Comment" asp-action="CreateEditComment" asp-route-blogPostId="@Model.blogPost.Id" asp-route-commentId="@comment.Id" style="float:left; margin-right: 5px;"><i class="bi bi-pencil"></i></a>
+                                        <a class="btn b btn-primary" asp-controller="Comment" asp-action="CreateEditComment" asp-route-blogPostId="@Model.blogPost.Id" asp-route-commentId="@comment.Id" style="float:left; margin-right: 5px;"><i class="bi bi-pencil"></i></a>
                                     }
                                     
                                     @if (UserManager.GetUserId(User) == Model.blogPost.AuthorId || UserManager.GetUserId(User) == comment.AuthorId)
                                     {
-                                        <a class="btn btn-danger" asp-controller="Comment" asp-action="DeleteComment" asp-route-id="@comment.Id" asp-route-blogPostId="@Model.blogPost.Id"><i class="bi bi-x"></i></a>
+                                        <a class="btn b btn-danger" asp-controller="Comment" asp-action="DeleteComment" asp-route-id="@comment.Id" asp-route-blogPostId="@Model.blogPost.Id"><i class="bi bi-x"></i></a>
                                     }
                                 </div>
                             </div>

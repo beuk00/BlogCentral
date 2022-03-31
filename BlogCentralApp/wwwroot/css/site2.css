@@ -149,13 +149,26 @@ h1{
     h1.col-6 {
         margin-left: 15% !important;
     }
-    .btn{
-        width:40%;
+   /* .btn{
+       
         font-size:0.75rem !important;
         
-    }
-    .btn-pimped{
+    }*/
+    /*.btn-pimped{
         padding:1px !important;
+    }*/
+
+  .btn.b{
+        font-size:0.7rem !important;
+        padding:4px;
+        
+    }
+
+    .btn-t {
+       /* width: 40px !important;
+        margin-left: 10px;*/
+        font-size: 0.7rem !important;
+        padding: 4px;
     }
 }
 
@@ -309,7 +322,9 @@ width:60%;
 }
 
 
-
+.nav-bar {
+    border-width: 0px 0px 3px 1px !important;
+}
 
 
 
@@ -319,6 +334,6 @@ width:60%;
     /* margin-left: 100px;*/
     gap: 10px;
     justify-content: center;
-    margin-right:2rem;
+    margin-right: 2rem;
 }
 
