@@ -3,46 +3,43 @@ using System;
 using BlogCentralApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BlogCentralApp.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220325003438_init")]
-    partial class init
+    [Migration("20220331131056_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.21")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("BlogCentralLib.Entities.BlogPost", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<string>("AuthorId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
 
                     b.Property<string>("Content")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int>("Likes")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.HasKey("Id");
 
@@ -56,7 +53,7 @@ namespace BlogCentralApp.Migrations
                             Id = 1,
                             AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
                             Content = "content1",
-                            Date = new DateTime(2022, 3, 24, 1, 34, 38, 123, DateTimeKind.Local).AddTicks(3794),
+                            Date = new DateTime(2022, 3, 30, 15, 10, 55, 632, DateTimeKind.Local).AddTicks(5300),
                             Likes = 1,
                             Title = "BlogPost1"
                         },
@@ -65,7 +62,7 @@ namespace BlogCentralApp.Migrations
                             Id = 2,
                             AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
                             Content = "content2",
-                            Date = new DateTime(2022, 3, 23, 1, 34, 38, 123, DateTimeKind.Local).AddTicks(4485),
+                            Date = new DateTime(2022, 3, 29, 15, 10, 55, 632, DateTimeKind.Local).AddTicks(6004),
                             Likes = 1,
                             Title = "BlogPost2"
                         },
@@ -74,7 +71,7 @@ namespace BlogCentralApp.Migrations
                             Id = 3,
                             AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
                             Content = "content3",
-                            Date = new DateTime(2022, 3, 22, 1, 34, 38, 123, DateTimeKind.Local).AddTicks(4518),
+                            Date = new DateTime(2022, 3, 28, 15, 10, 55, 632, DateTimeKind.Local).AddTicks(6036),
                             Likes = 3,
                             Title = "BlogPost3"
                         },
@@ -83,7 +80,7 @@ namespace BlogCentralApp.Migrations
                             Id = 4,
                             AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
                             Content = "content4",
-                            Date = new DateTime(2022, 3, 21, 1, 34, 38, 123, DateTimeKind.Local).AddTicks(4524),
+                            Date = new DateTime(2022, 3, 27, 15, 10, 55, 632, DateTimeKind.Local).AddTicks(6042),
                             Likes = 1,
                             Title = "BlogPost4"
                         },
@@ -92,7 +89,7 @@ namespace BlogCentralApp.Migrations
                             Id = 5,
                             AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
                             Content = "content5",
-                            Date = new DateTime(2022, 3, 20, 1, 34, 38, 123, DateTimeKind.Local).AddTicks(4529),
+                            Date = new DateTime(2022, 3, 26, 15, 10, 55, 632, DateTimeKind.Local).AddTicks(6046),
                             Likes = 1,
                             Title = "BlogPost5"
                         },
@@ -101,7 +98,7 @@ namespace BlogCentralApp.Migrations
                             Id = 6,
                             AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
                             Content = "content6",
-                            Date = new DateTime(2022, 3, 19, 1, 34, 38, 123, DateTimeKind.Local).AddTicks(4534),
+                            Date = new DateTime(2022, 3, 25, 15, 10, 55, 632, DateTimeKind.Local).AddTicks(6051),
                             Likes = 6,
                             Title = "BlogPost6"
                         },
@@ -110,7 +107,7 @@ namespace BlogCentralApp.Migrations
                             Id = 7,
                             AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
                             Content = "content7",
-                            Date = new DateTime(2022, 3, 18, 1, 34, 38, 123, DateTimeKind.Local).AddTicks(4538),
+                            Date = new DateTime(2022, 3, 24, 15, 10, 55, 632, DateTimeKind.Local).AddTicks(6055),
                             Likes = 1,
                             Title = "BlogPost7"
                         },
@@ -119,7 +116,7 @@ namespace BlogCentralApp.Migrations
                             Id = 8,
                             AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
                             Content = "content8",
-                            Date = new DateTime(2022, 3, 17, 1, 34, 38, 123, DateTimeKind.Local).AddTicks(4542),
+                            Date = new DateTime(2022, 3, 23, 15, 10, 55, 632, DateTimeKind.Local).AddTicks(6059),
                             Likes = 1,
                             Title = "BlogPost8"
                         },
@@ -128,7 +125,7 @@ namespace BlogCentralApp.Migrations
                             Id = 9,
                             AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
                             Content = "content9",
-                            Date = new DateTime(2022, 3, 16, 1, 34, 38, 123, DateTimeKind.Local).AddTicks(4546),
+                            Date = new DateTime(2022, 3, 22, 15, 10, 55, 632, DateTimeKind.Local).AddTicks(6064),
                             Likes = 1,
                             Title = "BlogPost9"
                         },
@@ -137,7 +134,7 @@ namespace BlogCentralApp.Migrations
                             Id = 10,
                             AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
                             Content = "content10",
-                            Date = new DateTime(2022, 3, 15, 1, 34, 38, 123, DateTimeKind.Local).AddTicks(4551),
+                            Date = new DateTime(2022, 3, 21, 15, 10, 55, 632, DateTimeKind.Local).AddTicks(6069),
                             Likes = 1,
                             Title = "BlogPost10"
                         },
@@ -146,7 +143,7 @@ namespace BlogCentralApp.Migrations
                             Id = 11,
                             AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
                             Content = "content11",
-                            Date = new DateTime(2022, 3, 14, 1, 34, 38, 123, DateTimeKind.Local).AddTicks(4555),
+                            Date = new DateTime(2022, 3, 20, 15, 10, 55, 632, DateTimeKind.Local).AddTicks(6074),
                             Likes = 1,
                             Title = "BlogPost11"
                         },
@@ -155,7 +152,7 @@ namespace BlogCentralApp.Migrations
                             Id = 12,
                             AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
                             Content = "content1",
-                            Date = new DateTime(2022, 3, 13, 1, 34, 38, 123, DateTimeKind.Local).AddTicks(4560),
+                            Date = new DateTime(2022, 3, 19, 15, 10, 55, 632, DateTimeKind.Local).AddTicks(6078),
                             Likes = 1,
                             Title = "BlogPost12"
                         },
@@ -164,7 +161,7 @@ namespace BlogCentralApp.Migrations
                             Id = 13,
                             AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
                             Content = "content2",
-                            Date = new DateTime(2022, 3, 12, 1, 34, 38, 123, DateTimeKind.Local).AddTicks(4564),
+                            Date = new DateTime(2022, 3, 18, 15, 10, 55, 632, DateTimeKind.Local).AddTicks(6083),
                             Likes = 1,
                             Title = "BlogPost13"
                         },
@@ -173,7 +170,7 @@ namespace BlogCentralApp.Migrations
                             Id = 14,
                             AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
                             Content = "content3",
-                            Date = new DateTime(2022, 3, 11, 1, 34, 38, 123, DateTimeKind.Local).AddTicks(4569),
+                            Date = new DateTime(2022, 3, 17, 15, 10, 55, 632, DateTimeKind.Local).AddTicks(6087),
                             Likes = 3,
                             Title = "BlogPost14"
                         },
@@ -182,7 +179,7 @@ namespace BlogCentralApp.Migrations
                             Id = 15,
                             AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
                             Content = "content4",
-                            Date = new DateTime(2022, 3, 10, 1, 34, 38, 123, DateTimeKind.Local).AddTicks(4574),
+                            Date = new DateTime(2022, 3, 16, 15, 10, 55, 632, DateTimeKind.Local).AddTicks(6092),
                             Likes = 1,
                             Title = "BlogPost15"
                         },
@@ -191,7 +188,7 @@ namespace BlogCentralApp.Migrations
                             Id = 16,
                             AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
                             Content = "content5",
-                            Date = new DateTime(2022, 3, 9, 1, 34, 38, 123, DateTimeKind.Local).AddTicks(4578),
+                            Date = new DateTime(2022, 3, 15, 15, 10, 55, 632, DateTimeKind.Local).AddTicks(6096),
                             Likes = 1,
                             Title = "BlogPost16"
                         },
@@ -200,7 +197,7 @@ namespace BlogCentralApp.Migrations
                             Id = 17,
                             AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
                             Content = "content6",
-                            Date = new DateTime(2022, 3, 8, 1, 34, 38, 123, DateTimeKind.Local).AddTicks(4583),
+                            Date = new DateTime(2022, 3, 14, 15, 10, 55, 632, DateTimeKind.Local).AddTicks(6101),
                             Likes = 6,
                             Title = "BlogPost17"
                         },
@@ -209,7 +206,7 @@ namespace BlogCentralApp.Migrations
                             Id = 18,
                             AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
                             Content = "content7",
-                            Date = new DateTime(2022, 3, 7, 1, 34, 38, 123, DateTimeKind.Local).AddTicks(4587),
+                            Date = new DateTime(2022, 3, 13, 15, 10, 55, 632, DateTimeKind.Local).AddTicks(6105),
                             Likes = 1,
                             Title = "BlogPost18"
                         },
@@ -218,7 +215,7 @@ namespace BlogCentralApp.Migrations
                             Id = 19,
                             AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
                             Content = "content8",
-                            Date = new DateTime(2022, 3, 6, 1, 34, 38, 123, DateTimeKind.Local).AddTicks(4591),
+                            Date = new DateTime(2022, 3, 12, 15, 10, 55, 632, DateTimeKind.Local).AddTicks(6110),
                             Likes = 1,
                             Title = "BlogPost19"
                         },
@@ -227,7 +224,7 @@ namespace BlogCentralApp.Migrations
                             Id = 20,
                             AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
                             Content = "content9",
-                            Date = new DateTime(2022, 3, 5, 1, 34, 38, 123, DateTimeKind.Local).AddTicks(4597),
+                            Date = new DateTime(2022, 3, 11, 15, 10, 55, 632, DateTimeKind.Local).AddTicks(6114),
                             Likes = 1,
                             Title = "BlogPost20"
                         },
@@ -236,7 +233,7 @@ namespace BlogCentralApp.Migrations
                             Id = 21,
                             AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
                             Content = "content10",
-                            Date = new DateTime(2022, 3, 4, 1, 34, 38, 123, DateTimeKind.Local).AddTicks(4602),
+                            Date = new DateTime(2022, 3, 10, 15, 10, 55, 632, DateTimeKind.Local).AddTicks(6118),
                             Likes = 1,
                             Title = "BlogPost21"
                         },
@@ -245,7 +242,7 @@ namespace BlogCentralApp.Migrations
                             Id = 22,
                             AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
                             Content = "content11",
-                            Date = new DateTime(2022, 3, 3, 1, 34, 38, 123, DateTimeKind.Local).AddTicks(4606),
+                            Date = new DateTime(2022, 3, 9, 15, 10, 55, 632, DateTimeKind.Local).AddTicks(6122),
                             Likes = 1,
                             Title = "BlogPost22"
                         },
@@ -254,18 +251,9 @@ namespace BlogCentralApp.Migrations
                             Id = 23,
                             AuthorId = "ce8a91ab-41ca-4e08-8cae-40d4cda1a938",
                             Content = "De Japanse regering waarschuwt vandaag voor mogelijke stroomonderbrekingen in de regio van Tokio. Een koudeprik in combinatie met verschillende centrales die er uitliggen na de aardbeving van vorige week zetten het stroomnet er onder druk. De overheden waarschuwen voor mogelijke stroomonderbrekingen dinsdagavond. Twee tot drie miljoen huishoudens dreigen er enkele uren in het donker te zitten.De regering roept gezinnen en bedrijven op deze week zo weinig mogelijk elektriciteit te verbruiken.Door abnormaal koud weer is er veel vraag naar stroom, terwijl de capaciteit krap is. Japan werd vorige week getroffen door een zware aardbeving. Verscheidene thermische centrales liggen als gevolg uit.Het gaat om de eerste waarschuwingen voor black-outs sinds 2011, toen een tsunami een kernramp veroorzaakte in Fukushima.",
-                            Date = new DateTime(2022, 3, 25, 1, 34, 38, 123, DateTimeKind.Local).AddTicks(4611),
+                            Date = new DateTime(2022, 3, 31, 15, 10, 55, 632, DateTimeKind.Local).AddTicks(6127),
                             Likes = 10,
                             Title = "Japan waarschuwt voor black-outs in Tokio"
-                        },
-                        new
-                        {
-                            Id = 24,
-                            AuthorId = "ce8a91ab-41ca-4e08-8cae-40d4cda1a938",
-                            Content = "JapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapan",
-                            Date = new DateTime(2022, 3, 25, 1, 34, 38, 123, DateTimeKind.Local).AddTicks(4684),
-                            Likes = 10,
-                            Title = "JapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapan"
                         });
                 });
 
@@ -273,20 +261,19 @@ namespace BlogCentralApp.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<string>("AuthorId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
 
-                    b.Property<int>("BlogpostId")
+                    b.Property<int?>("BlogpostId")
                         .HasColumnType("int");
 
                     b.Property<string>("Content")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<DateTime>("CreationDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.HasKey("Id");
 
@@ -303,7 +290,7 @@ namespace BlogCentralApp.Migrations
                             AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
                             BlogpostId = 23,
                             Content = "Comment 01",
-                            CreationDate = new DateTime(2022, 3, 24, 1, 34, 38, 119, DateTimeKind.Local).AddTicks(2296)
+                            CreationDate = new DateTime(2022, 3, 30, 15, 10, 55, 627, DateTimeKind.Local).AddTicks(9992)
                         },
                         new
                         {
@@ -311,7 +298,7 @@ namespace BlogCentralApp.Migrations
                             AuthorId = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
                             BlogpostId = 23,
                             Content = "Comment 02",
-                            CreationDate = new DateTime(2022, 3, 23, 1, 34, 38, 123, DateTimeKind.Local).AddTicks(2052)
+                            CreationDate = new DateTime(2022, 3, 29, 15, 10, 55, 632, DateTimeKind.Local).AddTicks(3533)
                         });
                 });
 
@@ -319,11 +306,10 @@ namespace BlogCentralApp.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<string>("AuthorId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
 
                     b.Property<int?>("BlogPostId")
                         .HasColumnType("int");
@@ -337,29 +323,53 @@ namespace BlogCentralApp.Migrations
                     b.ToTable("Likes");
                 });
 
+            modelBuilder.Entity("BlogCentralLib.Entities.Visit", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Views");
+                });
+
+            modelBuilder.Entity("BlogCentralLib.Entities.Visitor", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Visitors");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(256)")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
                         .HasMaxLength(256);
 
                     b.Property<string>("NormalizedName")
-                        .HasColumnType("nvarchar(256)")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
                         .HasMaxLength(256);
 
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
-                        .HasName("RoleNameIndex")
-                        .HasFilter("[NormalizedName] IS NOT NULL");
+                        .HasName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles");
                 });
@@ -368,18 +378,17 @@ namespace BlogCentralApp.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("RoleId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
 
                     b.HasKey("Id");
 
@@ -391,58 +400,58 @@ namespace BlogCentralApp.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("Discriminator")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(256)")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("NormalizedEmail")
-                        .HasColumnType("nvarchar(256)")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
                         .HasMaxLength(256);
 
                     b.Property<string>("NormalizedUserName")
-                        .HasColumnType("nvarchar(256)")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
                         .HasMaxLength(256);
 
                     b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("UserName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(256)")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
                         .HasMaxLength(256);
 
                     b.HasKey("Id");
@@ -452,8 +461,7 @@ namespace BlogCentralApp.Migrations
 
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
-                        .HasName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+                        .HasName("UserNameIndex");
 
                     b.ToTable("AspNetUsers");
 
@@ -464,18 +472,17 @@ namespace BlogCentralApp.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
 
                     b.HasKey("Id");
 
@@ -487,17 +494,17 @@ namespace BlogCentralApp.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
 
                     b.Property<string>("ProviderDisplayName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
 
                     b.HasKey("LoginProvider", "ProviderKey");
 
@@ -509,10 +516,10 @@ namespace BlogCentralApp.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
 
                     b.Property<string>("RoleId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
 
                     b.HasKey("UserId", "RoleId");
 
@@ -524,16 +531,16 @@ namespace BlogCentralApp.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
 
                     b.Property<string>("Value")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
@@ -545,24 +552,27 @@ namespace BlogCentralApp.Migrations
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
                     b.Property<string>("CityName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<int?>("HouseNumber")
                         .HasColumnType("int");
 
                     b.Property<string>("ImageUrl")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("StreetName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<int>("Views")
+                        .HasColumnType("int");
 
                     b.Property<int?>("ZipCode")
                         .HasColumnType("int");
@@ -574,39 +584,41 @@ namespace BlogCentralApp.Migrations
                         {
                             Id = "09f8c9a1-2263-4eb5-8fd9-600ba680b94a",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "3c575618-6b28-464d-84d8-6f756271db24",
+                            ConcurrencyStamp = "c0b9ea72-9bb3-49e0-a72a-e09cfa5c3cec",
                             Email = "ibrahim@intec.be",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "IBRAHIM@INTEC.BE",
                             NormalizedUserName = "IBRAHIM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEL4AhDQ0LNBVlThOpdvbzAQCo0v9jkzZx1XbA6NgRhELScsGmaUaB+sJQdnscp7ahg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIKQ9fJYM5tB4oPEzesrU69/MKW2CC2dslgMBT17k8+j+//oPbUYw/m/ULxefGf+hw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "58e513ce-90b3-4121-813d-1b30d15b1b1b",
+                            SecurityStamp = "a4d753ae-822f-4227-bca4-48867b6c0145",
                             TwoFactorEnabled = false,
                             UserName = "Ibrahim",
                             FirstName = "Ibrahim",
                             ImageUrl = "\\images\\Default.png",
-                            LastName = "Awad"
+                            LastName = "Awad",
+                            Views = 0
                         },
                         new
                         {
                             Id = "ce8a91ab-41ca-4e08-8cae-40d4cda1a938",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "82ac661a-d2fd-4aa1-b021-904b06bfddea",
+                            ConcurrencyStamp = "b447214d-4868-4080-b229-807577a84fc7",
                             Email = "quinten@intec.be",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "QUINTEN@INTEC.BE",
                             NormalizedUserName = "QUINTEN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEL4AhDQ0LNBVlThOpdvbzAQCo0v9jkzZx1XbA6NgRhELScsGmaUaB+sJQdnscp7ahg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIKQ9fJYM5tB4oPEzesrU69/MKW2CC2dslgMBT17k8+j+//oPbUYw/m/ULxefGf+hw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "00f92451-f7e5-42ff-b24d-56d329755339",
+                            SecurityStamp = "3808df28-860b-4631-a0f2-705fe8b0efdc",
                             TwoFactorEnabled = false,
                             UserName = "Quinten",
                             FirstName = "Quinten",
                             ImageUrl = "\\images\\Default.png",
-                            LastName = "De Clerck"
+                            LastName = "De Clerck",
+                            Views = 0
                         });
                 });
 
@@ -621,26 +633,25 @@ namespace BlogCentralApp.Migrations
             modelBuilder.Entity("BlogCentralLib.Entities.Comment", b =>
                 {
                     b.HasOne("BlogCentralLib.Entities.Author", "Author")
-                        .WithMany()
+                        .WithMany("Comments")
                         .HasForeignKey("AuthorId");
 
-                    b.HasOne("BlogCentralLib.Entities.BlogPost", null)
+                    b.HasOne("BlogCentralLib.Entities.BlogPost", "BlogPost")
                         .WithMany("Comments")
                         .HasForeignKey("BlogpostId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("BlogCentralLib.Entities.Like", b =>
                 {
                     b.HasOne("BlogCentralLib.Entities.Author", "Author")
                         .WithMany("Likes")
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("AuthorId");
 
                     b.HasOne("BlogCentralLib.Entities.BlogPost", "BlogPost")
                         .WithMany("likes")
-                        .HasForeignKey("BlogPostId");
+                        .HasForeignKey("BlogPostId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -1,9 +1,10 @@
 ﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BlogCentralApp.Migrations
 {
-    public partial class init : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -47,7 +48,8 @@ namespace BlogCentralApp.Migrations
                     HouseNumber = table.Column<int>(nullable: true),
                     CityName = table.Column<string>(nullable: true),
                     ZipCode = table.Column<int>(nullable: true),
-                    ImageUrl = table.Column<string>(nullable: true)
+                    ImageUrl = table.Column<string>(nullable: true),
+                    Views = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -55,11 +57,36 @@ namespace BlogCentralApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Views",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Views", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Visitors",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    UserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Visitors", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     RoleId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -80,7 +107,7 @@ namespace BlogCentralApp.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     UserId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -165,7 +192,7 @@ namespace BlogCentralApp.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Title = table.Column<string>(nullable: false),
                     Content = table.Column<string>(nullable: true),
                     Date = table.Column<DateTime>(nullable: false),
@@ -188,8 +215,8 @@ namespace BlogCentralApp.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    BlogpostId = table.Column<int>(nullable: false),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    BlogpostId = table.Column<int>(nullable: true),
                     AuthorId = table.Column<string>(nullable: true),
                     Content = table.Column<string>(nullable: true),
                     CreationDate = table.Column<DateTime>(nullable: false)
@@ -216,7 +243,7 @@ namespace BlogCentralApp.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     BlogPostId = table.Column<int>(nullable: true),
                     AuthorId = table.Column<string>(nullable: true)
                 },
@@ -228,65 +255,64 @@ namespace BlogCentralApp.Migrations
                         column: x => x.AuthorId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Likes_BlogPosts_BlogPostId",
                         column: x => x.BlogPostId,
                         principalTable: "BlogPosts",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "CityName", "FirstName", "HouseNumber", "ImageUrl", "LastName", "StreetName", "ZipCode" },
-                values: new object[] { "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", 0, "3c575618-6b28-464d-84d8-6f756271db24", "Author", "ibrahim@intec.be", true, false, null, "IBRAHIM@INTEC.BE", "IBRAHIM", "AQAAAAEAACcQAAAAEL4AhDQ0LNBVlThOpdvbzAQCo0v9jkzZx1XbA6NgRhELScsGmaUaB+sJQdnscp7ahg==", null, false, "58e513ce-90b3-4121-813d-1b30d15b1b1b", false, "Ibrahim", null, "Ibrahim", null, "\\images\\Default.png", "Awad", null, null });
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "CityName", "FirstName", "HouseNumber", "ImageUrl", "LastName", "StreetName", "Views", "ZipCode" },
+                values: new object[] { "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", 0, "c0b9ea72-9bb3-49e0-a72a-e09cfa5c3cec", "Author", "ibrahim@intec.be", true, false, null, "IBRAHIM@INTEC.BE", "IBRAHIM", "AQAAAAEAACcQAAAAEIKQ9fJYM5tB4oPEzesrU69/MKW2CC2dslgMBT17k8+j+//oPbUYw/m/ULxefGf+hw==", null, false, "a4d753ae-822f-4227-bca4-48867b6c0145", false, "Ibrahim", null, "Ibrahim", null, "\\images\\Default.png", "Awad", null, 0, null });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "CityName", "FirstName", "HouseNumber", "ImageUrl", "LastName", "StreetName", "ZipCode" },
-                values: new object[] { "ce8a91ab-41ca-4e08-8cae-40d4cda1a938", 0, "82ac661a-d2fd-4aa1-b021-904b06bfddea", "Author", "quinten@intec.be", true, false, null, "QUINTEN@INTEC.BE", "QUINTEN", "AQAAAAEAACcQAAAAEL4AhDQ0LNBVlThOpdvbzAQCo0v9jkzZx1XbA6NgRhELScsGmaUaB+sJQdnscp7ahg==", null, false, "00f92451-f7e5-42ff-b24d-56d329755339", false, "Quinten", null, "Quinten", null, "\\images\\Default.png", "De Clerck", null, null });
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "CityName", "FirstName", "HouseNumber", "ImageUrl", "LastName", "StreetName", "Views", "ZipCode" },
+                values: new object[] { "ce8a91ab-41ca-4e08-8cae-40d4cda1a938", 0, "b447214d-4868-4080-b229-807577a84fc7", "Author", "quinten@intec.be", true, false, null, "QUINTEN@INTEC.BE", "QUINTEN", "AQAAAAEAACcQAAAAEIKQ9fJYM5tB4oPEzesrU69/MKW2CC2dslgMBT17k8+j+//oPbUYw/m/ULxefGf+hw==", null, false, "3808df28-860b-4631-a0f2-705fe8b0efdc", false, "Quinten", null, "Quinten", null, "\\images\\Default.png", "De Clerck", null, 0, null });
 
             migrationBuilder.InsertData(
                 table: "BlogPosts",
                 columns: new[] { "Id", "AuthorId", "Content", "Date", "Likes", "Title" },
                 values: new object[,]
                 {
-                    { 1, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content1", new DateTime(2022, 3, 24, 1, 34, 38, 123, DateTimeKind.Local).AddTicks(3794), 1, "BlogPost1" },
-                    { 22, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content11", new DateTime(2022, 3, 3, 1, 34, 38, 123, DateTimeKind.Local).AddTicks(4606), 1, "BlogPost22" },
-                    { 21, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content10", new DateTime(2022, 3, 4, 1, 34, 38, 123, DateTimeKind.Local).AddTicks(4602), 1, "BlogPost21" },
-                    { 20, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content9", new DateTime(2022, 3, 5, 1, 34, 38, 123, DateTimeKind.Local).AddTicks(4597), 1, "BlogPost20" },
-                    { 19, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content8", new DateTime(2022, 3, 6, 1, 34, 38, 123, DateTimeKind.Local).AddTicks(4591), 1, "BlogPost19" },
-                    { 18, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content7", new DateTime(2022, 3, 7, 1, 34, 38, 123, DateTimeKind.Local).AddTicks(4587), 1, "BlogPost18" },
-                    { 17, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content6", new DateTime(2022, 3, 8, 1, 34, 38, 123, DateTimeKind.Local).AddTicks(4583), 6, "BlogPost17" },
-                    { 16, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content5", new DateTime(2022, 3, 9, 1, 34, 38, 123, DateTimeKind.Local).AddTicks(4578), 1, "BlogPost16" },
-                    { 15, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content4", new DateTime(2022, 3, 10, 1, 34, 38, 123, DateTimeKind.Local).AddTicks(4574), 1, "BlogPost15" },
-                    { 14, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content3", new DateTime(2022, 3, 11, 1, 34, 38, 123, DateTimeKind.Local).AddTicks(4569), 3, "BlogPost14" },
-                    { 13, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content2", new DateTime(2022, 3, 12, 1, 34, 38, 123, DateTimeKind.Local).AddTicks(4564), 1, "BlogPost13" },
-                    { 12, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content1", new DateTime(2022, 3, 13, 1, 34, 38, 123, DateTimeKind.Local).AddTicks(4560), 1, "BlogPost12" },
-                    { 11, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content11", new DateTime(2022, 3, 14, 1, 34, 38, 123, DateTimeKind.Local).AddTicks(4555), 1, "BlogPost11" },
-                    { 10, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content10", new DateTime(2022, 3, 15, 1, 34, 38, 123, DateTimeKind.Local).AddTicks(4551), 1, "BlogPost10" },
-                    { 9, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content9", new DateTime(2022, 3, 16, 1, 34, 38, 123, DateTimeKind.Local).AddTicks(4546), 1, "BlogPost9" },
-                    { 8, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content8", new DateTime(2022, 3, 17, 1, 34, 38, 123, DateTimeKind.Local).AddTicks(4542), 1, "BlogPost8" },
-                    { 7, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content7", new DateTime(2022, 3, 18, 1, 34, 38, 123, DateTimeKind.Local).AddTicks(4538), 1, "BlogPost7" },
-                    { 6, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content6", new DateTime(2022, 3, 19, 1, 34, 38, 123, DateTimeKind.Local).AddTicks(4534), 6, "BlogPost6" },
-                    { 5, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content5", new DateTime(2022, 3, 20, 1, 34, 38, 123, DateTimeKind.Local).AddTicks(4529), 1, "BlogPost5" },
-                    { 4, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content4", new DateTime(2022, 3, 21, 1, 34, 38, 123, DateTimeKind.Local).AddTicks(4524), 1, "BlogPost4" },
-                    { 3, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content3", new DateTime(2022, 3, 22, 1, 34, 38, 123, DateTimeKind.Local).AddTicks(4518), 3, "BlogPost3" },
-                    { 2, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content2", new DateTime(2022, 3, 23, 1, 34, 38, 123, DateTimeKind.Local).AddTicks(4485), 1, "BlogPost2" },
-                    { 23, "ce8a91ab-41ca-4e08-8cae-40d4cda1a938", "De Japanse regering waarschuwt vandaag voor mogelijke stroomonderbrekingen in de regio van Tokio. Een koudeprik in combinatie met verschillende centrales die er uitliggen na de aardbeving van vorige week zetten het stroomnet er onder druk. De overheden waarschuwen voor mogelijke stroomonderbrekingen dinsdagavond. Twee tot drie miljoen huishoudens dreigen er enkele uren in het donker te zitten.De regering roept gezinnen en bedrijven op deze week zo weinig mogelijk elektriciteit te verbruiken.Door abnormaal koud weer is er veel vraag naar stroom, terwijl de capaciteit krap is. Japan werd vorige week getroffen door een zware aardbeving. Verscheidene thermische centrales liggen als gevolg uit.Het gaat om de eerste waarschuwingen voor black-outs sinds 2011, toen een tsunami een kernramp veroorzaakte in Fukushima.", new DateTime(2022, 3, 25, 1, 34, 38, 123, DateTimeKind.Local).AddTicks(4611), 10, "Japan waarschuwt voor black-outs in Tokio" },
-                    { 24, "ce8a91ab-41ca-4e08-8cae-40d4cda1a938", "JapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapan", new DateTime(2022, 3, 25, 1, 34, 38, 123, DateTimeKind.Local).AddTicks(4684), 10, "JapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapanJapan" }
+                    { 1, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content1", new DateTime(2022, 3, 30, 15, 10, 55, 632, DateTimeKind.Local).AddTicks(5300), 1, "BlogPost1" },
+                    { 21, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content10", new DateTime(2022, 3, 10, 15, 10, 55, 632, DateTimeKind.Local).AddTicks(6118), 1, "BlogPost21" },
+                    { 20, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content9", new DateTime(2022, 3, 11, 15, 10, 55, 632, DateTimeKind.Local).AddTicks(6114), 1, "BlogPost20" },
+                    { 19, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content8", new DateTime(2022, 3, 12, 15, 10, 55, 632, DateTimeKind.Local).AddTicks(6110), 1, "BlogPost19" },
+                    { 18, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content7", new DateTime(2022, 3, 13, 15, 10, 55, 632, DateTimeKind.Local).AddTicks(6105), 1, "BlogPost18" },
+                    { 17, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content6", new DateTime(2022, 3, 14, 15, 10, 55, 632, DateTimeKind.Local).AddTicks(6101), 6, "BlogPost17" },
+                    { 16, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content5", new DateTime(2022, 3, 15, 15, 10, 55, 632, DateTimeKind.Local).AddTicks(6096), 1, "BlogPost16" },
+                    { 15, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content4", new DateTime(2022, 3, 16, 15, 10, 55, 632, DateTimeKind.Local).AddTicks(6092), 1, "BlogPost15" },
+                    { 14, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content3", new DateTime(2022, 3, 17, 15, 10, 55, 632, DateTimeKind.Local).AddTicks(6087), 3, "BlogPost14" },
+                    { 13, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content2", new DateTime(2022, 3, 18, 15, 10, 55, 632, DateTimeKind.Local).AddTicks(6083), 1, "BlogPost13" },
+                    { 22, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content11", new DateTime(2022, 3, 9, 15, 10, 55, 632, DateTimeKind.Local).AddTicks(6122), 1, "BlogPost22" },
+                    { 12, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content1", new DateTime(2022, 3, 19, 15, 10, 55, 632, DateTimeKind.Local).AddTicks(6078), 1, "BlogPost12" },
+                    { 10, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content10", new DateTime(2022, 3, 21, 15, 10, 55, 632, DateTimeKind.Local).AddTicks(6069), 1, "BlogPost10" },
+                    { 9, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content9", new DateTime(2022, 3, 22, 15, 10, 55, 632, DateTimeKind.Local).AddTicks(6064), 1, "BlogPost9" },
+                    { 8, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content8", new DateTime(2022, 3, 23, 15, 10, 55, 632, DateTimeKind.Local).AddTicks(6059), 1, "BlogPost8" },
+                    { 7, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content7", new DateTime(2022, 3, 24, 15, 10, 55, 632, DateTimeKind.Local).AddTicks(6055), 1, "BlogPost7" },
+                    { 6, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content6", new DateTime(2022, 3, 25, 15, 10, 55, 632, DateTimeKind.Local).AddTicks(6051), 6, "BlogPost6" },
+                    { 5, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content5", new DateTime(2022, 3, 26, 15, 10, 55, 632, DateTimeKind.Local).AddTicks(6046), 1, "BlogPost5" },
+                    { 4, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content4", new DateTime(2022, 3, 27, 15, 10, 55, 632, DateTimeKind.Local).AddTicks(6042), 1, "BlogPost4" },
+                    { 3, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content3", new DateTime(2022, 3, 28, 15, 10, 55, 632, DateTimeKind.Local).AddTicks(6036), 3, "BlogPost3" },
+                    { 2, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content2", new DateTime(2022, 3, 29, 15, 10, 55, 632, DateTimeKind.Local).AddTicks(6004), 1, "BlogPost2" },
+                    { 11, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", "content11", new DateTime(2022, 3, 20, 15, 10, 55, 632, DateTimeKind.Local).AddTicks(6074), 1, "BlogPost11" },
+                    { 23, "ce8a91ab-41ca-4e08-8cae-40d4cda1a938", "De Japanse regering waarschuwt vandaag voor mogelijke stroomonderbrekingen in de regio van Tokio. Een koudeprik in combinatie met verschillende centrales die er uitliggen na de aardbeving van vorige week zetten het stroomnet er onder druk. De overheden waarschuwen voor mogelijke stroomonderbrekingen dinsdagavond. Twee tot drie miljoen huishoudens dreigen er enkele uren in het donker te zitten.De regering roept gezinnen en bedrijven op deze week zo weinig mogelijk elektriciteit te verbruiken.Door abnormaal koud weer is er veel vraag naar stroom, terwijl de capaciteit krap is. Japan werd vorige week getroffen door een zware aardbeving. Verscheidene thermische centrales liggen als gevolg uit.Het gaat om de eerste waarschuwingen voor black-outs sinds 2011, toen een tsunami een kernramp veroorzaakte in Fukushima.", new DateTime(2022, 3, 31, 15, 10, 55, 632, DateTimeKind.Local).AddTicks(6127), 10, "Japan waarschuwt voor black-outs in Tokio" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Comments",
                 columns: new[] { "Id", "AuthorId", "BlogpostId", "Content", "CreationDate" },
-                values: new object[] { 1, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", 23, "Comment 01", new DateTime(2022, 3, 24, 1, 34, 38, 119, DateTimeKind.Local).AddTicks(2296) });
+                values: new object[] { 1, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", 23, "Comment 01", new DateTime(2022, 3, 30, 15, 10, 55, 627, DateTimeKind.Local).AddTicks(9992) });
 
             migrationBuilder.InsertData(
                 table: "Comments",
                 columns: new[] { "Id", "AuthorId", "BlogpostId", "Content", "CreationDate" },
-                values: new object[] { 2, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", 23, "Comment 02", new DateTime(2022, 3, 23, 1, 34, 38, 123, DateTimeKind.Local).AddTicks(2052) });
+                values: new object[] { 2, "09f8c9a1-2263-4eb5-8fd9-600ba680b94a", 23, "Comment 02", new DateTime(2022, 3, 29, 15, 10, 55, 632, DateTimeKind.Local).AddTicks(3533) });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -297,8 +323,7 @@ namespace BlogCentralApp.Migrations
                 name: "RoleNameIndex",
                 table: "AspNetRoles",
                 column: "NormalizedName",
-                unique: true,
-                filter: "[NormalizedName] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUserClaims_UserId",
@@ -324,8 +349,7 @@ namespace BlogCentralApp.Migrations
                 name: "UserNameIndex",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
-                unique: true,
-                filter: "[NormalizedUserName] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_BlogPosts_AuthorId",
@@ -375,6 +399,12 @@ namespace BlogCentralApp.Migrations
 
             migrationBuilder.DropTable(
                 name: "Likes");
+
+            migrationBuilder.DropTable(
+                name: "Views");
+
+            migrationBuilder.DropTable(
+                name: "Visitors");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
