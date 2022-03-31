@@ -2,7 +2,7 @@
 @model BlogCentralApp.Models.Components.SidebarViewModel
 
  <style >
-    @@media (max-width: 700px) {
+    @@media (max-width: 750px) {
         .sidenav {
           visibility:hidden;
         }
@@ -33,7 +33,7 @@ else
                <li><p class=" text-side    ">Visitors:&nbsp; @Model.Views   </p></li>
                 <li><p class=" text-side     ">Online Users: <span id="visitors">Test</span></p></li>
 
-                  <li><a class="text-side col-12" style="width:30%" asp-controller="Author" asp-action="Index1" asp-route-id="@(UserManager.GetUserId(User))">My Blog</a></li>
+                  <li><a class="text-side col-12"  asp-controller="Author" asp-action="Index1" asp-route-id="@(UserManager.GetUserId(User))">My Blog</a></li>
                  @if(UserManager.GetUserId(User)==@Model.Author.Id){
                   <li><a class="text-side col-12"  asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Settings</a></li>
                      }

@@ -222,6 +222,7 @@ namespace BlogCentralApp.Controllers
             HomePageViewModel vm = new HomePageViewModel();
             vm.StartOfSelection = model.StartOfSelection;
             vm.EndOfSelection = model.EndOfSelection;
+
             IEnumerable<BlogPost> uniqueItems = new List<BlogPost>();
 
             int range = int.Parse(HttpContext.Request.Cookies["count"]) - 10;
@@ -264,8 +265,11 @@ namespace BlogCentralApp.Controllers
                 {
                     vm.Author = (Author)await _userManager.GetUserAsync(User);
                 }
+
                
-                return View("~/Views/SearchResults/SearchIndex.cshtml", model);
+                return View("~/Views/SearchResults/SearchIndex.cshtml", vm);
+
+
             }
 
         }

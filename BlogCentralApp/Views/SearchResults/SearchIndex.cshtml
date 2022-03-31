@@ -1,7 +1,7 @@
 ﻿@using System.Text.RegularExpressions
 @model HomePageViewModel
 
-<form asp-controller="Search" asp-action="Sort" method="post" class=" text-center">
+<form asp-controller="Search" asp-action="Sort" method="post" class=" text-center mt-5">
     <div class="form-group">
       
         <select asp-for="Sort" class="form-control" asp-items="@Model.SortSelections">
@@ -9,7 +9,7 @@
         </select>
         <input type="hidden" value="@Model.SearchString" name="SearchString" />
     </div>
-    <input class="btn btn-primary" type="Submit" />
+    <input class="btn btn-primary mt-2" type="Submit" />
 </form>
 <br />
 <div class="row">

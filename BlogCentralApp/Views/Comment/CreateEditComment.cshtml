@@ -28,6 +28,7 @@
         </div>
         <button type="submit" class=" btn btn-primary m-1">@(Model.CommentId == 0 ? "Create" : "Edit")</button>
             <a class="btn btn-danger m-1" asp-controller="BlogDetail" asp-action="Index" asp-route-id="@Model.BlogpostId">Cancel</a>
+
     </form>
 }
 else
