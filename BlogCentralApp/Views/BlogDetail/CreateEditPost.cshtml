@@ -8,26 +8,34 @@
 
 @if (Model != null && (UserManager.GetUserId(User) == Model.AuthorId || Model.AuthorId == null))
 {
-    
-<p>@(Model==null||Model.PostId==0?"Create":"Edit")</p>
 
-    
-<form method="post" asp-controller="BlogDetail" asp-action="CreateEditBlogpost">
-   @if (Model != null)
-    {     
-    <input asp-for="PostId" hidden />
-    }
-    <div class="form-group">
-        <label asp-for="PostTitle"></label>
-        <input  asp-for="PostTitle" class="form-control" maxlength="98"/>
-        <span class="text-danger" asp-validation-for="PostTitle"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="PostContent"></label>
-        <textarea id="editable" asp-for="PostContent"></textarea>
-        <span class="text-danger" asp-validation-for="PostContent"></span>
-    </div>
-    <button type="submit" class=" btn btn-primary mt-2">@(Model==null||Model.PostId==0?"Create":"Edit")</button>
+    <p style="font-weight: bold; font-size: large;">@(Model == null || Model.PostId == 0 ? "Create new article:" : "Edit your article:")</p>
+
+
+    <form method="post" asp-controller="BlogDetail" asp-action="CreateEditBlogpost">
+        @if (Model != null)
+        {
+            <input asp-for="PostId" hidden />
+        }
+        <div class="form-group">
+            <label asp-for="PostTitle"></label>
+            <input asp-for="PostTitle" class="form-control" maxlength="98" />
+            <span class="text-danger" asp-validation-for="PostTitle"></span>
+        </div>
+        <div class="form-group mb-2">
+            <label asp-for="PostContent"></label>
+            <textarea id="editable" asp-for="PostContent"></textarea>
+            <span class="text-danger" asp-validation-for="PostContent"></span>
+        </div>
+        <button type="submit" class=" btn btn-primary m-1">@(Model==null||Model.PostId==0?"Create":"Edit")</button>
+        @if (Model.PostId != 0)
+        {
+            <a class="btn btn-danger m-1" asp-controller="BlogDetail" asp-action="Index" asp-route-id="@Model.PostId">Cancel</a>
+        }
+        else
+        {
+            <a class="btn btn-danger m-1" asp-controller="Author" asp-action="Index1" asp-route-id="@Model.Author.Id">Cancel</a>
+        }
     </form>
 }
 else
@@ -35,4 +43,4 @@ else
     <div>ERROR 001 -- U can't acces this page!</div>
 }
 
-   <script src="~/tinymce/tinymce.min.js" referrerpolicy="origin"></script>
+<script src="~/tinymce/tinymce.min.js" referrerpolicy="origin"></script>

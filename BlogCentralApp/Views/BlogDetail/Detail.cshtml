@@ -5,19 +5,18 @@
 
 
 <div class="container mt-5">
-    <div class="col-lg-8">
+    <div class="col-lg-10">
         <article>
             <header>
-                <h4>@Model.blogPost.Title</h4>
+                <h4 class="article-title">@Model.blogPost.Title</h4>
                 <div class="text-white font-italic mb-2">
                     Created on @Model.blogPost.Date.ToString("MMMM") @Model.blogPost.Date.Day,
                     @Model.blogPost.Date.Year by
-                 <a asp-controller="Author" asp-action="Index1" asp-route-id="@Model.blogPost.AuthorId">@Model.blogPost.Author.UserName</a>
+                 <a asp-controller="Author" asp-action="Index1" asp-route-id="@Model.blogPost.AuthorId" class="btn btn-outline-dark btn-sm" style="margin-left: 0px; border-radius: 20px;">@Model.blogPost.Author.UserName</a>
                 </div>
                 <p class="badge badge-secondary"><i class="bi bi-hand-thumbs-up"></i> &nbsp;@Model.blogPost.Likes </p>
             </header>
-            <hr />
-            <section class="mb-5">
+            <section class="mb-4 article-body">
                 @Html.Raw(@Model.blogPost.Content)
                 <hr />
                 <div class="flex">
@@ -33,33 +32,29 @@
             <a asp-controller="BlogDetail" asp-action="Like" asp-route-id="@Model.blogPost.Id" class="btn btn-outline-dark  "> <i class="bi bi-hand-thumbs-up"></i></a>
 
         }
-
-
-
-}
-                       
+}                   
                     </div>
                     <div class="d-inline-flex mx-3">
                         @if (UserManager.GetUserId(User) == Model.blogPost.AuthorId)
                         {
-                            <a asp-controller="BlogDetail" asp-action="CreateEditBlogpost" asp-route-id="@Model.blogPost.Id" style="margin:0 20px">Edit post</a>
+                            <a class="btn btn-primary" asp-controller="BlogDetail" asp-action="CreateEditBlogpost" asp-route-id="@Model.blogPost.Id" style="margin:0 20px">Edit post</a>
                           
-                            <a  asp-controller="BlogDetail" asp-action="DeletePost" asp-route-id="@Model.blogPost.Id">Delete post</a>
+                            <a class="btn btn-danger"  asp-controller="BlogDetail" asp-action="DeletePost" asp-route-id="@Model.blogPost.Id">Delete post</a>
                         }
                     </div>
                 </div>
             </section>
-            <section class="mb-5">
-                <div class="card bg-light">
+            <section class="mb-4">
+                <div class="bg-light article-comments" style="border-radius: 15px;">
                     <div class="card-body">
                         <div class="mb-4">
                             @if (User.Identity.IsAuthenticated)
                             {
-                                <a asp-controller="Comment" asp-action="CreateEditComment" asp-route-blogPostId="@Model.blogPost.Id">Create Comment</a>
+                                <a class="btn btn-primary btn-pimped" asp-controller="Comment" asp-action="CreateEditComment" asp-route-blogPostId="@Model.blogPost.Id">Create Comment</a>
                             }
                             else
                             {
-                                <a asp-controller="Comment" asp-action="CreateEditComment" asp-route-blogPostId="@Model.blogPost.Id">Login to comment</a>
+                                <a class="btn btn-primary btn-pimped" asp-controller="Comment" asp-action="CreateEditComment" asp-route-blogPostId="@Model.blogPost.Id">Login to comment</a>
                             }
                         </div>
                         @foreach (var comment in Model.blogPost.Comments)
@@ -68,7 +63,7 @@
                                 <div class="flex-shrink-0">
                                     <img class="rounded-circle" width="50" height="50" src=@comment.Author.ImageUrl />
                                 </div>
-                                <div class="mx-2 card p-2" style="max-width: 50%;">
+                                <div class="mx-2 card p-2" style="width: 50%;">
                                     <div>
                                         <a asp-controller="Author" asp-action="Index1" asp-route-id="@comment.AuthorId" style="display: inline-block;">@comment.Author</a>
                                         <div style="display: inline-block; font-size:smaller;" class="text-muted font-italic">
@@ -81,12 +76,12 @@
                                 <div>
                                     @if (UserManager.GetUserId(User) == comment.AuthorId)
                                     {
-                                        <a asp-controller="Comment" asp-action="CreateEditComment" asp-route-blogPostId="@Model.blogPost.Id" asp-route-commentId="@comment.Id" style="float:left">Edit comment</a>
+                                        <a class="btn btn-primary" asp-controller="Comment" asp-action="CreateEditComment" asp-route-blogPostId="@Model.blogPost.Id" asp-route-commentId="@comment.Id" style="float:left; margin-right: 5px;"><i class="bi bi-pencil"></i></a>
                                     }
-                                    <br>
+                                    
                                     @if (UserManager.GetUserId(User) == Model.blogPost.AuthorId || UserManager.GetUserId(User) == comment.AuthorId)
                                     {
-                                        <a asp-controller="Comment" asp-action="DeleteComment" asp-route-id="@comment.Id" asp-route-blogPostId="@Model.blogPost.Id">Delete comment</a>
+                                        <a class="btn btn-danger" asp-controller="Comment" asp-action="DeleteComment" asp-route-id="@comment.Id" asp-route-blogPostId="@Model.blogPost.Id"><i class="bi bi-x"></i></a>
                                     }
                                 </div>
                             </div>

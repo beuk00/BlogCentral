@@ -12,7 +12,7 @@ namespace BlogCentralApp.Models
 
         public DateTime CreationDate { get; set; }
 
-        [Display(Name = "Add new comment:")]
+        [Display(Name = "")]
         [Required(ErrorMessage = "Please write your comment!")]
         public string Content { get; set; }
         public Author Author { get; set; }
