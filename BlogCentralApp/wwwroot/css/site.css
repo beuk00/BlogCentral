@@ -72,12 +72,25 @@ body {
     padding: 20px;
     overflow-x: hidden;
     border-radius: 15px;
+    box-shadow: inset 0 0 8px black;
 }
 
 .article-title {
     background: white;
     padding: 20px 20px;
     border-radius: 15px;
+    box-shadow: inset 0 0 8px black;
+    font-style:italic;
+    font-weight:bolder;
+}
+
+.article-comments {
+    box-shadow: inset 0 0 8px black;
+}
+
+.btn-pimped {
+    border-radius: 15px;
+    padding: 10px;
 }
 
 

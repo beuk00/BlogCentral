@@ -14,14 +14,14 @@
 *@
    @if (Model != null && (UserManager.GetUserId(User) == Model.AuthorId || Model.AuthorId == null))
 {
-    <p>@(Model.CommentId == 0 ? "Create" : "Edit")</p>
+    <p style="font-weight: bold; font-size: large;">@(Model.CommentId == 0 ? "Add new comment" : "Edit your comment")</p>
 
     <form method="post" asp-controller="Comment" asp-action="CreateEditComment">
 
         <input asp-for="CommentId" hidden />
         <input asp-for="BlogpostId" hidden />
         <input asp-for="CreationDate" hidden />
-        <div class="form-group">
+        <div class="form-group mb-2">
             <label asp-for="Content"></label>
             <textarea asp-for="Content" rows="5" style="resize:none" class="form-control" maxlength="500"></textarea>
             <span asp-validation-for="Content"></span>
