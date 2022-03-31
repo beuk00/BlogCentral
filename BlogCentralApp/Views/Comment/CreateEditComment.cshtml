@@ -26,7 +26,8 @@
             <textarea asp-for="Content" rows="5" style="resize:none" class="form-control" maxlength="500"></textarea>
             <span asp-validation-for="Content"></span>
         </div>
-        <button type="submit" class=" btn btn-primary">@(Model.CommentId == 0 ? "Create" : "Edit")</button>
+        <button type="submit" class=" btn btn-primary m-1">@(Model.CommentId == 0 ? "Create" : "Edit")</button>
+            <a class="btn btn-danger m-1" asp-controller="BlogDetail" asp-action="Index" asp-route-id="@Model.BlogpostId">Cancel</a>
     </form>
 }
 else
