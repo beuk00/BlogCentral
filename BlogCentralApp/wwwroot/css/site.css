@@ -67,8 +67,18 @@ body {
     white-space: pre-line;
 }
 
+.article-body {
+    background: white;
+    padding: 20px;
+    overflow-x: hidden;
+    border-radius: 15px;
+}
 
-
+.article-title {
+    background: white;
+    padding: 20px 20px;
+    border-radius: 15px;
+}
 
 
 

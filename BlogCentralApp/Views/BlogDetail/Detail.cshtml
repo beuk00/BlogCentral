@@ -5,10 +5,10 @@
 
 
 <div class="container mt-5">
-    <div class="col-lg-8">
+    <div class="col-lg-10">
         <article>
             <header>
-                <h4>@Model.blogPost.Title</h4>
+                <h4 class="article-title">@Model.blogPost.Title</h4>
                 <div class="text-white font-italic mb-2">
                     Created on @Model.blogPost.Date.ToString("MMMM") @Model.blogPost.Date.Day,
                     @Model.blogPost.Date.Year by
@@ -16,8 +16,7 @@
                 </div>
                 <p class="badge badge-secondary"><i class="bi bi-hand-thumbs-up"></i> &nbsp;@Model.blogPost.Likes </p>
             </header>
-            <hr />
-            <section class="mb-5">
+            <section class="mb-4 article-body">
                 @Html.Raw(@Model.blogPost.Content)
                 <hr />
                 <div class="flex">
@@ -33,11 +32,7 @@
             <a asp-controller="BlogDetail" asp-action="Like" asp-route-id="@Model.blogPost.Id" class="btn btn-outline-dark  "> <i class="bi bi-hand-thumbs-up"></i></a>
 
         }
-
-
-
-}
-                       
+}                   
                     </div>
                     <div class="d-inline-flex mx-3">
                         @if (UserManager.GetUserId(User) == Model.blogPost.AuthorId)
