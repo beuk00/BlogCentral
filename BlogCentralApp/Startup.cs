@@ -33,7 +33,18 @@ namespace BlogCentralApp
             services.AddRazorPages();
             services.AddSignalR();
 
-            services.AddDbContext<DataContext>(option => option.UseSqlServer(Configuration.GetConnectionString("BlogCentralDB")));
+            //services.AddDbContext<DataContext>(option => option.UseSqlServer(Configuration.GetConnectionString("BlogCentralDB")));
+            services.AddDbContext<DataContext>(
+            options => options.UseMySql(Configuration.GetConnectionString("BlogCentralDB"),
+
+                    mySqlOptions =>
+                    {
+                        mySqlOptions.EnableRetryOnFailure(
+                        maxRetryCount: 10,
+                        maxRetryDelay: TimeSpan.FromSeconds(30),
+                        errorNumbersToAdd: null);
+                    }
+            ));
             services.AddIdentity<IdentityUser, IdentityRole>(
 
               options =>
