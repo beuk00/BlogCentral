@@ -74,7 +74,7 @@ namespace BlogCentralApp
                 options.Events.OnSigningIn = (context) =>
                 {
 
-                    context.CookieOptions.Expires = DateTimeOffset.Now.AddMinutes(5);
+                    context.CookieOptions.Expires = DateTimeOffset.Now.AddMinutes(30);
                     return Task.CompletedTask;
                 };
             });

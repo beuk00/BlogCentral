@@ -27,7 +27,7 @@
         <textarea id="editable" asp-for="PostContent"></textarea>
         <span class="text-danger" asp-validation-for="PostContent"></span>
     </div>
-    <button type="submit" class=" btn btn-primary">@(Model==null||Model.PostId==0?"Create":"Edit")</button>
+    <button type="submit" class=" btn btn-primary mt-2">@(Model==null||Model.PostId==0?"Create":"Edit")</button>
     </form>
 }
 else
