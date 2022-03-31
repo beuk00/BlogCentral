@@ -17,8 +17,8 @@
                 <p class="badge badge-secondary"><i class="bi bi-hand-thumbs-up"></i> &nbsp;@Model.blogPost.Likes </p>
             </header>
             <hr />
-            <section class="mb-5">
-                @Html.Raw(@Model.blogPost.Content)
+            <section class="mb-5 container">
+               <div>@Html.Raw(@Model.blogPost.Content)</div> 
                 <hr />
                 <div class="flex">
                     <div class="d-inline-block">
