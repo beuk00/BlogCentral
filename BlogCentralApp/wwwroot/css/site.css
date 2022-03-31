@@ -94,5 +94,12 @@ body {
     padding: 10px;
 }
 
+.article-body > * {
+    margin: 0;
+}
+
+.article-body hr {
+    margin: 15px 0px;
+}
 
 
