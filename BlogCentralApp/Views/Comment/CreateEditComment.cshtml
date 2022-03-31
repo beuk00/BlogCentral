@@ -22,7 +22,7 @@
         <input asp-for="BlogpostId" hidden />
         <input asp-for="CreationDate" hidden />
         <div class="form-group mb-2">
-            <label asp-for="Content"></label>
+            <label asp-for="Content" hidden></label>
             <textarea asp-for="Content" rows="5" style="resize:none" class="form-control" maxlength="500"></textarea>
             <span asp-validation-for="Content"></span>
         </div>
